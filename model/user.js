@@ -39,11 +39,20 @@ const userSchema = new mongoose.Schema({
   default: 'user'
   },
 
+
+
 status: {
   type: String,
   enum: ["active", "blocked"],
   default: "active"
+},
+
+pin: {
+  type: String,
+  default: null
 }
+
+
 
 
 });

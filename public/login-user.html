@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NairaBank</title>
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+<div class="layout-wrapper">
+
+  <!-- LEFT -->
+  <div class="left-panel">
+  <div class="left-orb"></div>
+  <div class="left-content">
+    <div class="left-badge">🇳🇬 Nigeria's Smartest Bank</div>
+    <h1 class="left-title">
+      Banking
+      <span style="text-decoration: line-through; text-decoration-color:#108ddb  ;" class="left-title-accent">Without</span>
+      Limits.
+    </h1>
+    <p class="left-desc">NairaBank gives you full control of your money send, receive, and manage your finances from any device, anywhere in the world.</p>
+    <div class="ticker-wrap">
+      <div class="ticker-item"><span class="tdot"></span> Instant transfers across Nigeria</div>
+      <div class="ticker-item"><span class="tdot"></span> Bank-grade encryption on every transaction</div>
+      <div class="ticker-item"><span class="tdot"></span> Zero hidden charges, ever</div>
+      <div class="ticker-item"><span class="tdot"></span> 24/7 support, always available</div>
+      <div class="ticker-item"><span class="tdot"></span> Trusted by 500,000+ Nigerians</div>
+      <div class="ticker-item"><span class="tdot"></span> Send money in under 3 seconds</div>
+    </div>
+    <div class="left-stats">
+      <div class="left-stat">
+        <strong style="color: white;">500K+</strong>
+        <small  style="color: white;" >Customers</small>
+      </div>
+      <div class="left-stat">
+        <strong style="color: white;">₦2B+</strong>
+        <small  style="color: white;" >Transferred</small>
+      </div>
+      <div class="left-stat">
+        <strong style="color: white;">99.9%</strong>
+        <small  style="color: white;"  >Uptime</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- RIGHT: AUTH PAGES -->
+  <div class="right-panel">
+
+    <!-- LOGIN -->
+    <div id="loginPage" class="card">
+      <h2>Login</h2>
+      <input id="loginEmail" placeholder="Email">
+      <input id="loginPassword" type="password" placeholder="Password">
+   <label class="show-pass">
+  <input type="checkbox" onclick="myFunction()"> 
+  Show Password
+</label>
+ 
+      <button onclick="login()">Login</button>
+      <p onclick="showSignup()">Create account</p>
+      <div id="result">OOPs</div>
+    </div>
+
+
+    <!-- SIGNUP -->
+    <div id="signupPage" class="card hidden">
+      <h2>Signup</h2>
+      <input id="signupName" placeholder="Full Name">
+      <input id="signupEmail" placeholder="Email">
+      <input id="signupPassword" type="password" placeholder="Password">
+     <label class="show-pass">
+  <input type="checkbox" onclick="myFunc()"> 
+  Show Password
+</label>
+      <button onclick="signup()">Signup</button>
+      <p onclick="showLogin()">Back to login</p>
+    </div>
+
+  </div>
+</div>
+
+
+ 
+<!-- DASHBOARD — hidden by default -->
+<div id="dashboardPage" class="hidden">
+ 
+  <!-- TOP BAR — added avatar -->
+  <div class="topbar">
+    <div class="user">
+      <h2 style="color:#2d9cdb;" id="username">Welcome, User</h2>
+      <p style="color: black; font-size: 16px;" id="accountnumber">238926392</p>
+
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div id="avatarInitial" style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#2d9cdb,#1a7db8);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;">I</div>
+      <button class="logout" onclick="logout()">Logout</button>
+    </div>
+  </div>
+ 
+  <!-- BALANCE -->
+  <div class="balance">
+    <h3>Total Balance</h3>
+    <h1 id="balance">₦0.00</h1>
+  </div>
+ 
+  <!-- ACTIONS — replaced img with SVG icons -->
+  <div class="actions">
+    <div class="action">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2d9cdb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span> <a style="text-decoration: none; color: black;" href="http://localhost:3000/transaction.html">Send</a></span>
+    </div>
+    <div class="action">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span > <a style="text-decoration: none; color: black;" href="deposit.html">Deposit</a> </span>
+    </div>
+    <div class="action">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f56565" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      <span> <a style="text-decoration: none; color: black;" href="http://localhost:3000/create-pin.html">Create Pin</a></span>
+    </div>
+    <div class="action">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>History</span>
+    </div>
+  </div>
+ 
+  <!-- TRANSACTIONS -->
+  <div class="section">
+    <h3>Recent Activity</h3>
+    <div class="tx">
+      <div class="tx-name">Netflix Subscription</div>
+      <div class="tx-amount debit">-₦2,500</div>
+    </div>
+    <div class="tx">
+      <div class="tx-name">Salary</div>
+      <div class="tx-amount credit">+₦50,000</div>
+    </div>
+    <div class="tx">
+      <div class="tx-name">Airtime</div>
+      <div class="tx-amount debit">-₦1,000</div>
+    </div>
+  </div>
+ 
+</div>
+ 
+
+
+<script src="auth.js"></script>
+
+
+</body>
+</html>
+
+
+
+
+

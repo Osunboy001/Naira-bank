@@ -100,7 +100,7 @@ console.log("STATS:", data)
   }
 }
 
-// ===================== BLOCK USER =====================
+//  BLOCK USER 
 async function blockUser(userId) {
   try {
     const token = localStorage.getItem("token")
@@ -123,13 +123,13 @@ async function blockUser(userId) {
   }
 }
 
-// ===================== LOGOUT =====================
+//  LOGOUT 
 function logout() {
   localStorage.removeItem("token")
   localStorage.removeItem("us")
   window.location.href = "/index.html"
 }
 
-// ===================== INIT =====================
+//  INIT 
 loadUsers()
 loadStats()

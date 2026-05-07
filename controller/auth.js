@@ -36,7 +36,6 @@ const signin = async (req, res) => {
 
   const token = user.createJWT()
 
-  // ✅ This is what was missing
   return res.status(200).json({
     user: { name: user.name, role: user.role },
     token

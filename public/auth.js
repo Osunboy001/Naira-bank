@@ -16,7 +16,6 @@ async function request(endpoint, method, body) {
     
   });
 
-
     if (!res.ok) {
         showResult('Incorrect email or password', 'error');
         return;
@@ -27,6 +26,7 @@ async function request(endpoint, method, body) {
 
     return data;
 
+ 
 } catch (error) {
     showResult('Error: ' + error.message, 'error');
 }
@@ -81,10 +81,14 @@ async function loadDashboard() {
 }
 
 function renderDashboard(data) {
+const avatarName = data.user?.name || data.name || "User";
+  const avatarLetter = avatarName.charAt(0).toUpperCase();
+  document.getElementById("avatarInitial").textContent = avatarLetter;
  document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${data.user?.name || data.name}</h1>`;
   document.querySelector("#balance").textContent =` #${data.balance.toLocaleString()} ` ;
     document.querySelector("#accountnumber").textContent =`  acctnumber:${data.accountnumber} ` ;
   
+
 }
 
 function showDashboard() {

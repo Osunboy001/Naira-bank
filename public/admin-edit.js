@@ -3,7 +3,7 @@ const BASE_URL = "http://localhost:3000/api/v1"
 const urlParams = new URLSearchParams(window.location.search)
 const userId = urlParams.get("id")
 
-// -------------------- LOAD USER --------------------
+// LOAD USER 
 async function loadUser() {
   try {
     if (!userId) {
