@@ -1,30 +1,28 @@
 const BASE_URL = "http://localhost:3000/api/v1";
-const formAlertDOM = document.querySelector(".form-alert");
+
 async function request(endpoint, method, body) {
 
   try {
-  const token = localStorage.getItem("token");
+
   const res = await fetch(BASE_URL + endpoint, {
     method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: token ? `Bearer ${token}` : ""
+    
      
     },
+    credentials: "include",
    
     body: body ? JSON.stringify(body) : undefined
     
   });
 
-    if (!res.ok) {
-        showResult('Incorrect email or password', 'error');
-        return;
-    }
-
-    const data = await res.json();
-    console.log(token);
-
-    return data;
+   if (!res.ok) {
+  const err = await res.json()
+  showResult(err.message || 'Something went wrong', 'error')
+  return
+}
+  return await res.json();
 
  
 } catch (error) {
@@ -38,18 +36,16 @@ async function login() {
   const password = document.getElementById("loginPassword").value;
 
   const data = await request("/auth/signin", "POST", { email, password });
-  if (!data.token) return alert(data.message || "Login failed");  
+
+if (!data) return
+localStorage.setItem("user", JSON.stringify(data.user)) 
+
+if (data.user.role === "admin") {
+  window.location.href = "/admin.html"
+  return
+}
+
   
-  // decode user from token
-  const payload = JSON.parse(atob(data.token.split('.')[1]));
-
-  localStorage.setItem("token", data.token);
-  localStorage.setItem("user", JSON.stringify(payload));
-
-  if (payload.role === "admin") {
-    window.location.href = "/admin.html";
-    return;
-  }
 
   showDashboard();
   loadDashboard();
@@ -64,11 +60,30 @@ async function signup() {
     
     return;
   }
+    if (password.length < 8) {
+    showResult('Password must be at least 8 characters', 'error', 'signupResult')
+    return
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    showResult('Password must have at least one uppercase letter', 'error', 'signupResult')
+    return
+  }
+
+  if (!/[0-9]/.test(password)) {
+    showResult('Password must have at least one number', 'error', 'signupResult')
+    return
+  }
+
+  if (!/[!@#$%^&*.]/.test(password)) {
+    showResult('Password must have at least one special character (!@#$%^&*)', 'error', 'signupResult')
+    return
+  }
+
 
   const data = await request("/auth/signup", "POST", { name, email, password });
-  if (!data.token) return alert(data.message || "Signup failed");
+if (!data) return
 
-  localStorage.setItem("token", data.token);
   localStorage.setItem("user", JSON.stringify(data.user));
   showDashboard();
   loadDashboard();
@@ -111,36 +126,44 @@ function showSignup() {
  document.querySelector(".layout-wrapper").classList.remove("hidden");
 }
 
-function logout() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+async function logout() {
+
+await fetch(BASE_URL + "/auth/logout", {
+  method: "POST",
+  credentials: "include"
+})
+
+
+localStorage.removeItem("user")
   showLogin();
 }
 
 // error function
 function showResult(message, type) {
-  result.textContent = message;
-  result.className = 'show ' + type;
-}
+  const  loginResult = document.getElementById("loginResult");
+  const signupResult = document.getElementById("signupResult");
 
-
-function initapp () {
-  const token = localStorage.getItem('token')
-  const user = JSON.parse(localStorage.getItem('user'))
-
-console.log("USER FROM STORAGE:", user)
-
-  if (token && user) {
-showDashboard()
-      loadDashboard()
+  if(loginResult) {
+       loginResult.textContent = message
+    loginResult.className = 'show ' + type
+  }
+  if(signupResult) {
+       signupResult.textContent = message
+    signupResult.className = 'show ' + type 
+  }
 
 }
-   
- else {
+
+
+function initapp() {
+  const user = JSON.parse(localStorage.getItem("user"))
+  if (user) {
+    showDashboard()
+    loadDashboard()
+  } else {
     showLogin()
   }
 }
-
 initapp()
 
 function myFunction() {
