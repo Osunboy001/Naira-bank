@@ -1,0 +1,47 @@
+
+        body {
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a7c4e, #0f2b3d);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0a7c4e;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { 
+              transform: rotate(0deg);
+             }
+            100% {
+               transform: rotate(360deg); 
+              }
+        }
+        .success {
+           color: green;
+           }
+        .error {
+           color: red; 
+        }
+        button {
+            background: #0a7c4e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
