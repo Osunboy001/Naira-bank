@@ -36,7 +36,7 @@ console.log("Using email user:", process.env.EMAIL_USER)
 
         if (token && email) {
             verifyEmail();
-        } 
+        } git
         
         else {
             document.getElementById('loader').style.display = 'none';
