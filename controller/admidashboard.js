@@ -93,14 +93,18 @@ const blockUser = async (req, res) => {
   }
 }
 
-
+const logout = (req, res) => {
+  res.clearCookie('token')
+  return res.status(200).json({ message: "Logged out successfully" })
+}
 
 
   module.exports = {
 
 getAllUser,
 getAllUserBalance,
-blockUser
+blockUser,
+logout
   }
 
 

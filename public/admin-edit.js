@@ -14,8 +14,9 @@ async function loadUser() {
 
     const res = await fetch(`${BASE_URL}/admin/users/${userId}`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+     contentent: "application/json",
+      },
+      credentials: "include"
     })
 
     const data = await res.json()
@@ -49,14 +50,15 @@ async function updateUser() {
   const name = document.getElementById("name").value
   const email = document.getElementById("email").value
 
-  const token = localStorage.getItem("token")
+ 
 
   const res = await fetch(`${BASE_URL}/admin/users/${userId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
+     
     },
+    credentials: "include",
     body: JSON.stringify({ name, email })
   })
 

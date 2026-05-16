@@ -5,6 +5,7 @@ const {
   getAllUser,
   getAllUserBalance,
   blockUser,
+  logout
 } = require('../controller/admidashboard')
 
 const authMiddleware = require('../middleware/auth')

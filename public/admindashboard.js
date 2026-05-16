@@ -1,6 +1,6 @@
-// ===================== BASE URL =====================
+//  BASE URL 
 const BASE_URL = "https://banking-webapp-9y8z.onrender.com/api/v1"
-const BASE_URL = "http://localhost:3000/api/v1"
+
 //  SIDEBAR
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar')
@@ -33,12 +33,13 @@ function searchUser() {
 // LOAD USERS =
 async function loadUsers() {
   try {
-    const token = localStorage.getItem("token")
+  
 
     const res = await fetch(`${BASE_URL}/admin/users`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
     })
 
     const data = await res.json()
@@ -50,7 +51,7 @@ async function loadUsers() {
   tbody.innerHTML += `
     <tr>
       <td>
-        <a href="admin-edit.html?id=${user._id}" style=" olor:black;   cursor:pointer; text-decoration:none; color:black">
+        <a href="admin-edit.html?id=${user._id}" style=" color:black;   cursor:pointer; text-decoration:none; color:black">
           ${user.name}
         </a>
       </td>
@@ -77,16 +78,23 @@ async function loadUsers() {
   }
 }
 
-// ===================== LOAD STATS =====================
+// =LOAD STATS 
 async function loadStats() {
   try {
-    const token = localStorage.getItem("token")
+   
+    
 
     const res = await fetch(`${BASE_URL}/admin/stats`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
     })
+
+     
+
+
+
 
     const data = await res.json()
 console.log("STATS:", data)
@@ -103,13 +111,14 @@ console.log("STATS:", data)
 //  BLOCK USER 
 async function blockUser(userId) {
   try {
-    const token = localStorage.getItem("token")
+   
 
     const res = await fetch(`${BASE_URL}/admin/${userId}/block`, {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+  contentype: "application/json",
+      },
+      credentials: "include"
     })
 
     const data = await res.json()
