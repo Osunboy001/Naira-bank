@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a7c4e 0%, #2d9cdb 100%);
+    background: #ffffff;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -22,12 +22,12 @@ body {
 .deposit-card {
     background: white;
     border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     padding: 40px;
 }
 
 h1 {
-    color: #0a7c4e;
+    color: rgb(45, 156, 219);
     font-size: 28px;
     margin-bottom: 10px;
 }
@@ -61,8 +61,8 @@ input {
 
 input:focus {
     outline: none;
-    border-color: #0a7c4e;
-    box-shadow: 0 0 0 3px rgba(10, 124, 78, 0.1);
+    border-color: rgb(45, 156, 219);
+    box-shadow: 0 0 0 3px rgba(45, 156, 219, 0.1);
 }
 
 input::placeholder {
@@ -88,8 +88,8 @@ small {
 .result.success {
     display: block;
     background: #e6f7f0;
-    color: #0a7c4e;
-    border-left: 4px solid #0a7c4e;
+    color: #10b981;
+    border-left: 4px solid #10b981;
 }
 
 .result.error {
@@ -102,7 +102,7 @@ small {
 .btn-deposit {
     width: 100%;
     padding: 14px;
-    background: linear-gradient(135deg, #0a7c4e 0%, #0d9d65 100%);
+    background: linear-gradient(135deg, rgb(45, 156, 219) 0%, #10b981 100%);
     color: white;
     border: none;
     border-radius: 10px;
@@ -115,7 +115,7 @@ small {
 
 .btn-deposit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(10, 124, 78, 0.3);
+    box-shadow: 0 8px 20px rgba(45, 156, 219, 0.3);
 }
 
 .btn-deposit:active {
@@ -125,17 +125,17 @@ small {
 .btn-back {
     display: block;
     text-align: center;
-    color: #0a7c4e;
+    color: rgb(45, 156, 219);
     text-decoration: none;
     font-weight: 600;
     padding: 12px;
-    border: 2px solid #0a7c4e;
+    border: 2px solid rgb(45, 156, 219);
     border-radius: 10px;
     transition: all 0.3s ease;
 }
 
 .btn-back:hover {
-    background: #0a7c4e;
+    background: rgb(45, 156, 219);
     color: white;
 }
 
@@ -147,7 +147,7 @@ small {
 }
 
 .info-box h4 {
-    color: #0a7c4e;
+    color: rgb(45, 156, 219);
     margin-bottom: 12px;
     font-size: 14px;
 }
