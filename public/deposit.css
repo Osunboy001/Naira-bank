@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #ffffffa2;
+    background: #ffffff31;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -26,6 +26,10 @@ body {
     padding: 40px;
 }
 
+.deposit-card h1 {
+    font-size: 35px;
+}
+
 h1 {
     color: rgb(45, 156, 219);
     font-size: 33px;
@@ -34,7 +38,7 @@ h1 {
 
 .subtitle {
     color: #666;
-    font-size: 14px;
+    font-size: 18px;
     margin-bottom: 30px;
 }
 
@@ -153,7 +157,7 @@ small {
 }
 
 .info-box ol {
-    color: #666;
+    color: rgba(0, 0, 0, 0.877);
     font-size: 15px;
     line-height: 1.8;
     margin-left: 20px;
