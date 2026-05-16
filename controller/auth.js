@@ -27,7 +27,7 @@ const signup = async (req, res) => {
     })
 
     //  build verification link
-    const verifyLink = `https://localhost:3000/api/v1/auth/verify-email?token=${verificationToken}&email=${email}`
+    const verifyLink = `https://banking-webapp-9y8z.onrender.com/api/v1/auth/verify-email?token=${verificationToken}&email=${email}`
 
   console.log("Sending email to:", user.email)
 console.log("Using email user:", process.env.EMAIL_USER)
@@ -146,7 +146,7 @@ const verifyEmail = async (req, res) => {
     await user.save()
 
     // redirect to login page
-    res.redirect('https://localhost:3000/login-user.html?verified=true')
+    res.redirect('https://banking-webapp-9y8z.onrender.com/login-user.html?verified=true')
 
   } catch (err) {
     res.status(500).json({ message: err.message })

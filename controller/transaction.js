@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs")
 const myUser = require("../model/user")
-const Transaction = require("../model/transaction") // ← WAS MISSING!
+const Transaction = require("../model/transaction") // 
 
 const createPin = async (req, res) => {
   try {

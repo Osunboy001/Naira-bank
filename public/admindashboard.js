@@ -1,6 +1,6 @@
 // ===================== BASE URL =====================
 const BASE_URL = "https://banking-webapp-9y8z.onrender.com/api/v1"
-
+const BASE_URL = "http://localhost:3000/api/v1"
 //  SIDEBAR
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar')
