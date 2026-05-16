@@ -1,34 +1,25 @@
 const BASE_URL = "https://banking-webapp-9y8z.onrender.com/api/v1"
 
 async function request(endpoint, method, body) {
-
   try {
+    const res = await fetch(BASE_URL + endpoint, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: body ? JSON.stringify(body) : undefined
+    });
 
-  const res = await fetch(BASE_URL + endpoint, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-    
-     
-    },
-    credentials: "include",
-   
-    body: body ? JSON.stringify(body) : undefined
-    
-  });
-
-   if (!res.ok) {
-  const err = await res.json()
-  showResult(err.message || 'Something went wrong', 'error')
-  return
-}
-  return await res.json();
-
- 
-} catch (error) {
+    if (!res.ok) {
+      const err = await res.json()
+      showResult(err.message || 'Something went wrong', 'error')
+      return
+    }
+    return await res.json();
+  } catch (error) {
     showResult('Error: ' + error.message, 'error');
-}
-
+  }
 }
 
 async function login() {
@@ -37,32 +28,29 @@ async function login() {
 
   const data = await request("/auth/signin", "POST", { email, password });
 
-if (!data) return
-localStorage.setItem("user", JSON.stringify(data.user)) 
+  if (!data) return
+  localStorage.setItem("user", JSON.stringify(data.user)) 
 
-if (data.user.role === "admin") {
-  window.location.href = "/admin.html"
-  return
-}
-
-  
+  if (data.user.role === "admin") {
+    window.location.href = "/admin.html"
+    return
+  }
 
   showDashboard();
   loadDashboard();
 }
 
-
-
 async function signup() {
   const name = document.getElementById("signupName").value;
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
+  
   if (!name || !email || !password) {
     showResult('Please fill all fields', 'error','signupResult');
-    
     return;
   }
-    if (password.length < 8) {
+  
+  if (password.length < 8) {
     showResult('Password must be at least 8 characters', 'error', 'signupResult')
     return
   }
@@ -82,17 +70,11 @@ async function signup() {
     return
   }
 
-
   const data = await request("/auth/signup", "POST", { name, email, password });
   if(data) {
-     window.location.href = 'https://banking-webapp-9y8z.onrender.com/verify-email.html'
+    showResult('Account created! You can now login.', 'success', 'signupResult')
+    showLogin()
   }
-if (!data) return
-
-  localStorage.setItem("user", JSON.stringify(data.user));
-
-
- 
 }
 
 async function loadDashboard() {
@@ -102,64 +84,57 @@ async function loadDashboard() {
 }
 
 function renderDashboard(data) {
-const avatarName = data.user?.name || data.name || "User";
+  const avatarName = data.user?.name || data.name || "User";
   const avatarLetter = avatarName.charAt(0).toUpperCase();
   document.getElementById("avatarInitial").textContent = avatarLetter;
- document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${data.user?.name || data.name}</h1>`;
-  document.querySelector("#balance").textContent =` #${data.balance.toLocaleString()} ` ;
-    document.querySelector("#accountnumber").textContent =`  acctnumber:${data.accountnumber} ` ;
-  
-
+  document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${data.user?.name || data.name}</h1>`;
+  document.querySelector("#balance").textContent = ` #${data.balance.toLocaleString()} `;
+  document.querySelector("#accountnumber").textContent = `  acctnumber:${data.accountnumber} `;
 }
 
 function showDashboard() {
   document.getElementById("loginPage").classList.add("hidden");
   document.getElementById("signupPage").classList.add("hidden");
   document.getElementById("dashboardPage").classList.remove("hidden")
- document.querySelector(".layout-wrapper").classList.add("hidden");
+  document.querySelector(".layout-wrapper").classList.add("hidden");
 }
 
 function showLogin() {
   document.getElementById("signupPage").classList.add("hidden");
   document.getElementById("loginPage").classList.remove("hidden");
   document.getElementById("dashboardPage")?.classList.add("hidden");
- document.querySelector(".layout-wrapper").classList.remove("hidden");
+  document.querySelector(".layout-wrapper").classList.remove("hidden");
 }
 
 function showSignup() {
   document.getElementById("loginPage").classList.add("hidden");
   document.getElementById("signupPage").classList.remove("hidden");
- document.querySelector(".layout-wrapper").classList.remove("hidden");
+  document.querySelector(".layout-wrapper").classList.remove("hidden");
 }
 
 async function logout() {
+  await fetch(BASE_URL + "/auth/logout", {
+    method: "POST",
+    credentials: "include"
+  })
 
-await fetch(BASE_URL + "/auth/logout", {
-  method: "POST",
-  credentials: "include"
-})
-
-
-localStorage.removeItem("user")
+  localStorage.removeItem("user")
   showLogin();
 }
 
-// error function
 function showResult(message, type) {
-  const  loginResult = document.getElementById("loginResult");
+  const loginResult = document.getElementById("loginResult");
   const signupResult = document.getElementById("signupResult");
 
   if(loginResult) {
-       loginResult.textContent = message
+    loginResult.textContent = message
     loginResult.className = 'show ' + type
   }
   if(signupResult) {
-       signupResult.textContent = message
+    signupResult.textContent = message
     signupResult.className = 'show ' + type 
   }
-
 }
-
 
 function initapp() {
   const user = JSON.parse(localStorage.getItem("user"))
@@ -189,5 +164,3 @@ function myFunc() {
     y.type = "password";
   }
 }
-
-
