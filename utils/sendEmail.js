@@ -3,25 +3,26 @@ const nodemailer = require('nodemailer')
 const sendEmail = async ({ to, subject, html }) => {
   try {
     console.log("Creating transporter...")
-  const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  port: 587,  // 
-  secure: false,
-  connectionTimeout: 5000,
-  socketTimeout: 5000
-})
-    console.log(" Sending email to:", to)
+    
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',  // ✅ CHANGE THIS
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      },
+      connectionTimeout: 10000,
+      socketTimeout: 10000
+    })
+    
+    console.log("Sending email to:", to)
     
     const result = await transporter.sendMail({
       from: `"NairaBank" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       html,
-
       headers: {
         'X-Priority': '1',
         'Importance': 'high'
@@ -33,7 +34,7 @@ const sendEmail = async ({ to, subject, html }) => {
     return result
 
   } catch (error) {
-    console.log(" Email error:", error.message)
+    console.log("Email error:", error.message)
     throw error
   }
 }
