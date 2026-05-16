@@ -40,6 +40,8 @@ const initializepayment = async (req, res) => {
   }
 }
 
+
+// verify payment for alternative maually clicking the verify endpoint after payment
 const verifyPayment = async (req, res) => {
   try {
     const { reference } = req.query
@@ -90,6 +92,8 @@ const verifyPayment = async (req, res) => {
   }
 }
 
+
+// This is the webhook endpoint that Paystack will call after payment. It verifies the payment and updates user balance accordingly without the user having to click anything. This is more reliable than the manual verify 
 const webhook = async (req, res) => {
   try {
     const event = req.body
