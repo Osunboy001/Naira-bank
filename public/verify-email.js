@@ -10,8 +10,8 @@ console.log("Using email user:", process.env.EMAIL_USER)
         async function verifyEmail() {
             try {
                 // Calling the token i get from my browser URL
-                const response = await fetch(`http://localhost:3000/api/v1/auth/verify-email?token=${token}&email=${email}`);
-                conso
+                const response = await fetch(`https://banking-webapp-9y8z.onrender.com/api/v1/auth/verify-email?token=${token}&email=${email}`);
+            
                 const result = await response.json();
                 
                 if (response.ok) {
@@ -20,7 +20,7 @@ console.log("Using email user:", process.env.EMAIL_USER)
                     document.getElementById('message').innerHTML = '<p>You can now login to your account.</p>';
                     
                     setTimeout(() => {
-                        window.location.href = 'http://localhost:3000/login-user.html';
+                        window.location.href = "https://banking-webapp-9y8z.onrender.com/login-user.html";
                     }, 3000);
                 } else {
                     throw new Error(result.message);
@@ -30,7 +30,7 @@ console.log("Using email user:", process.env.EMAIL_USER)
 
                 document.getElementById('status').innerHTML = '<h1 class="error"> Verification Failed</h1>';
 
-                document.getElementById('message').innerHTML = `<p>${error.message}</p><button onclick="window.location.href='http://localhost:3000/login-user.html'">Sign Up Again</button>`;
+                document.getElementById('message').innerHTML = `<p>${error.message}</p><button onclick="window.location.href= "https://banking-webapp-9y8z.onrender.com/login-user.html">Sign Up Again</button>`;
             }
         }
 

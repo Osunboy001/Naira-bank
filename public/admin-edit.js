@@ -1,5 +1,4 @@
-const BASE_URL = "http://localhost:3000/api/v1"
-
+const BASE_URL = "https://banking-webapp-9y8z.onrender.com/api/v1"
 const urlParams = new URLSearchParams(window.location.search)
 const userId = urlParams.get("id")
 

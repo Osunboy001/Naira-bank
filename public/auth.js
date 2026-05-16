@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "https://banking-webapp-9y8z.onrender.com/api/v1"
 
 async function request(endpoint, method, body) {
 
@@ -85,7 +85,7 @@ async function signup() {
 
   const data = await request("/auth/signup", "POST", { name, email, password });
   if(data) {
-     window.location.href = 'http://localhost:3000/verify-email.html'
+     window.location.href = 'https://banking-webapp-9y8z.onrender.com/verify-email.html'
   }
 if (!data) return
 
