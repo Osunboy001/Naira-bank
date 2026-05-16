@@ -39,8 +39,8 @@ document.getElementById('depositForm').addEventListener('submit', async (e) => {
         }
 
         // Redirect to Paystack
-        if (data && data.authorization_url) {
-            window.location.href = data.authorization_url
+        if (data.data && data.data.authorization_url) {
+            window.location.href = data.data.authorization_url
         } else {
             showResult('Failed to get payment URL', 'error')
             btnText.style.display = 'inline'
