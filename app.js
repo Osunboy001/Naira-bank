@@ -21,12 +21,13 @@ const users =  require('./router/users')
 const auth = require('./router/auth')
 const adminDashboard = require('./router/admindashboard')
 const transaction = require('./router/trasanction')
+const deposit = require('./router/payment-deposit')
 app.use('/api/v1/users', users)
 app.use('/api/v1/auth', auth )
 app.use('/api/v1/admin', adminDashboard)
 app.use('/api/v1/admin', adminEdit)
 app.use('/api/v1/transfer', transaction)
-
+app.use('/api/v1/deposit', deposit)
 
 app.use('/api/v1', home)
    

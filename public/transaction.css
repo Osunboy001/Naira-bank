@@ -471,7 +471,9 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 }
 
 .nb-new-balance-label {
-  font-size: 13px; color: #065f46; font-weight: 500;
+  font-size: 13px;
+   color: #065f46; 
+   font-weight: 500;
 }
 
 .nb-new-balance-val {
@@ -500,8 +502,15 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
   margin-bottom: 4px;
 }
 
-.nb-receipt-val { font-size: 13px; font-weight: 600; color: var(--text); }
-.nb-status-ok { color: var(--green) !important; }
+.nb-receipt-val { 
+  font-size: 13px; 
+  font-weight: 600;
+   color: var(--text); }
+
+.nb-status-ok { 
+  color: var(--green) !important; }
 
 /* ── UTILITY ── */
-.nb-hidden { display: none !important; }
+.nb-hidden { 
+  display: none !important;
+ }

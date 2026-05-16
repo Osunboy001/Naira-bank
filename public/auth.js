@@ -51,12 +51,14 @@ if (data.user.role === "admin") {
   loadDashboard();
 }
 
+
+
 async function signup() {
   const name = document.getElementById("signupName").value;
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
   if (!name || !email || !password) {
-    showResult('Please fill all fields', 'error');
+    showResult('Please fill all fields', 'error','signupResult');
     
     return;
   }
@@ -82,11 +84,15 @@ async function signup() {
 
 
   const data = await request("/auth/signup", "POST", { name, email, password });
+  if(data) {
+     window.location.href = 'http://localhost:3000/verify-email.html'
+  }
 if (!data) return
 
   localStorage.setItem("user", JSON.stringify(data.user));
-  showDashboard();
-  loadDashboard();
+
+
+ 
 }
 
 async function loadDashboard() {

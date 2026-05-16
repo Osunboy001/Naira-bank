@@ -19,7 +19,7 @@ const sendEmail = async ({ to, subject, html }) => {
       to,
       subject,
       html,
-      //  ADD THESE LINES
+
       headers: {
         'X-Priority': '1',
         'Importance': 'high'

@@ -1,48 +1,65 @@
-const form = document.getElementById('depositForm');
-const userIdInput = document.getElementById('userId');
-const amountInput = document.getElementById('amount');
-const result = document.getElementById('result');
-const currentBalance = document.getElementById('currentBalance');
-const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "http://localhost:3000/api/v1"
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const accountNumber = userIdInput.value.trim();
-  const amount = amountInput.value.trim();
-  const token = localStorage.getItem('token');
+document.getElementById('depositForm').addEventListener('submit', async (e) => {
+    e.preventDefault()
 
-  if (!accountNumber || !amount) {
-    return;
-    showResult('Please enter both account number and amount', 'error');
-  }
+    const amount = document.getElementById('amount').value
+    const description = document.getElementById('description').value
+    const resultDiv = document.getElementById('result')
+    const btnText = document.getElementById('btnText')
+    const loader = document.getElementById('loader')
 
-  try {
-    const res = await fetch(`${BASE_URL}/users/${accountNumber}/deposit`, {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token ? `Bearer ${token}` : ""
-      },
-      body: JSON.stringify({ amount: Number(amount) })
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      currentBalance.textContent = `Current Balance: ₦${data.balance.toLocaleString()}`;
-      showResult(`Deposit Successful! New Balance: ₦${data.balance.toLocaleString()}`, 'success');
-      amountInput.value = '';
-    } else {
-      showResult('Error: Account not found', 'error');
+    if (!amount || amount < 100) {
+        showResult('Minimum deposit is ₦100', 'error')
+        return
     }
-  } catch (error) {
-    showResult('Error: ' + error.message, 'error');
-  }
-});
 
+    // Show loading
+    btnText.style.display = 'none'
+    loader.style.display = 'inline'
 
+    try {
+        // Initialize payment
+        const response = await fetch(`${BASE_URL}/deposit/initialize`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({ amount: parseInt(amount) })
+        })
 
-// error function
+        const data = await response.json()
+
+        if (!response.ok) {
+            showResult(data.message || 'Payment initialization failed', 'error')
+            btnText.style.display = 'inline'
+            loader.style.display = 'none'
+            return
+        }
+
+        // Redirect to Paystack
+        if (data && data.authorization_url) {
+            window.location.href = data.authorization_url
+        } else {
+            showResult('Failed to get payment URL', 'error')
+            btnText.style.display = 'inline'
+            loader.style.display = 'none'
+        }
+
+    } catch (error) {
+        showResult('Error: ' + error.message, 'error')
+        btnText.style.display = 'inline'
+        loader.style.display = 'none'
+    }
+})
+
 function showResult(message, type) {
-  result.textContent = message;
-  result.className = 'show ' + type;
+    const resultDiv = document.getElementById('result')
+    resultDiv.textContent = message
+    resultDiv.className = 'result ' + type
+    
+    setTimeout(() => {
+        resultDiv.className = 'result'
+    }, 5000)
 }

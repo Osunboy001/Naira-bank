@@ -50,9 +50,16 @@ status: {
 pin: {
   type: String,
   default: null
+},
+isVerified: {
+  type: Boolean,
+  default: false  
+},
+
+verificationToken: {
+  type: String,
+  default: null  
 }
-
-
 
 
 });

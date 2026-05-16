@@ -86,6 +86,55 @@ res.status(500).json({message: err.message})
 
 }
 
+const webhook =  async (req, res) => {
+  try {
+    const event = req.body
+    
+    console.log("Webhook event:", event.event)
+    
+    // Only handle successful payments
+    if (event.event === 'charge.success') {
+      const reference = event.data.reference
+      
+      // Use your existing verifyPayment logic
+      const response = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
+        }
+      })
+      
+      const data = await response.json()
+      
+      if (data.status && data.data.status === 'success') {
+        // Find user by email (important!)
+        const user = await myUser.findOne({ email: data.data.customer.email })
+        
+        if (user) {
+          user.balance += parseInt(data.data.amount) / 100
+          await user.save()
+          
+          await Transaction.create({
+            type: 'deposit',
+            amount: data.data.amount / 100,
+            from: 'Paystack',
+            to: user._id,
+            status: 'completed',
+            reference: reference
+          })
+          
+          console.log(`✅ Webhook: ${user.email} balance updated!`)
+        }
+      }
+    }
+    
+    // Always return 200!
+    res.status(200).json({ message: 'Webhook received' })
+    
+  } catch (error) {
+    console.log("❌ Webhook error:", error.message)
+    res.status(200).json({ message: 'Webhook received' })
+  }
+}
 
 
-module.exports = { initializepayment, verifyPayment }
+module.exports = { initializepayment, verifyPayment,webhook}

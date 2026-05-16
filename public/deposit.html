@@ -1,43 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bank Deposit</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit - NairaBank</title>
+    <link rel="stylesheet" href="deposit.css">
 </head>
 <body>
-  <div class="container">
-    <div class="bank-header">
-      <h1>Deposit Money</h1>
-      <p>Secure Online Deposit Service</p>
+    <div class="deposit-container">
+        <div class="deposit-card">
+            <h1>Deposit Money</h1>
+            <p class="subtitle">Fund your NairaBank account securely</p>
+
+            <form id="depositForm">
+                <div class="form-group">
+                    <label for="amount">Amount (₦)</label>
+                    <input 
+                        type="number" 
+                        id="amount" 
+                        placeholder="Enter amount" 
+                        min="100"
+                        required
+                    >
+                    <small>Minimum: ₦100</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description (Optional)</label>
+                    <input 
+                        type="text" 
+                        id="description" 
+                        placeholder="What is this deposit for?"
+                    >
+                </div>
+
+                <div id="result" class="result"></div>
+
+                <button type="submit" class="btn-deposit">
+                    <span id="btnText">Proceed to Payment</span>
+                    <span id="loader" style="display:none;">Processing...</span>
+                </button>
+
+                <a href="/index.html" class="btn-back">← Back to Dashboard</a>
+            </form>
+
+            <div class="info-box">
+                <h4> How it works</h4>
+                <ol>
+                    <li>Enter the amount you want to deposit</li>
+                    <li>Click "Proceed to Payment"</li>
+                    <li>Complete payment on Paystack</li>
+                    <li>Your balance updates instantly</li>
+                </ol>
+            </div>
+        </div>
     </div>
 
-    <form id="depositForm">
-      <div class="form-group">
-        <label for="userId">Account Number</label>
-        <input type="number" id="userId" placeholder="Enter your account number" required>
-      </div>
-
-      <div id="currentBalance">
-        Loading balance...
-      </div>
-
-      <div class="form-group">
-        <label for="amount">Amount to Deposit</label>
-        <input type="number" id="amount" placeholder="Enter amount" required>
-      </div>
-
-      <button type="submit">Deposit Now</button>
-    </form>
-
-    <div id="result"></div>
-
-    <div class="back-button">
-      <a href="/">Back to Home</a>
-    </div>
-  </div>
-
-  <script src="deposit.js"></script>
+    <script src="deposit.js"></script>
 </body>
 </html>
