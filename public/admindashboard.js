@@ -1,5 +1,5 @@
 //  BASE URL 
-const BASE_URL = "https://banking-webapp-9y8z.onrender.com/api/v1"
+const BASE_URL ="http://localhost:3000/api/v1"
 
 //  SIDEBAR
 function toggleSidebar() {
@@ -114,8 +114,8 @@ async function blockUser(userId) {
    
 
     const res = await fetch(`${BASE_URL}/admin/${userId}/block`, {
-      method: "PATCH",
-      headers: {
+  method: "PATCH",
+  headers: {
   contentype: "application/json",
       },
       credentials: "include"

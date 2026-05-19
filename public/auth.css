@@ -415,40 +415,42 @@ button:hover {
   margin-bottom: 16px;
 }
 
-.tx {
+/*THIS STYLE ARE FORM MY AUTHJS */
+
+.toAmount{
+display: flex;
+justify-content: space-between;
+
+
+}
+.toAmount h2 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dateStatus {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 13px 0;
-  border-bottom: 1px solid #f0f4f9;
-  transition: padding-left 0.15s;
 }
 
-.tx:last-child { border-bottom: none; }
-.tx:hover { padding-left: 6px; }
 
-.tx-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.tx-amount {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-}
-
-.credit { color: var(--success); }
-.debit  { color: var(--danger); }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 600px) {
-  .actions { grid-template-columns: repeat(2, 1fr); }
-  .balance h1 { font-size: 32px; }
-  .balance { margin: 14px; padding: 22px; }
-  .section { margin: 0 14px 14px; }
-  .actions { margin: 0 14px 14px; }
+  .actions {
+     grid-template-columns: repeat(2, 1fr);
+     }
+  .balance h1 { 
+    font-size: 32px;
+   }
+  .balance { 
+    margin: 14px; padding: 22px; 
+  }
+  .section {
+     margin: 0 14px 14px;
+     }
+  .actions {
+     margin: 0 14px 14px; 
+    }
 }
 
 #loginResult,

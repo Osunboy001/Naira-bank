@@ -26,8 +26,17 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     enum: ['success', 'failed'],
     default: 'success'
+  },
+
+
+
+},
+ { timestamps: true
+
   }
 
-}, { timestamps: true }) 
+
+) 
+
 
 module.exports = mongoose.model('Transaction', transactionSchema)

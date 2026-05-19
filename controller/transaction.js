@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs")
 const myUser = require("../model/user")
 const Transaction = require("../model/transaction") // 
-
+const Entry = require("../model/entry")
 const createPin = async (req, res) => {
   try {
     const { pin } = req.body
@@ -87,10 +87,93 @@ const transfer = async (req, res) => {
 
     await Transaction.create({ type: "transfer", amount, from: sender._id, to: receiver._id, status: "success" })
 
+await Entry.create({
+  userId: sender._id,
+ counterParty:  receiver._id,
+  direction: 'debit',
+   status: "success",
+   amount,
+})
+
+await Entry.create({
+   userId: sender._id,
+  counterParty:  receiver._id,
+   direction: 'credit', 
+   status: "success",
+   amount,
+         
+ 
+ })
     res.status(200).json({ success: true, message: "Transfer successful", newBalance: sender.balance })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
 }
 
-module.exports = { getAccountName, transfer, checkPin, createPin }
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+ 
+// Get transaction history for the logged in user
+const getTransactionHistory = async (req, res) => {
+  try {
+    // Find all transactions where user is sender OR receiver
+    const transactions = await Entry.find({
+      $or: [
+        { userId: req.user.userId },
+        { counterParty: req.user.userId }
+      ]
+    })
+
+
+
+
+    // create a populate to know user details
+      .populate('userId', 'name accountnumber')
+      .populate('counterParty', 'name accountnumber')
+      .sort({ createdAt: -1 }) 
+    
+    if (!transactions || transactions.length === 0) {
+      return res.status(200).json({ 
+        success: true, 
+        transactions: [],
+        message: 'No transaction history found'
+      })
+    }
+    
+    // Format the response for your frontend
+    const formattedTransactions = transactions.map(t => ({
+      userId: t.userId,
+    counterParty: t.counterParty,
+      amount: t.amount,
+      direction: t.direction,
+      status: t.status,
+      date: t.createdAt,
+      transactionId: t._id
+    }))
+    
+    res.status(200).json({ 
+      success: true, 
+      transactions: formattedTransactions 
+    })
+    console.log(transactions)
+    
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+}
+
+
+
+module.exports = { getAccountName, transfer, checkPin, createPin ,getTransactionHistory}

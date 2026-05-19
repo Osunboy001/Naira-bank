@@ -1,4 +1,4 @@
-const BASE_URL = "https://banking-webapp-9y8z.onrender.com/api/v1"
+const BASE_URL ="http://localhost:3000/api/v1"
 
 async function request(endpoint, method, body) {
   try {
@@ -167,3 +167,75 @@ function myFunc() {
 
 
 
+const sections = document.querySelector(".section")
+// TRANSACRION HISTORY
+async function loadTransactionHistory() {
+
+  try {
+
+// CALL MY API FROM ROUTER
+const res = await fetch(BASE_URL + "/transfer/history", {
+  headers: {
+    credentials: "include",
+    contentType: "application/json",
+  }
+})
+
+if(!res.ok) { 
+   console.error("Fetch failed:", res.status);
+      sections.innerHTML = "<p>Error loading transactions</p>"
+}
+
+
+
+
+
+ const data = await res.json()
+
+
+     console.log("Data received:", data.transactions); 
+// CONSOLE.LOG TO DEBUG MY CODE
+console.log("FULL API RESPONSE:", data) 
+     sections.innerHTML = ""
+
+     if(data.transactions.length === 0) {
+      sections.innerHTML = "<p>No transactions found</p>"
+      return
+     }
+
+     
+  data.transactions.forEach(transaction => {
+  
+    sections.innerHTML += `
+   <div class="toAmount">
+   <h5>Transfer to ${transaction.to.name.toUpperCase()}</h5>
+
+     <h5> Receive from ${transaction.from.name.toUpperCase()}</h5>
+
+     <h3>#${transaction.amount}</h3>
+   </div>
+
+    <div class="dateStatus">
+     <h5 class="date">${new Date(transaction.date).toLocaleString()}</h5>
+     <h4 class="status">${transaction.status}</h4>
+    </div>`
+})
+
+}
+catch (error) {
+  console.error("Error fetching transactions:", error);
+  sections.innerHTML = `<p>Error loading transactions   ${error.message}</p>`
+}
+
+
+  }
+ 
+
+
+
+
+
+
+
+
+loadTransactionHistory()
