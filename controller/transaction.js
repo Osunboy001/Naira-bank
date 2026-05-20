@@ -96,8 +96,8 @@ await Entry.create({
 })
 
 await Entry.create({
-   userId: sender._id,
-  counterParty:  receiver._id,
+   userId: receiver._id,
+  counterParty:  sender._id,
    direction: 'credit', 
    status: "success",
    amount,
@@ -130,10 +130,10 @@ const getTransactionHistory = async (req, res) => {
   try {
     // Find all transactions where user is sender OR receiver
     const transactions = await Entry.find({
-      $or: [
-        { userId: req.user.userId },
-        { counterParty: req.user.userId }
-      ]
+     
+         userId: req.user.userId 
+     
+      
     })
 
 
@@ -153,7 +153,7 @@ const getTransactionHistory = async (req, res) => {
     }
     
     // Format the response for your frontend
-    const formattedTransactions = transactions.map(t => ({
+    const formattedTransactions =  transactions.map(t => ({
       userId: t.userId,
     counterParty: t.counterParty,
       amount: t.amount,
