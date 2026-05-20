@@ -89,7 +89,7 @@ function renderDashboard(data) {
   document.getElementById("avatarInitial").textContent = avatarLetter;
   document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${data.user?.name || data.name}</h1>`;
   document.querySelector("#balance").textContent = ` #${data.balance.toLocaleString()} `;
-  document.querySelector("#accountnumber").textContent = `  acctnumber:${data.accountnumber} `;
+  document.querySelector("#accountnumber").textContent = `  AccountNo:${data.accountnumber} `;
 }
 
 function showDashboard() {
@@ -203,16 +203,57 @@ console.log("FULL API RESPONSE:", data)
       return
      }
 
+
+
      
-  data.transactions.forEach(transaction => {
+  await data.transactions.forEach(transaction => {
+ console.log("this is my transaction ife:",transaction)
+ 
   
+   console.log('my trans',transaction.amount)
+   console.log('my trans',transaction.date)
+   console.log('trans', transaction.direction)
+
+
+
+
+
+   
+   console.log('my trans',transaction.userId.name)
+  
+   console.log('my trans',transaction.amount)
+   console.log('my trans',transaction.date)
+   console.log('trans', transaction.direction)
+
+let message ;
+let amount;
+if(transaction.direction === 'debit') {
+  message = `Transfer ₦${transaction.amount} to ${transaction.counterParty.name.toUpperCase()}`
+}
+ if ( transaction.direction === 'credit')  {
+message = `Received ₦${transaction.amount} from ${transaction.counterParty.name}`
+}
+   
+
+//Debit amount
+if(transaction.direction === 'debit') {
+   amount = `-#${transaction.amount}`
+
+}
+ if ( transaction.direction === 'credit')  {
+amount = `+#${transaction.amount}`
+}
+ 
+
+
     sections.innerHTML += `
+
    <div class="toAmount">
-   <h5>Transfer to ${transaction.to.name.toUpperCase()}</h5>
+    
+     <a class="view" href="#">View</a>
+   <h5> ${message}</h5>
 
-     <h5> Receive from ${transaction.from.name.toUpperCase()}</h5>
-
-     <h3>#${transaction.amount}</h3>
+     <h3 >${amount}</h3>
    </div>
 
     <div class="dateStatus">
