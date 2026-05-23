@@ -1,4 +1,4 @@
-/* ========== RESET ========== */
+/* RESET  */
 * {
   margin: 0;
   padding: 0;
@@ -28,7 +28,7 @@ body {
   display: none !important;
 }
 
-/* ========== AUTH LAYOUT ========== */
+/*  AUTH LAYOUT */
 .layout-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -187,7 +187,7 @@ body {
   padding: 20px;
 }
 
-/* ========== CARD ========== */
+/*  CARD  */
 .card {
   width: 100%;
   max-width: 360px;
@@ -216,7 +216,7 @@ body {
 
 .card > p:hover { text-decoration: underline; }
 
-/* ========== INPUTS ========== */
+/*  INPUTS  */
 input {
   width: 100%;
   padding: 13px 16px;
@@ -235,8 +235,8 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(45,156,219,0.12);
 }
 
-/* ========== BUTTONS ========== */
-button {
+/*  BUTTONS  */
+.login-button {
   width: 100%;
   padding: 13px;
   border: none;
@@ -250,12 +250,12 @@ button {
   box-shadow: 0 4px 14px rgba(45,156,219,0.3);
 }
 
-button:hover {
+.login-button:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
 }
 
-/* ========== SHOW PASSWORD ========== */
+/* SHOW PASSWORD */
 .show-pass {
   display: flex;
   align-items: center;
@@ -273,7 +273,7 @@ button:hover {
   margin-bottom: 0;
 }
 
-/* ========== TOPBAR ========== */
+/*  TOPBAR  */
 .topbar {
   background: var(--card);
   border-bottom: 1px solid var(--border);
@@ -315,27 +315,9 @@ button:hover {
   flex-shrink: 0;
 }
 
-.logout {
-  width: auto !important;
-  padding: 8px 16px !important;
-  background: transparent !important;
-  border: 1.5px solid var(--border) !important;
-  color: var(--danger) !important;
-  border-radius: 9px !important;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: none !important;
-  cursor: pointer;
-  transition: all 0.2s;
-}
 
-.logout:hover {
-  background: #fff5f5 !important;
-  border-color: var(--danger) !important;
-  transform: none !important;
-}
 
-/* ========== BALANCE ========== */
+/*BALANCE  */
 .balance {
   margin: 20px;
   padding: 28px 32px;
@@ -359,7 +341,7 @@ button:hover {
   margin-top: 8px;
 }
 
-/* ========== ACTIONS ========== */
+/*  ACTIONS */
 .actions {
   margin: 0 20px 20px;
   display: grid;
@@ -368,14 +350,14 @@ button:hover {
 }
 
 .action {
-  background: var(--card);
-  border: 1.5px solid var(--border);
+
+  
   padding: 20px 14px;
   border-radius: 16px;
   text-align: center;
   cursor: pointer;
   transition: all 0.25s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+
 }
 
 .action:hover {
@@ -398,8 +380,9 @@ button:hover {
   letter-spacing: 0.3px;
 }
 
-/* ========== TRANSACTIONS ========== */
+/* TRANSACTIONS */
 .section {
+  position: relative;
   margin: 0 20px 20px;
   background: var(--card);
   border: 1px solid var(--border);
@@ -423,10 +406,71 @@ justify-content: space-between;
 
 
 }
+
+
 .toAmount h2 {
   font-family: Arial, Helvetica, sans-serif;
 }
+  .view {
+    padding: 5px 8px;
+  font-weight: 500;
+position: abe;
+  text-decoration: none;
+  border: 8px, solid, color(#2d9cdb) ;
+  border-radius: 7px;
+  color: white;
+ right: 0;
+ bottom: 185px;
+background-color:#2d9cdb ;
 
+ } 
+.admoney {
+  display: flex;
+  gap: 10px;
+}
+
+.add, .trans {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 7px 18px;
+  border-radius: 8px;
+  transition: opacity 0.2s;
+}
+
+.add {
+  background-color: white;
+  color: #2d9cdb;
+  border: 2px solid #2d9cdb;
+}
+
+.trans {
+  background-color: #2d9cdb;
+  color: white;
+  border: 2px solid #2d9cdb;
+}
+
+.add:hover, .trans:hover {
+  opacity: 0.85;
+}
+
+.dateStatus .status {
+  color: rgb(6, 146, 6);
+  background-color: rgb(193, 250, 193);
+
+
+
+}
+
+.dateStatus .date {
+  color: rgba(0, 0, 0, 0.507);
+  font-size: 11px;
+  font-family: Arial, Helvetica, sans-serif;
+}
 .dateStatus {
   display: flex;
   justify-content: space-between;
@@ -434,7 +478,7 @@ justify-content: space-between;
 
 
 
-/* ========== RESPONSIVE ========== */
+/*  RESPONSIVE */
 @media (max-width: 600px) {
   .actions {
      grid-template-columns: repeat(2, 1fr);
@@ -478,4 +522,190 @@ justify-content: space-between;
   background: #e6f7f0;
   color: #0a7c4e;
   border: 1px solid #9fe1cb;
+}
+
+
+
+/*  SIDEBAR */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.938) ;
+  color: white;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateY(+680px);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.active {
+    transform: translateY(0);
+  }
+}
+
+.sidebar-header {
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+
+  align-items: center;
+}
+
+.sidebar-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+  box-shadow: none !important;
+  padding: 0 !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .close-btn {
+    display: block;
+  }
+}
+
+.sidebar-menu {
+  flex: 1;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 20px;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: white;
+  color: white;
+}
+
+.menu-item .icon {
+  font-size: 20px;
+  min-width: 24px;
+}
+
+.menu-item .label {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.sidebar-footer {
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.logout {
+  background-color: white;
+    background: none;      /* Remove background */
+  border: none;          /* Remove border */
+  padding: 0;            /* Remove padding */
+  cursor: pointer;
+}
+
+.logout-item .label {
+
+  width: auto !important;
+  padding: 8px 3px !important;
+  background: transparent !important;
+  border: 1.5px solid var(--border) !important;
+  background-color: red !important;
+  border-radius: 9px !important;
+  font-weight: bold;
+  font-size: 15px;
+  border-right: 4px;
+  box-shadow: none !important;
+  cursor: pointer;
+  
+  transition: all 0.2s;
+}
+
+
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.801);
+  z-index: 150;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgb(45, 156, 219);
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 180;
+  box-shadow: 0 4px 12px rgba(45, 156, 219, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(45, 156, 219, 0.6);
+}
+
+@media (max-width: 768px) {
+  .toggle-btn {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  #dashboardPage {
+    margin-left: 280px;
+  }
+
+  .topbar {
+    margin-left: 0;
+  }
 }
