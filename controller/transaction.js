@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs")
 const myUser = require("../model/user")
 const Transaction = require("../model/transaction") // 
 const Entry = require("../model/entry")
+const { getSingleUser } = require("./admin-edit")
 const createPin = async (req, res) => {
   try {
     const { pin } = req.body
@@ -142,7 +143,9 @@ const getTransactionHistory = async (req, res) => {
     // create a populate to know user details
       .populate('userId', 'name accountnumber')
       .populate('counterParty', 'name accountnumber')
+      
       .sort({ createdAt: -1 }) 
+  
     
     if (!transactions || transactions.length === 0) {
       return res.status(200).json({ 
@@ -162,6 +165,8 @@ const getTransactionHistory = async (req, res) => {
       date: t.createdAt,
       transactionId: t._id
     }))
+
+    
     
     res.status(200).json({ 
       success: true, 
@@ -173,7 +178,29 @@ const getTransactionHistory = async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 }
+const getSingleHistory = async (req,res) => {
+
+    try {
+      const user = await Entry.findById(req.params.id)
+     .populate('userId', 'name accountnumber')
+      .populate('counterParty', 'name accountnumber')
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+     
+  
+      res.json({ user });
+  
+    } 
+    
+    
+    
+    
+    catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+}
 
 
 
-module.exports = { getAccountName, transfer, checkPin, createPin ,getTransactionHistory}
+module.exports = { getAccountName, transfer, checkPin, createPin ,getTransactionHistory,getSingleHistory}
