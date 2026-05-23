@@ -60,7 +60,7 @@
   Show Password
 </label>
  
-      <button onclick="login()">Login</button>
+      <button class="login-button" onclick="login()">Login</button>
       <p onclick="showSignup()">Create account</p>
       <div id="loginResult"></div>
     </div>
@@ -121,7 +121,6 @@
 
 
 
-
 <!-- DASHBOARD — hidden by default -->
 <div id="dashboardPage" class="hidden">
  
@@ -133,8 +132,9 @@
 
     </div>
     <div style="display:flex;align-items:center;gap:10px;">
-      <div id="avatarInitial" style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#2d9cdb,#1a7db8);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;">I</div>
-      <button class="logout" onclick="logout()">Logout</button>
+      <div id="avatarInitial" style="width:38px;height:38px;border-radius:50%;;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;">I</div>
+      <button class="logout" onclick="logout()">  <img src="img/switch-removebg-preview.png" alt="Send" width="25" height="25";></button>
+      <a href=""><img src="img/notification.png" alt="Send" width="25" height="25";></a>
     </div>
   </div>
  
@@ -142,8 +142,16 @@
   <div class="balance">
     <h3>Total Balance</h3>
     <h1 id="balance">₦0.00</h1>
+<div class="admoney">
+  <a class="add" href="deposit.html">
+    <span>&#43;</span> Add Money
+  </a>
+  <a class="trans" href="transaction.html">
+    <span>&#8594;</span> Transfer
+  </a>
+</div>
+
   </div>
- 
 
   <div class="section">
     
@@ -157,7 +165,7 @@
 
 
   <!-- ACTIONS — replaced img with SVG icons -->
-  <div class="actions">
+  <!-- <div class="actions">
     <div class="action">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2d9cdb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       <span> <a style="text-decoration: none; color: black;" href="http://localhost:3000/transaction.html">Send</a></span>
@@ -175,19 +183,92 @@
       <span>History</span>
     </div>
   </div>
- 
+  -->
   <!-- TRANSACTIONS -->
+<!-- SIDEBAR (OUTSIDE dashboard) -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>NairaBank</h3>
+    <button class="close-btn" onclick="toggleSidebar()">✕</button>
+  </div>
 
- 
+  <div class="sidebar-menu">
+    <a href="#" class="menu-item">
+      <img src="img/dashboard.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Dashboard</span>
+    </a>
+    <a href="#" class="menu-item">
+         <img src="img/file.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">History</span>
+    </a>
+    <a href="/transaction.html" class="menu-item">
+           <img src="img/transfer.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Transfer</span>
+    </a>
+    <a href="/deposit.html" class="menu-item">
+   <img src="img/donation.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Deposit</span>
+    </a>
+    <a href="/create-pin.html" class="menu-item">
+         <img src="img/key.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Create PIN</span>
+    </a>
+
+     <a href="/create-pin.html" class="menu-item">
+    <img src="img/settings.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Settings</span>
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <a href="#" class="menu-item logout-item" onclick="logout()">
+      <h4 class="label">Logout</h4>
+    </a>
+  </div>
+</div>
+
+<!-- OVERLAY (for mobile) -->
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- TOGGLE BUTTON -->
+<button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">☰</button>
+
+  <!-- ACTIONS -->
+  <div class="actions">
+    <div class="action">
+      <img src="img/up-and-down-arrows.png" alt="Send" width="40" height="40">
+      <span><a style="text-decoration: none; color: black;" href="http://localhost:3000/transaction.html">Transfer</a></span>
+    </div>
+    <div class="action">
+      <img src="/img/deposit.png" alt="Deposit" width="40" height="40">
+      <span><a style="text-decoration: none; color: black;" href="deposit.html">Deposit</a></span>
+    </div>
+    <div class="action">
+      <img src="img/padlock.png" alt="Create Pin" width="40" height="40">
+      <span><a style="text-decoration: none; color: black;" href="http://localhost:3000/create-pin.html">Create Pin</a></span>
+    </div>
+    <div class="action">
+      <img src="img/document.png" alt="History" width="40" height="40">
+      <span>History</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</div>
 </div>
  
 
 
 
-
+<!-- 0057027262 -->
+ <!-- 0058424297 -->
 
 <script src="auth.js"></script>
-
+<!-- <script src="transaction-details.js"></script> -->
 
 </body>
 </html>
