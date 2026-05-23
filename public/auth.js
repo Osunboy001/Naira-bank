@@ -87,7 +87,7 @@ function renderDashboard(data) {
   const avatarName = data.user?.name || data.name || "User";
   const avatarLetter = avatarName.charAt(0).toUpperCase();
   document.getElementById("avatarInitial").textContent = avatarLetter;
-  document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${data.user?.name || data.name}</h1>`;
+  document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${data.user?.name.toUpperCase() || data.name.toUpperCase()}</h1>`;
   document.querySelector("#balance").textContent = ` #${data.balance.toLocaleString()} `;
   document.querySelector("#accountnumber").textContent = `  AccountNo:${data.accountnumber} `;
 }
@@ -206,10 +206,11 @@ console.log("FULL API RESPONSE:", data)
 
 
      
-  await data.transactions.forEach(transaction => {
- console.log("this is my transaction ife:",transaction)
+  await data.transactions.slice(0, 3).forEach(transaction => {
+
  
-  
+      
+ `<a class="view" style="font-size: 8px;"href="/transaction-detail.html?id=${transaction.userId._id}">View</a>`
    console.log('my trans',transaction.amount)
    console.log('my trans',transaction.date)
    console.log('trans', transaction.direction)
@@ -224,7 +225,7 @@ console.log("FULL API RESPONSE:", data)
    console.log('my trans',transaction.amount)
    console.log('my trans',transaction.date)
    console.log('trans', transaction.direction)
-
+// Adding boolean value to both credit and debit side
 let message ;
 let amount;
 if(transaction.direction === 'debit') {
@@ -233,7 +234,8 @@ if(transaction.direction === 'debit') {
  if ( transaction.direction === 'credit')  {
 message = `Received ₦${transaction.amount} from ${transaction.counterParty.name}`
 }
-   
+ 
+
 
 //Debit amount
 if(transaction.direction === 'debit') {
@@ -243,14 +245,15 @@ if(transaction.direction === 'debit') {
  if ( transaction.direction === 'credit')  {
 amount = `+#${transaction.amount}`
 }
- 
+
 
 
     sections.innerHTML += `
+    
+ <a class="view" style="font-size: 8px;"href="/transaction-detail.html?id=${transaction.transactionId}">View</a>
 
    <div class="toAmount">
     
-     <a class="view" href="#">View</a>
    <h5> ${message}</h5>
 
      <h3 >${amount}</h3>
@@ -262,6 +265,10 @@ amount = `+#${transaction.amount}`
     </div>`
 })
 
+
+
+
+// 
 }
 catch (error) {
   console.error("Error fetching transactions:", error);
@@ -279,4 +286,36 @@ catch (error) {
 
 
 
+
+
 loadTransactionHistory()
+
+// SIDEBAR TOGGLEF
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar')
+  const overlay = document.getElementById('overlay')
+  
+  sidebar.classList.toggle('active')
+  overlay.classList.toggle('active')
+}
+
+// Close sidebar when clicking menu item (mobile)
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      toggleSidebar()
+    }
+  })
+})
+
+// Close sidebar on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const sidebar = document.getElementById('sidebar')
+    const overlay = document.getElementById('overlay')
+    sidebar.classList.remove('active')
+    overlay.classList.remove('active')
+  }
+})
+
+
