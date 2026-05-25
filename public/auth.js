@@ -81,6 +81,7 @@ async function loadDashboard() {
   const data = await request("/dashboard", "GET");
   if (!data) return logout();
   renderDashboard(data);
+  showBalance(data)
 }
 
 function renderDashboard(data) {
@@ -284,6 +285,31 @@ catch (error) {
 
 
 
+const viewBalance = document.querySelector(".vieweye")
+const hideBalance = document.querySelector('.hiddeneye')
+function hidebalance () {
+
+ hideBalance.addEventListener( 'click' , () => {
+balance.textContent = "****"
+hideBalance.classList.toggle('active')
+viewBalance.classList.toggle('active')
+ })
+
+}
+  
+
+  
+
+  function showBalance(data) {
+
+  viewBalance.addEventListener( 'click' , () => {
+balance.textContent = ` #${data.balance.toLocaleString()} `
+  viewBalance.classList.toggle('active')
+  hideBalance.classList.remove('active')
+
+  })
+
+  }
 
 
 
