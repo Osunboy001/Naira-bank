@@ -1,0 +1,160 @@
+
+
+
+.section {
+  position: relative;
+  margin: 0 20px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.section h3 {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+
+
+.toAmount{
+display: flex;
+justify-content: space-between;
+
+
+}
+
+
+.toAmount h2 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dateStatus .status {
+  color: rgb(6, 146, 6);
+  background-color: rgb(193, 250, 193);
+
+
+
+}
+
+.dateStatus .date {
+  color: rgba(0, 0, 0, 0.507);
+  font-size: 11px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.dateStatus {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* 
+  <div class="toAmount">
+    
+   <h5> ${message}</h5>
+
+
+     <h3 >${amount}</h3>
+   </div>
+
+    <div class="dateStatus">
+     <h5 class="date">${new Date(transaction.date).toLocaleString()}</h5>
+     <h4 class="status">${transaction.status}</h4> */
+
+
+.layout .section .date {
+  font-size: 16px;
+}
+.layout .section h3 {
+  font-size: 20px;
+}
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.section {
+  flex: 1;
+  padding: 20px;
+}
+
+#sidebar-container {
+  width: 250px;
+}
+.section h5 {
+  font-size: 26PX;
+}
+.section h3 {
+  font-size: 30px;
+}
+.section .date {
+  font-size: 18px;
+}
+
+.section .status {
+  font-size: 23px;
+}
+.view {
+    padding: 5px 8px;
+  font-weight: 500;
+position: abe;
+  text-decoration: none;
+  border: 8px, solid, color(#2d9cdb) ;
+  border-radius: 7px;
+  color: white;
+ right: 0;
+ bottom: 185px;
+background-color:#2d9cdb ;
+font-size: 32px;
+
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 600px) {
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+
+  #sidebar-container {
+    width: 100%; /* full width on mobile */
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+  
+
+.layout .section .date {
+  font-size: 16px;
+}
+.layout .section h3 {
+  font-size: 17px;
+}
+.layout .section h5 {
+  font-size: 17px;
+}
+
+.layout .section .status {
+  font-size: 15px;
+}
+.layout {
+  display: flex;
+  height: 100vh;
+}
+}
+
+
