@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="main-sidebar.css">
+</head>
+<body>
+  
+
+<!-- OVERLAY (for mobile) -->
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- TOGGLE BUTTON -->
+<button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">☰</button>
+  <div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>NairaBank</h3>
+    <button class="close-btn" onclick="toggleSidebar()">✕</button>
+  </div>
+
+  <div class="sidebar-menu">
+    <a href="login-user.html" class="menu-item">
+      <img src="img/dashboard.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Dashboard</span>
+    </a>
+    <a href="full-history.html" class="menu-item">
+         <img src="img/file.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">History</span>
+    </a>
+    <a href="/transaction.html" class="menu-item">
+           <img src="img/transfer.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Transfer</span>
+    </a>
+    <a href="/deposit.html" class="menu-item">
+   <img src="img/donation.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Deposit</span>
+    </a>
+    <a href="/create-pin.html" class="menu-item">
+         <img src="img/key.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Create PIN</span>
+    </a>
+
+     <a href="/create-pin.html" class="menu-item">
+    <img src="img/settings.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
+      <span class="label">Settings</span>
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <a href="#" class="menu-item logout-item" onclick="logout()">
+      <h4 class="label">Logout</h4>
+    </a>
+  </div>
+</div>
+
+
+<script src="main-siderbar.js"></script>
+</body>
+</html>
