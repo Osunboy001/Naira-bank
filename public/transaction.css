@@ -126,7 +126,7 @@ body {
 .nb-card-accent {
   width: 4px; height: 22px;
   border-radius: 2px;
-  background: linear-gradient(180deg, var(--green), var(--blue));
+  background:#2d9cdb; 
 }
 
 /* ── FIELDS ── */

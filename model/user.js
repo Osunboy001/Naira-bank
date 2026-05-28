@@ -60,7 +60,21 @@ verificationToken: {
   type: String,
   default: null  
 }
+,
+resetOTP: {
+  type: String,
+  default: null
+},
 
+resetOTPExpiry: {
+  type: Date,
+  default: null
+},
+
+isOTPVerified: {
+  type: Boolean,
+  default: false
+}
 
 });
 
@@ -80,7 +94,7 @@ userSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// FIXED — only one createJWT
+
 userSchema.methods.createJWT = function() {
   return jwt.sign(
     { userId: this._id, name: this.name, role: this.role },

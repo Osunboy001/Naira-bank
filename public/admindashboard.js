@@ -34,7 +34,6 @@ function searchUser() {
 async function loadUsers() {
   try {
   
-
     const res = await fetch(`${BASE_URL}/admin/users`, {
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +85,7 @@ async function loadStats() {
 
     const res = await fetch(`${BASE_URL}/admin/stats`, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       credentials: "include",
     })

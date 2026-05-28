@@ -1,160 +1,184 @@
-
-
-
-.section {
-  position: relative;
-  margin: 0 20px 20px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-}
-
-.section h3 {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 16px;
-}
-
-
-
-.toAmount{
-display: flex;
-justify-content: space-between;
-
-
-}
-
-
-.toAmount h2 {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.dateStatus .status {
-  color: rgb(6, 146, 6);
-  background-color: rgb(193, 250, 193);
-
-
-
-}
-
-.dateStatus .date {
-  color: rgba(0, 0, 0, 0.507);
-  font-size: 11px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.dateStatus {
-  display: flex;
-  justify-content: space-between;
-}
-
-
-/* 
-  <div class="toAmount">
-    
-   <h5> ${message}</h5>
-
-
-     <h3 >${amount}</h3>
-   </div>
-
-    <div class="dateStatus">
-     <h5 class="date">${new Date(transaction.date).toLocaleString()}</h5>
-     <h4 class="status">${transaction.status}</h4> */
-
-
-.layout .section .date {
-  font-size: 16px;
-}
-.layout .section h3 {
-  font-size: 20px;
-}
+/* LAYOUT */
 .layout {
   display: flex;
-  height: 100vh;
-}
-
-.section {
-  flex: 1;
-  padding: 20px;
+  min-height: 100vh;
 }
 
 #sidebar-container {
-  width: 250px;
-}
-.section h5 {
-  font-size: 26PX;
-}
-.section h3 {
-  font-size: 30px;
-}
-.section .date {
-  font-size: 18px;
+  width: 280px;
+ 
 }
 
-.section .status {
-  font-size: 23px;
+.main-content {
+  flex: 1;
+
+  padding: 20px;
 }
-.view {
-    padding: 5px 8px;
-  font-weight: 500;
-position: abe;
-  text-decoration: none;
-  border: 8px, solid, color(#2d9cdb) ;
-  border-radius: 7px;
+
+/* FILTER SECTION - STAYS ALWAYS! */
+.filter-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+.filter-btn {
+  padding: 10px 16px;
+  border: 2px solid rgb(45, 156, 219);
+  background: white;
+  color: rgb(45, 156, 219);
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  background: rgb(45, 156, 219);
   color: white;
- right: 0;
- bottom: 185px;
-background-color:#2d9cdb ;
-font-size: 32px;
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background: rgb(45, 156, 219);
+  color: white;
 
 }
 
+/* TRANSACTIONS SECTION */
+.section {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
 
+/* TRANSACTION ITEM */
+.toAmount {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+}
 
+.toAmount > div {
+  flex: 1;
+}
 
+.toAmount h5 {
+  font-size: 15px;
+  color: #333;
+  margin: 8px 0 0 0;
+  font-weight: 500;
+}
 
+.toAmount h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(45, 156, 219);
+  margin: 0;
+  white-space: nowrap;
+}
 
+/* VIEW BUTTON */
+.view {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgb(45, 156, 219);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-right: 10px;
+}
 
+.view:hover {
+  background: rgb(29, 124, 174);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(45, 156, 219, 0.3);
+}
 
+/* DATE & STATUS */
+.dateStatus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
 
-@media (max-width: 600px) {
+.dateStatus .date {
+  color: #999;
+}
 
+.dateStatus .status {
+  background: rgb(193, 250, 193);
+  color: rgb(6, 146, 6);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* DIVIDER */
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 12px 0;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
   .layout {
-    display: flex;
     flex-direction: column;
-    height: auto;
   }
-
 
   #sidebar-container {
-    width: 100%; /* full width on mobile */
-  }
-
-  .sidebar {
     width: 100%;
   }
-  
 
-.layout .section .date {
-  font-size: 16px;
-}
-.layout .section h3 {
-  font-size: 17px;
-}
-.layout .section h5 {
-  font-size: 17px;
-}
+  .main-content {
+    padding: 15px;
+  }
 
-.layout .section .status {
-  font-size: 15px;
-}
-.layout {
-  display: flex;
-  height: 100vh;
-}
-}
+  .filter-section {
+    margin-bottom: 15px;
+  }
 
+  .filter-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
 
+  .toAmount {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toAmount h3 {
+    font-size: 18px;
+  }
+
+  .toAmount h5 {
+    font-size: 14px;
+  }
+
+  .dateStatus {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

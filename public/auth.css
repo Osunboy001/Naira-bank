@@ -517,7 +517,10 @@ background-color:#2d9cdb ;
   .balance h1 { 
     font-size: 32px;
    }
+  .balance { 
 
+   
+  }
   .section {
      margin: 0 14px 14px;
      }
@@ -737,4 +740,151 @@ background-color:#2d9cdb ;
   .topbar {
     margin-left: 0;
   }
+}
+
+
+
+
+/* Forgetting password modal */
+
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-step {
+  display: block;
+}
+
+.modal-step.hidden {
+  display: none;
+}
+
+.modal-step h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: rgb(45, 156, 219);
+}
+
+.modal-step p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.modal-step input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.modal-step input:focus {
+  outline: none;
+  border-color: rgb(45, 156, 219);
+  box-shadow: 0 0 5px rgba(45, 156, 219, 0.3);
+}
+
+.modal-step button {
+  width: 100%;
+  padding: 12px;
+  background: rgb(45, 156, 219);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-step button:hover {
+  background: rgb(29, 124, 174);
+  transform: translateY(-2px);
+}
+
+#emailMessage,
+#otpMessage,
+#passwordMessage {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+}
+
+#emailMessage.error,
+#otpMessage.error,
+#passwordMessage.error {
+  color: #e74c3c;
+}
+
+#emailMessage.success,
+#otpMessage.success,
+#passwordMessage.success {
+  color: #27ae60;
 }

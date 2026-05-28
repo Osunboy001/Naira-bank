@@ -8,6 +8,7 @@
 </head>
 <body>
 
+
 <div class="layout-wrapper">
 
   <!-- LEFT -->
@@ -61,7 +62,13 @@
 </label>
  
       <button class="login-button" onclick="login()">Login</button>
+ <p style="text-align: center; margin-top: 15px;">
+  <a href="#" onclick="openForgotModal(event)" style="color: rgb(45, 156, 219); text-decoration: none; font-size: 14px;">
+    Forgot Password?
+  </a>
+</p>
       <p onclick="showSignup()">Create account</p>
+    
       <div id="loginResult"></div>
     </div>
 
@@ -85,12 +92,40 @@
 </div>
 
 
+
+<!-- FORGOT PASSWORD MODAL -->
+<div id="forgotPasswordModal" class="modal hidden">
+  <div class="modal-overlay" onclick="closeForgotModal()"></div>
+  
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeForgotModal()">✕</button>
+    
+    <!-- EMAIL STEP -->
+    <div id="emailStep" class="modal-step">
+      <h2>Forgot Password?</h2>
+      <p>Enter your email to receive an OTP</p>
+      <input type="email" id="forgotEmail" placeholder="Enter your email">
+      <button onclick="submitForgotEmail()">Send OTP</button>
+      <p id="emailMessage"></p>
+    </div>
+    
+
+    
+  
+  </div>
+</div>
  
 
+
+
+
+
+ 
 
 <!-- DASHBOARD — hidden by default -->
 <div id="dashboardPage" class="hidden">
- 
+ <div id="sidebar-container"></div>
+
   <!-- TOP BAR — added avatar -->
   <div class="topbar">
     <div class="user">
@@ -177,52 +212,7 @@
   -->
   <!-- TRANSACTIONS -->
 <!-- SIDEBAR (OUTSIDE dashboard) -->
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-header">
-    <h3>NairaBank</h3>
-    <button class="close-btn" onclick="toggleSidebar()">✕</button>
-  </div>
 
-  <div class="sidebar-menu">
-    <a href="#" class="menu-item">
-      <img src="img/dashboard.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
-      <span class="label">Dashboard</span>
-    </a>
-    <a href="#" class="menu-item">
-         <img src="img/file.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
-      <span class="label">History</span>
-    </a>
-    <a href="/transaction.html" class="menu-item">
-           <img src="img/transfer.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
-      <span class="label">Transfer</span>
-    </a>
-    <a href="/deposit.html" class="menu-item">
-   <img src="img/donation.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
-      <span class="label">Deposit</span>
-    </a>
-    <a href="/create-pin.html" class="menu-item">
-         <img src="img/key.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
-      <span class="label">Create PIN</span>
-    </a>
-
-     <a href="/create-pin.html" class="menu-item">
-    <img src="img/settings.png" alt="Send" width="25" height="25" style=" background-color: white; border-radius: 50%;">
-      <span class="label">Settings</span>
-    </a>
-  </div>
-
-  <div class="sidebar-footer">
-    <a href="#" class="menu-item logout-item" onclick="logout()">
-      <h4 class="label">Logout</h4>
-    </a>
-  </div>
-</div>
-
-<!-- OVERLAY (for mobile) -->
-<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
-
-<!-- TOGGLE BUTTON -->
-<button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">☰</button>
 
   <!-- ACTIONS -->
   <div class="actions">
@@ -240,7 +230,7 @@
     </div>
     <div class="action">
       <img src="img/document.png" alt="History" width="40" height="40">
-      <span>History</span>
+      <span><a style="text-decoration: none; color: black;" href="http://localhost:3000/full-history.html">History</a></span>
     </div>
   </div>
 </div>
@@ -257,6 +247,15 @@
 
 <!-- 0057027262 -->
  <!-- 0058424297 -->
+  <script>
+
+fetch('main-sidebar.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("sidebar-continer").innerHTML = data;
+  });
+
+</script>
 
 <script src="auth.js"></script>
 <!-- <script src="transaction-details.js"></script> -->

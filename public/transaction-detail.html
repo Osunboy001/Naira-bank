@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction Receipt - NairaBank</title>
+  <link rel="stylesheet" href="transaction details.css">
+</head>
+<body>
+
+<div class="receipt-container">
+  <!-- RECEIPT HEADER -->
+  <div class="receipt-header">
+    <h1>NairaBank</h1>
+    <p>Nigeria's Smartest Bank</p>
+  </div>
+
+  <!-- RECEIPT CONTENT -->
+  <div class="receipt-card">
+    <!-- TRANSACTION TYPE -->
+    <div class="transaction-type" id="transactionType">
+      MONEY RECEIVED 
+    </div>
+
+    <!-- MAIN AMOUNT -->
+    <div class="amount-section">
+       <p id="transactionLabel"></p>
+      <h2 id="amount"></h2>
+     
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider"></div>
+
+    <!-- TRANSACTION DETAILS -->
+    <div class="details-section">
+      <div class="detail-row">
+        <span class="detail-label">Reference:</span>
+        <span class="detail-value" id="reference">6a0ea35cf533686f4c7fb89d</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Date & Time:</span>
+        <span class="detail-value" id="dateTime">20/05/2026 7:34 PM</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Status:</span>
+        <span class="detail-value status-success" id="status">✓ Completed</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Type:</span>
+        <span class="detail-value" id="type">Bank Transfer</span>
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider"></div>
+
+    <!-- PARTIES SECTION -->
+    <div class="parties-section">
+      <div class="party">
+        <h4>FROM</h4>
+        <p class="party-name" id="fromName">Samuel Okonkwo</p>
+        <p class="party-account" id="fromAccount">0052271018</p>
+      </div>
+
+      <div>      <img src="img/right-arrow-removebg-preview.png" alt="Send" width="25" height="25" ></div>
+
+      <div class="party">
+        <h4>TO</h4>
+        <p class="party-name" id="toName">Ifeoluwa Morakinyo</p>
+        <p class="party-account" id="toAccount">0057027262</p>
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider"></div>
+
+    <!-- ADDITIONAL INFO -->
+    <div class="info-section">
+      <div class="info-row">
+        <span>Transaction ID:</span>
+        <span id="txId">6a0ca9675fb60c8c4a2daafd</span>
+      </div>
+      <div class="info-row">
+        <span>Account Type:</span>
+        <span>Savings Account</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="receipt-actions">
+    <button class="btn btn-print" onclick="window.print()"> Print</button>
+    <button class="btn btn-share"> Share</button>
+    <button class="btn btn-back" onclick="window.history.back()"> Back</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="receipt-footer">
+    <p>This is an official NairaBank receipt</p>
+    <p>Keep this for your records</p>
+    <p style="font-size: 11px; margin-top: 10px; color: #999;">
+      For support: nairabank9@gmail.com | 24/7 Help
+    </p>
+  </div>
+</div>
+
+<script src="transaction-details.js"></script>
+</body>
+</html>
+

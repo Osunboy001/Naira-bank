@@ -3,20 +3,23 @@ const express = require('express');
 const cors = require('cors'); 
 const app = express();
 const connectDB = require('./db/connect')
-const cookieParser = require('cookie-parser')
+
 
 app.use(cors());     
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(cookieParser())
+
+
+
 app.use(express.static('./public'))
 
+app.use('/img', express.static(__dirname + '/img'));
 const home = require('./router/home')
 const adminEdit = require('./router/admin-edit')
 const users = require('./router/users')
 const auth = require('./router/auth')
 const adminDashboard = require('./router/admindashboard')
-const transaction = require('./router/trasanction')
+const transaction = require('./router/transaction')
 const deposit = require('./router/payment-deposit')
 
 app.use('/api/v1/users', users)

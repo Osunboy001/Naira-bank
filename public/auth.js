@@ -79,18 +79,28 @@ async function signup() {
 
 async function loadDashboard() {
   const data = await request("/dashboard", "GET");
+    localStorage.setItem("myuser", JSON.stringify(data))
   if (!data) return logout();
-  renderDashboard(data);
+  renderDashboard();
   showBalance(data)
+
 }
 
-function renderDashboard(data) {
-  const avatarName = data.user?.name || data.name || "User";
+
+ 
+function renderDashboard() {
+  const cacheUser = JSON.parse(localStorage.getItem("myuser"))
+  console.log('this is the catche:', cacheUser)
+  if(cacheUser) {
+    const user = cacheUser
+console.log('this is the user:', user)
+  const avatarName = user.name
   const avatarLetter = avatarName.charAt(0).toUpperCase();
   document.getElementById("avatarInitial").textContent = avatarLetter;
-  document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${data.user?.name.toUpperCase() || data.name.toUpperCase()}</h1>`;
-  document.querySelector("#balance").textContent = ` #${data.balance.toLocaleString()} `;
-  document.querySelector("#accountnumber").textContent = `  AccountNo:${data.accountnumber} `;
+  document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${user.name.toUpperCase() || user.name.toUpperCase()}</h1>`;
+  document.querySelector("#balance").textContent = ` #${user.balance.toLocaleString()} `;
+  document.querySelector("#accountnumber").textContent = `  AccountNo:${user.accountnumber} `;
+}
 }
 
 function showDashboard() {
@@ -98,6 +108,11 @@ function showDashboard() {
   document.getElementById("signupPage").classList.add("hidden");
   document.getElementById("dashboardPage").classList.remove("hidden")
   document.querySelector(".layout-wrapper").classList.add("hidden");
+    fetch('main-sidebar.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("sidebar-container").innerHTML = data;
+    });
 }
 
 function showLogin() {
@@ -209,9 +224,7 @@ console.log("FULL API RESPONSE:", data)
      
   await data.transactions.slice(0, 3).forEach(transaction => {
 
- 
-      
- `<a class="view" style="font-size: 8px;"href="/transaction-detail.html?id=${transaction.userId._id}">View</a>`
+
    console.log('my trans',transaction.amount)
    console.log('my trans',transaction.date)
    console.log('trans', transaction.direction)
@@ -251,11 +264,12 @@ amount = `+#${transaction.amount}`
 
     sections.innerHTML += `
     
- <a class="view" style="font-size: 8px;"href="/transaction-detail.html?id=${transaction.transactionId}">View</a>
+    <a class="view" style="font-size: 8px;"href="/transaction-detail.html?id=${transaction.transactionId}">View</a>
 
    <div class="toAmount">
     
    <h5> ${message}</h5>
+
 
      <h3 >${amount}</h3>
    </div>
@@ -263,6 +277,8 @@ amount = `+#${transaction.amount}`
     <div class="dateStatus">
      <h5 class="date">${new Date(transaction.date).toLocaleString()}</h5>
      <h4 class="status">${transaction.status}</h4>
+
+     
     </div>`
 })
 
@@ -317,6 +333,7 @@ balance.textContent = ` #${data.balance.toLocaleString()} `
 loadTransactionHistory()
 
 // SIDEBAR TOGGLEF
+// SIDEBAR TOGGLEF
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar')
   const overlay = document.getElementById('overlay')
@@ -344,4 +361,65 @@ document.addEventListener('keydown', (e) => {
   }
 })
 
+
+
+// OPEN MODAL
+function openForgotModal(e) {
+  e.preventDefault()
+  document.getElementById('forgotPasswordModal').classList.remove('hidden')
+  document.getElementById('emailStep').classList.remove('hidden')
+  document.getElementById('otpStep').classList.add('hidden')
+  document.getElementById('passwordStep').classList.add('hidden')
+}
+
+// CLOSE MODAL
+function closeForgotModal() {
+  document.getElementById('forgotPasswordModal').classList.add('hidden')
+  document.getElementById('emailMessage').textContent = ''
+  document.getElementById('otpMessage').textContent = ''
+  document.getElementById('passwordMessage').textContent = ''
+}
+
+// SUBMIT EMAIL
+async function submitForgotEmail() {
+  const email = document.getElementById('forgotEmail').value
+  const messageDiv = document.getElementById('emailMessage')
+  
+  if (!email) {
+    messageDiv.textContent = 'Please enter email'
+    messageDiv.className = 'error'
+    return
+  }
+  
+  try {
+    const res = await fetch(BASE_URL + '/auth/forgot-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ email })
+    })
+    
+    const data = await res.json()
+  
+    
+    if (!res.ok) {
+      messageDiv.textContent = data.message || 'Error'
+      messageDiv.className = 'error'
+      return
+    }
+    
+    messageDiv.textContent = 'OTP sent! Check your email'
+    messageDiv.className = 'success'
+    
+    // Show OTP step after 1 second
+    setTimeout(() => {
+      document.getElementById('emailStep').classList.add('hidden')
+      document.getElementById('otpStep').classList.remove('hidden')
+    }, 1000)
+    
+  } catch (err) {
+    messageDiv.textContent = 'Error: ' + err.message
+    messageDiv.className = 'error'
+  }
+}
 
