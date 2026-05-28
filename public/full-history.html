@@ -3,33 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Transaction History</title>
   <link rel="stylesheet" href="full-history.css">
   <link rel="stylesheet" href="auth.css">
 </head>
 <body>
   <div class="layout">
-  <div id="sidebar-container"></div>
+    <div id="sidebar-container"></div>
 
+    <div class="main-content">
 
+      <div class="filter-section">
+        <button class="filter-btn active" onclick="filterTransactions('all', event)">
+          All
+        </button>
+        <button class="filter-btn" onclick="filterTransactions('sent', event)">
+          Sent
+        </button>
+        <button class="filter-btn" onclick="filterTransactions('received', event)">
+           Received
+        </button>
+      </div>
 
-  <div class="section">
-
-
+      <!-- TRANSACTIONS (CHANGES WHEN FILTER CLICKED) -->
+      <div class="section"></div>
+    </div>
   </div>
-  </div>
-    
-<script>
 
-fetch('main-sidebar.html')
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("sidebar-container").innerHTML = data;
-  });
-
-</script>
+  <script>
+    fetch('main-sidebar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("sidebar-container").innerHTML = data;
+      });
+  </script>
 
   <script src="full-history.js"></script>
-
 </body>
 </html>
