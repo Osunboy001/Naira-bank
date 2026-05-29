@@ -19,8 +19,8 @@ const forgotPassword = async (req, res) => {
     const expiryTime = new Date(Date.now() + 60 * 60 * 1000)
 
     // Save token to user
-    userExists.resetOTP = resetToken
-    userExists.resetOTPExpiry = expiryTime
+    userExists.resetToken = resetToken
+    userExists.resetTokenExpiry = expiryTime
     userExists.isOTPVerified = false
     await userExists.save()
 
