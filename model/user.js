@@ -51,32 +51,27 @@ pin: {
   type: String,
   default: null
 },
+
 isVerified: {
   type: Boolean,
   default: false  
 },
 
-verificationToken: {
-  type: String,
-  default: null  
-}
-,
-resetOTP: {
-  type: String,
-  default: null
+resetToken: { 
+  type: String, 
+  default: null 
+
 },
 
-resetOTPExpiry: {
+resetTokenExpiry: {
   type: Date,
   default: null
 },
 
-isOTPVerified: {
-  type: Boolean,
-  default: false
-}
 
 });
+
+
 
 
 
