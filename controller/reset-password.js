@@ -23,14 +23,14 @@ const resetPassword = async (req, res) => {
     }
 
     // Find user by token
-    const user = await User.findOne({ resetOTP: token })
+    const user = await User.findOne({ resetToken: token })
     
     if (!user) {
       return res.status(404).json({ message: 'Invalid token' })
     }
 
     // Check if token expired
-    if (new Date() > user.resetOTPExpiry) {
+    if (new Date() > user.resetTokenExpiry) {
       return res.status(400).json({ message: 'Reset link expired. Request a new one' })
     }
 
@@ -38,9 +38,9 @@ const resetPassword = async (req, res) => {
 
     // Update user
     user.password = newPassword
-    user.resetOTP = null
-    user.resetOTPExpiry = null
-    user.isOTPVerified = false
+    user.resetToken = null
+    user.resetTokenExpiry = null
+  
     await user.save()
 
     return res.status(200).json({
