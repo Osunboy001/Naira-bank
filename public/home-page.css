@@ -28,7 +28,20 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
+            height: 100vh;
+            margin-bottom: 19px;
         }
+
+
+         .containers {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60vh;
+            margin-bottom: 19px;
+        }
+
+
 
         /* Navigation - Light */
         nav {
@@ -192,18 +205,25 @@
             color: #5A6B7F;
             line-height: 1.6;
             margin-bottom: 32px;
-            font-size: 1.05rem;
+            font-size: 1.9rem;
         }
 
         .image-placeholder {
             background: #F8FAFE;
             border-radius: 28px;
-            height: 440px;
+            height: 680px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid #E2E8F0;
             overflow: hidden;
+        }
+        .image-placeholder img {
+             display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;    /* Centers vertically */
+  height: 100vh;    
+  width: 600px;
         }
 
         .stats {
@@ -248,7 +268,7 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 14px;
             color: #1A1F36;
@@ -263,7 +283,7 @@
             text-align: center;
             color: #5A6B7F;
             margin-bottom: 56px;
-            font-size: 1rem;
+            font-size: 2rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -274,6 +294,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
             gap: 28px;
+            height: 80vh;
         }
 
         .feature-card-light {
@@ -306,10 +327,12 @@
 
         .feature-card-dark h3 {
             color: white;
+            font-size: 30px;
         }
 
         .feature-card-dark p {
             color: #94A3B8;
+            font-size: 18px;
         }
 
         .feature-icon {
@@ -360,6 +383,7 @@
         }
 
         .step {
+            height: 100vh;
             flex: 1;
             text-align: center;
             min-width: 200px;
@@ -396,6 +420,7 @@
         .step h3 {
             margin-bottom: 10px;
             font-weight: 600;
+            font-size: 38px;
         }
 
         .section-light .step p {
@@ -436,6 +461,7 @@
         }
 
         .testimonial-card-dark .author {
+            
             color: white;
         }
 
@@ -450,7 +476,7 @@
         .testimonial-card-dark p {
             line-height: 1.6;
             margin-bottom: 20px;
-            font-size: 0.95rem;
+            font-size: 2rem;
         }
 
         .author {
@@ -483,7 +509,7 @@
 
         .faq-question {
             padding: 18px 24px;
-            font-size: 1rem;
+            font-size: 2rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -521,7 +547,7 @@
             overflow: hidden;
             transition: all 0.3s ease;
             line-height: 1.6;
-            font-size: 0.9rem;
+            font-size: 1.3rem;
         }
 
         .faq-item-light .faq-answer {
@@ -741,7 +767,7 @@
             }
             
             .hero-title {
-                font-size: 2.2rem;
+                font-size:10px;
             }
             
             .stats {
