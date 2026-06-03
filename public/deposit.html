@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deposit - NairaBank</title>
     <link rel="stylesheet" href="deposit.css">
+
 </head>
 <body>
+        <div id="sidebar-container"></div>
     <div class="deposit-container">
         <div class="deposit-card">
             <h1>Deposit Money</h1>
@@ -55,7 +57,19 @@
             </div>
         </div>
     </div>
+    
+
+
+        <script>
+    fetch('main-sidebar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("sidebar-container").innerHTML = data;
+      });
+  </script>
+
 
     <script src="deposit.js"></script>
+
 </body>
 </html>
