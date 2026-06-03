@@ -68,7 +68,10 @@ resetTokenExpiry: {
   default: null
 },
 
-
+  profilePicture: {
+    type: String,
+    default: null  
+  }
 });
 
 
