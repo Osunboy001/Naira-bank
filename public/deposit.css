@@ -14,9 +14,39 @@ body {
     padding: 20px;
 }
 
+
+/* LAYOUT */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+#sidebar-container {
+  width: 280px;
+ 
+}
+
+
+@media (max-width: 770px) {
+    
+#sidebar-container {
+  width: 2px;
+ 
+}
+
+}
+
+.main-content {
+  flex: 1;
+
+  padding: 20px;
+}
+
 .deposit-container {
     width: 100%;
-    max-width: 450px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .deposit-card {
