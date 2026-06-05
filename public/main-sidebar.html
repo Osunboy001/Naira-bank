@@ -15,7 +15,7 @@
 <!-- TOGGLE BUTTON -->
 <button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">☰</button>
   <div class="sidebar" id="sidebar">
-  <div class="sidebar-header">
+  <div class="sideba-header">
     <h3>NairaBank</h3>
     <button class="close-btn" onclick="toggleSidebar()">✕</button>
   </div>
@@ -54,7 +54,13 @@
     </a>
   </div>
 </div>
-
+  <script>
+    fetch('main-sidebar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("sidebar-container").innerHTML = data;
+      });
+  </script>
 
 <script src="main-siderbar.js"></script>
 </body>
