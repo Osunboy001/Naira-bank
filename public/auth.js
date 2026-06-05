@@ -1,4 +1,4 @@
-const BASE_URL ="http://localhost:3000/api/v1"
+const BASE_URL ="https://banking-webapp-9y8z.onrender.com"
 
 async function request(endpoint, method, body) {
   try {
@@ -289,7 +289,7 @@ amount = `+#${transaction.amount}`
 }
 catch (error) {
   console.error("Error fetching transactions:", error);
-  sections.innerHTML = `<p>Error loading transactions   ${error.message}</p>`
+  sections.innerHTML = `<p>Error loading transactions</p>`
 }
 
 
