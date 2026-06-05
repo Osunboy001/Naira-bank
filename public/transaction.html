@@ -7,15 +7,7 @@
   <link rel="stylesheet" href="transaction.css">
 </head>
 <body>
-
-  <!-- HEADER -->
-  <header class="nb-header">
-    <div class="nb-logo-circle">N</div>
-    <div>
-      <div class="nb-logo-text">NairaBank</div>
-      <div class="nb-logo-sub">Secure Transfers</div>
-    </div>
-  </header>
+<div id="sidebar-container"></div>
 
   <!-- BALANCE BAR -->
   <div class="nb-balance-bar">
@@ -253,6 +245,15 @@
     </div>
 
   </main>
+  
+
+    <script>
+    fetch('main-sidebar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("sidebar-container").innerHTML = data;
+      });
+  </script>
 
   <script src="transaction.js"></script>
 </body>
