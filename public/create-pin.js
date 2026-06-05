@@ -1,4 +1,4 @@
-const BASE_URL ="http://localhost:3000/api/v1"
+const BASE_URL ="https://banking-webapp-9y8z.onrender.com"
 
 
 // CEEATE A FUNTION TO TOKEN SO THAT IT CAN BE REUSEABLE
@@ -168,3 +168,39 @@ function goToTransfer() {
 function goToDashboard() {
   window.location.href = "transaction.html"
 }
+
+
+
+
+//  SIDEBAR TOGGLE
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar')
+  const overlay = document.getElementById('overlay')
+  
+  sidebar.classList.toggle('active')
+  overlay.classList.toggle('active')
+}
+
+// Close sidebar when clicking menu item (mobile)
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      toggleSidebar()
+    }
+  })
+})
+
+// Close sidebar on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const sidebar = document.getElementById('sidebar')
+    const overlay = document.getElementById('overlay')
+    sidebar.classList.remove('active')
+    overlay.classList.remove('active')
+  }
+})
+
+
+
+
+

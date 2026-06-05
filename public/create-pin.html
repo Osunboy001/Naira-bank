@@ -9,13 +9,8 @@
 <body>
 
   <!-- HEADER -->
-  <header class="nb-header">
-    <div class="nb-logo-circle">N</div>
-    <div>
-      <div class="nb-logo-text">NairaBank</div>
-      <div class="nb-logo-sub">Create Transfer PIN</div>
-    </div>
-  </header>
+       <div id="sidebar-container"></div>
+ 
 
   <main class="nb-main">
 
@@ -146,6 +141,18 @@
     </div>
 
   </main>
+
+
+    
+
+
+        <script>
+    fetch('main-sidebar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("sidebar-container").innerHTML = data;
+      });
+  </script>
 
   <script src="create-pin.js"></script>
 </body>

@@ -1,5 +1,6 @@
 const BASE_URL = 'http://localhost:3000/api/v1'
 
+// Should show ID, NOT undefined!
 let allTransactions = []
 
 // FILTER FUNCTION
@@ -48,7 +49,9 @@ function displayTransactions(transactions) {
     sections.innerHTML += `
       <div class="toAmount">
         <div>
-          <a class="view" href="/transaction-detail.html?id=${transaction._id}">View</a>
+          <a class="view" href="/transaction-detail.html?id=${transaction.transactionId}">View</a>
+         
+
           <h5>${message}</h5>
         </div>
         <h3>${amount}</h3>
