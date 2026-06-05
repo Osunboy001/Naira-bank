@@ -1,311 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NairaBank | Modern Digital Banking</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
- <link rel="stylesheet" href="home-page.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NairaBank | Modern Digital Banking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="home-page.css">
 </head>
 <body>
 
 <nav>
-    <div class="logo">
-            <img width="50px" height="50px" border-radius='50%' src="./img/Gemini_Generated_Image_d0vbfkd0vbfkd0vb.png" alt="">
-    </div>
-    <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#testimonials">Reviews</a>
-        <a href="http://localhost:3000/login-user.html" class="nav-btn">Get Started</a>
-    </div>
+  <div class="logo">
+    <div class="logo-icon">₦</div>
+    <div class="logo-text">Naira<span>Bank</span></div>
+  </div>
+
+  <!-- Hamburger for mobile -->
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="http://localhost:3000/login-user.html" class="nav-btn">Get Started</a>
+  </div>
 </nav>
 
 <main>
-    <!-- Hero Section - LIGHT -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="fade-up">
-                    <div class="hero-title"> <h2><span style="color: #2D9CDB;"> Banking</span> that finally <span>works</span> for you </h2></div>
-                    <div class="hero-desc">Send money instantly, create virtual cards, track spending, and grow your savings. Join over 500,000 Nigerians using NairaBank every day.</div>
-                    <div>
-                        <a href="https://banking-webapp-9y8z.onrender.com/login-user.html" class="btn-primary">Open account free →</a>
-                        <a href="#" class="btn-outline-light">See how it works</a>
-                    </div>
-                    <div class="stats">
-                        <div class="stat"><h3>500k+</h3><p>Active users</p></div>
-                        <div class="stat"><h3>50+</h3><p>Banks connected</p></div>
-                        <div class="stat"><h3>₦10B+</h3><p>Processed</p></div>
-                    </div>
-                </div>
-                <div class="image-placeholder fade-up">
-                <img src="./img/Gemini_Generated_Image_6b0dc46b0dc46b0d (1).png" alt="">
-                </div>
-            </div>
+
+  <!-- ── HERO ── -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="fade-up">
+          <div class="section-label">🇳🇬 Built for Nigeria</div>
+          <div class="hero-title">
+            <h2><span style="color:#2D9CDB;">Banking</span> that finally works for&nbsp;you</h2>
+          </div>
+          <p class="hero-desc">Send money instantly, create virtual cards, track spending, and grow your savings. Join over 500,000 Nigerians using NairaBank every day.</p>
+          <div class="hero-ctas">
+            <a href="https://banking-webapp-9y8z.onrender.com/login-user.html" class="btn-primary">Open account free →</a>
+            <a href="#how-it-works" class="btn-outline-light">See how it works</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><h3>500k+</h3><p>Active users</p></div>
+            <div class="stat"><h3>50+</h3><p>Banks connected</p></div>
+            <div class="stat"><h3>₦10B+</h3><p>Processed</p></div>
+          </div>
         </div>
-    </section>
-
-<!-- 
-     <div class="balance">
- 
-  <h3>Total Balance</h3>
-  <div class="totalbalance">
-    <h1 id="balance">₦0.00 </h1>
-
-        <div class="balance view">
-
-    <button> <img src="img/view-removebg-preview.png" alt="Send" width="25" height="25";</button>
-     <button> <img src="img/hide-removebg-preview.png" alt="Send" width="25" height="25"; </img> </button>
-
-      </div> 
-  </div>
- 
-  
- 
-
-
-    
-   
-<div class="admoney">
-  <a class="add" href="deposit.html">
-    <span>&#43;</span> Add Money
-  </a>
-  <a class="trans" href="transaction.html">
-    <span>&#8594;</span> Transfer
-  </a>
-</div>
-
-  </div>
-
-  </div>
-
-  <div class="section">
-    
-  
-
-
-
-   </div> -->
-
-    <!-- Features Section - DARK -->
-    <section id="features" class="section-dark">
-        <div class="container">
-            <h2 class="section-title fade-up">Everything you need <span>in one place</span></h2>
-            <p class="section-subtitle fade-up">Powerful features designed to make managing your money effortless</p>
-            <div class="features-grid">
-                <div class="feature-card-dark fade-up">
-                    <div class="feature-icon-dark"><i class="fas fa-paper-plane"></i></div>
-                    <h3>Send & receive money</h3>
-                    <p>Instant transfers to any bank in Nigeria with zero fees. Send to friends, family, or vendors in seconds.</p>
-                </div>
-                <div class="feature-card-dark fade-up">
-                    <div class="feature-icon-dark"><i class="fas fa-credit-card"></i></div>
-                    <h3>Virtual cards</h3>
-                    <p>Create secure virtual cards instantly for online shopping. Set limits and lock cards with one tap.</p>
-                </div>
-                <div class="feature-card-dark fade-up">
-                    <div class="feature-icon-dark"><i class="fas fa-chart-line"></i></div>
-                    <h3>Smart spending insights</h3>
-                    <p>See exactly where your money goes with automatic categorization and beautiful charts.</p>
-                </div>
-                <div class="feature-card-dark fade-up">
-                    <div class="feature-icon-dark"><i class="fas fa-piggy-bank"></i></div>
-                    <h3>Save automatically</h3>
-                    <p>Set savings goals and let NairaBank save for you automatically. Earn competitive interest rates.</p>
-                </div>
-                <div class="feature-card-dark fade-up">
-                    <div class="feature-icon-dark"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Bank-grade security</h3>
-                    <p>256-bit encryption, biometric login, and real-time fraud protection keep your money safe.</p>
-                </div>
-                <div class="feature-card-dark fade-up">
-                    <div class="feature-icon-dark"><i class="fas fa-headset"></i></div>
-                    <h3>24/7 customer support</h3>
-                    <p>Got questions? Our support team is here to help anytime, day or night.</p>
-                </div>
-            </div>
+        <div class="image-placeholder fade-up">
+          <img src="./img/Gemini_Generated_Image_6b0dc46b0dc46b0d (1).png" alt="NairaBank app preview">
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- How It Works Section - LIGHT -->
-    <section id="how-it-works" class="section-light">
-        <div class="containers">
-            <h2 class="section-title fade-up">Get started in <span>3 minutes</span></h2>
-            <p class="section-subtitle fade-up">No paperwork. No long queues. Just your phone.</p>
-            <div class="steps">
-                <div class="step fade-up">
-                    <div class="step-number-light">1</div>
-                    <h3>Download the app</h3>
-                    <p>Get NairaBank from App Store or Google Play for free</p>
-                </div>
-                <div class="step fade-up">
-                    <div class="step-number-light">2</div>
-                    <h3>Verify your identity</h3>
-                    <p>Quick BVN verification — takes less than 2 minutes</p>
-                </div>
-                <div class="step fade-up">
-                    <div class="step-number-light">3</div>
-                    <h3>Start banking</h3>
-                    <p>Send money, create cards, and start saving instantly</p>
-                </div>
-            </div>
+  <!-- ── FEATURES ── -->
+  <section id="features" class="section-dark">
+    <div class="container">
+      <div class="section-label fade-up">Features</div>
+      <h2 class="section-title fade-up">Everything you need <span>in one place</span></h2>
+      <p class="section-subtitle fade-up">Powerful tools designed to make managing your money effortless</p>
+      <div class="features-grid">
+        <div class="feature-card-dark fade-up">
+          <div class="feature-icon-dark"><i class="fas fa-paper-plane"></i></div>
+          <h3>Send &amp; receive money</h3>
+          <p>Instant transfers to any bank in Nigeria with zero fees. Send to friends, family, or vendors in seconds.</p>
         </div>
-    </section>
+        <div class="feature-card-dark fade-up">
+          <div class="feature-icon-dark"><i class="fas fa-credit-card"></i></div>
+          <h3>Virtual cards</h3>
+          <p>Create secure virtual cards instantly for online shopping. Set limits and lock cards with one tap.</p>
+        </div>
+        <div class="feature-card-dark fade-up">
+          <div class="feature-icon-dark"><i class="fas fa-chart-line"></i></div>
+          <h3>Smart spending insights</h3>
+          <p>See exactly where your money goes with automatic categorization and beautiful charts.</p>
+        </div>
+        <div class="feature-card-dark fade-up">
+          <div class="feature-icon-dark"><i class="fas fa-piggy-bank"></i></div>
+          <h3>Save automatically</h3>
+          <p>Set savings goals and let NairaBank save for you automatically. Earn competitive interest rates.</p>
+        </div>
+        <div class="feature-card-dark fade-up">
+          <div class="feature-icon-dark"><i class="fas fa-shield-alt"></i></div>
+          <h3>Bank-grade security</h3>
+          <p>256-bit encryption, biometric login, and real-time fraud protection keep your money safe.</p>
+        </div>
+        <div class="feature-card-dark fade-up">
+          <div class="feature-icon-dark"><i class="fas fa-headset"></i></div>
+          <h3>24/7 customer support</h3>
+          <p>Got questions? Our support team is here to help anytime, day or night.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Testimonials Section - DARK -->
-    <section id="testimonials" class="section-dark">
-        <div class="container">
-            <h2 class="section-title fade-up">Loved by <span>Nigerians</span> everywhere</h2>
-            <p class="section-subtitle fade-up">Don't just take our word for it</p>
-            <div class="testimonials-grid">
-                <div class="testimonial-card-dark fade-up">
-                    <div class="stars">★★★★★</div>
-                    <p>"I've tried several banking apps, but NairaBank is different. The virtual cards alone have made online shopping so much safer for me."</p>
-                    <div class="author">Adaobi N., Lagos <span style="color:#94A3B8;">- Business owner</span></div>
-                </div>
-                <div class="testimonial-card-dark fade-up">
-                    <div class="stars">★★★★★</div>
-                    <p>"The instant transfer feature is a lifesaver. No more waiting hours for money to reflect. And the UI is beautiful."</p>
-                    <div class="author">Tunde O., Abuja <span style="color:#94A3B8;">- Software engineer</span></div>
-                </div>
-                <div class="testimonial-card-dark fade-up">
-                    <div class="stars">★★★★★</div>
-                    <p>"NairaBank helped me save ₦500k in 6 months without even thinking about it. The automatic savings feature is genius."</p>
-                    <div class="author">Chioma E., PH <span style="color:#94A3B8;">- Freelancer</span></div>
-                </div>
-            </div>
+  <!-- ── HOW IT WORKS ── -->
+  <section id="how-it-works" class="section-light">
+    <div class="containers">
+      <div class="section-label fade-up" style="display:block;text-align:center;">Simple Process</div>
+      <h2 class="section-title fade-up">Get started in <span>3 minutes</span></h2>
+      <p class="section-subtitle fade-up">No paperwork. No long queues. Just your phone.</p>
+      <div class="steps">
+        <div class="step fade-up">
+          <div class="step-number-light">1</div>
+          <h3>Download the app</h3>
+          <p>Get NairaBank from App Store or Google Play for free</p>
         </div>
-    </section>
+        <div class="step fade-up">
+          <div class="step-number-light">2</div>
+          <h3>Verify your identity</h3>
+          <p>Quick BVN verification — takes less than 2 minutes</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-number-light">3</div>
+          <h3>Start banking</h3>
+          <p>Send money, create cards, and start saving instantly</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Security Section - LIGHT -->
-    <section class="section-light">
-        <div class="containers">
-            <h2 class="section-title fade-up">Your money is <span>safe</span> with us</h2>
-            <p class="section-subtitle fade-up">We take security seriously so you don't have to worry</p>
-            <div class="security-grid">
-                <div class="security-card-light fade-up">
-                    <i class="fas fa-lock"></i>
-                    <h3>256-bit encryption</h3>
-                    <p>Military-grade encryption for all your transactions and personal data</p>
-                </div>
-                <div class="security-card-light fade-up">
-                    <i class="fas fa-fingerprint"></i>
-                    <h3>Biometric login</h3>
-                    <p>Use Face ID or fingerprint for secure, fast access to your account</p>
-                </div>
-                <div class="security-card-light fade-up">
-                    <i class="fas fa-shield-virus"></i>
-                    <h3>Real-time fraud protection</h3>
-                    <p>Our AI monitors transactions 24/7 and alerts you instantly</p>
-                </div>
-            </div>
+  <!-- ── TESTIMONIALS ── -->
+  <section id="testimonials" class="section-dark">
+    <div class="container">
+      <div class="section-label fade-up">Reviews</div>
+      <h2 class="section-title fade-up">Loved by <span>Nigerians</span> everywhere</h2>
+      <p class="section-subtitle fade-up">Don't just take our word for it</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card-dark fade-up">
+          <div class="stars">★★★★★</div>
+          <p>"I've tried several banking apps, but NairaBank is different. The virtual cards alone have made online shopping so much safer for me."</p>
+          <div class="author">Adaobi N., Lagos <span style="color:#6B8099;">— Business owner</span></div>
         </div>
-    </section>
+        <div class="testimonial-card-dark fade-up">
+          <div class="stars">★★★★★</div>
+          <p>"The instant transfer feature is a lifesaver. No more waiting hours for money to reflect. And the UI is absolutely beautiful."</p>
+          <div class="author">Tunde O., Abuja <span style="color:#6B8099;">— Software engineer</span></div>
+        </div>
+        <div class="testimonial-card-dark fade-up">
+          <div class="stars">★★★★★</div>
+          <p>"NairaBank helped me save ₦500k in 6 months without even thinking about it. The automatic savings feature is genius."</p>
+          <div class="author">Chioma E., PH <span style="color:#6B8099;">— Freelancer</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- FAQ Section - DARK -->
-    <section id="faq" class="section-dark">
-        <div class="container">
-            <h2 class="section-title fade-up">Questions? <span>Answers.</span></h2>
-            <p class="section-subtitle fade-up">Everything you need to know about NairaBank</p>
-            <div class="faq-container">
-                <div class="faq-item-dark fade-up">
-                    <div class="faq-question">What is NairaBank? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">NairaBank is a digital banking platform that lets you send money, create virtual cards, track your spending, and save money — all from one app. We're building banking that actually works for Nigerians.</div>
-                </div>
-                <div class="faq-item-dark fade-up">
-                    <div class="faq-question">Is NairaBank safe to use? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Absolutely. We use bank-grade 256-bit encryption, biometric authentication, and real-time fraud detection. Your money and data are protected at all times.</div>
-                </div>
-                <div class="faq-item-dark fade-up">
-                    <div class="faq-question">How do I open an account? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Download the NairaBank app from the App Store or Google Play, enter your phone number, verify your BVN, and you're ready to go. Takes less than 5 minutes.</div>
-                </div>
-                <div class="faq-item-dark fade-up">
-                    <div class="faq-question">Are there any hidden fees? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">No. We believe in transparent banking. What you see is what you get. No surprise charges, ever.</div>
-                </div>
-                <div class="faq-item-dark fade-up">
-                    <div class="faq-question">Can I get a physical debit card? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Yes! Every NairaBank account comes with a free physical debit card delivered to your doorstep. You can also create virtual cards instantly for online shopping.</div>
-                </div>
-            </div>
+  <!-- ── SECURITY ── -->
+  <section class="section-light">
+    <div class="containers">
+      <div class="section-label fade-up" style="display:block;text-align:center;">Security</div>
+      <h2 class="section-title fade-up">Your money is <span>safe</span> with us</h2>
+      <p class="section-subtitle fade-up">We take security seriously so you don't have to worry</p>
+      <div class="security-grid">
+        <div class="security-card-light fade-up">
+          <i class="fas fa-lock"></i>
+          <h3>256-bit encryption</h3>
+          <p>Military-grade encryption for all your transactions and personal data</p>
         </div>
-    </section>
+        <div class="security-card-light fade-up">
+          <i class="fas fa-fingerprint"></i>
+          <h3>Biometric login</h3>
+          <p>Use Face ID or fingerprint for secure, fast access to your account</p>
+        </div>
+        <div class="security-card-light fade-up">
+          <i class="fas fa-shield-virus"></i>
+          <h3>Real-time fraud protection</h3>
+          <p>Our AI monitors transactions 24/7 and alerts you instantly</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Section - LIGHT -->
-    <section id="contact" class="section-light">
-        <div class="containers">
-            <h2 class="section-title fade-up">Get in <span>touch</span></h2>
-            <p class="section-subtitle fade-up">We'd love to hear from you</p>
-            <div class="contact-form">
-                <form id="contactForm">
-                    <div class="form-group fade-up">
-                        <input type="text" placeholder="Your name" required>
-                    </div>
-                    <div class="form-group fade-up">
-                        <input type="email" placeholder="Email address" required>
-                    </div>
-                    <div class="form-group fade-up">
-                        <textarea rows="4" placeholder="What would you like to tell us?" required></textarea>
-                    </div>
-                    <div class="fade-up">
-                        <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">Send message </button>
-                    </div>
-                </form>
-            </div>
+  <!-- ── FAQ ── -->
+  <section id="faq" class="section-dark">
+    <div class="container">
+      <div class="section-label fade-up">FAQ</div>
+      <h2 class="section-title fade-up">Questions? <span>Answers.</span></h2>
+      <p class="section-subtitle fade-up">Everything you need to know about NairaBank</p>
+      <div class="faq-container">
+        <div class="faq-item-dark fade-up">
+          <div class="faq-question">What is NairaBank? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">NairaBank is a digital banking platform that lets you send money, create virtual cards, track your spending, and save money — all from one app. We're building banking that actually works for Nigerians.</div>
         </div>
-    </section>
+        <div class="faq-item-dark fade-up">
+          <div class="faq-question">Is NairaBank safe to use? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Absolutely. We use bank-grade 256-bit encryption, biometric authentication, and real-time fraud detection. Your money and data are protected at all times.</div>
+        </div>
+        <div class="faq-item-dark fade-up">
+          <div class="faq-question">How do I open an account? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Download the NairaBank app from the App Store or Google Play, enter your phone number, verify your BVN, and you're ready to go. Takes less than 5 minutes.</div>
+        </div>
+        <div class="faq-item-dark fade-up">
+          <div class="faq-question">Are there any hidden fees? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">No. We believe in transparent banking. What you see is what you get. No surprise charges, ever.</div>
+        </div>
+        <div class="faq-item-dark fade-up">
+          <div class="faq-question">Can I get a physical debit card? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Yes! Every NairaBank account comes with a free physical debit card delivered to your doorstep. You can also create virtual cards instantly for online shopping.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact" class="section-light">
+    <div class="containers">
+      <div class="section-label fade-up" style="display:block;text-align:center;">Contact Us</div>
+      <h2 class="section-title fade-up">Get in <span>touch</span></h2>
+      <p class="section-subtitle fade-up">We'd love to hear from you</p>
+      <div class="contact-form">
+        <form id="contactForm">
+          <div class="form-group fade-up">
+            <input type="text" placeholder="Your name" required>
+          </div>
+          <div class="form-group fade-up">
+            <input type="email" placeholder="Email address" required>
+          </div>
+          <div class="form-group fade-up">
+            <textarea rows="5" placeholder="What would you like to tell us?" required></textarea>
+          </div>
+          <div class="fade-up">
+            <button type="submit" class="btn-primary" style="width:100%;cursor:pointer;">Send message →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<!-- Footer - DARK -->
+<!-- ── FOOTER ── -->
 <footer>
-    <div class="footer-grid">
-        <div>
-            <div class="footer-logo">
-                <div class="logo-icon">₦</div>
-                <div class="logo-text" style="color: white;">Naira<span style="color: #2D9CDB;">Bank</span></div>
-            </div>
-            <p class="footer-desc">Modern digital banking for Nigerians. Secure, fast, and beautifully simple.</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-            </div>
-        </div>
-        <div class="footer-links">
-            <h4>Product</h4>
-            <a href="#">Features</a>
-            <a href="#">Security</a>
-            <a href="#">Pricing</a>
-            <a href="#">Downloads</a>
-        </div>
-        <div class="footer-links">
-            <h4>Company</h4>
-            <a href="#">About</a>
-            <a href="#">Careers</a>
-            <a href="#">Blog</a>
-            <a href="#">Press</a>
-        </div>
-        <div class="footer-links">
-            <h4>Support</h4>
-            <a href="#">Help center</a>
-            <a href="#">Contact us</a>
-            <a href="#">Privacy policy</a>
-            <a href="#">Terms of service</a>
-        </div>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">
+        <div class="logo-icon">₦</div>
+        <div class="logo-text" style="color:white;">Naira<span style="color:#2D9CDB;">Bank</span></div>
+      </div>
+      <p class="footer-desc">Modern digital banking for Nigerians. Secure, fast, and beautifully simple.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      </div>
     </div>
-    <div class="copyright">
-        <p>© 2026 NairaBank. All rights reserved. NairaBank is a licensed financial institution.</p>
+    <div class="footer-links">
+      <h4>Product</h4>
+      <a href="#">Features</a>
+      <a href="#">Security</a>
+      <a href="#">Pricing</a>
+      <a href="#">Downloads</a>
     </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Careers</a>
+      <a href="#">Blog</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-links">
+      <h4>Support</h4>
+      <a href="#">Help center</a>
+      <a href="#">Contact us</a>
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms of service</a>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>© 2026 NairaBank. All rights reserved. NairaBank is a licensed financial institution.</p>
+  </div>
 </footer>
 
+<script>
+  // ── Hamburger menu ──
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
 
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
 
+  // Close nav when a link is clicked on mobile
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
 
-<script src="home-page.js"></script>
+  // ── Scroll animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── FAQ accordion ──
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isOpen = item.classList.contains('active');
+      document.querySelectorAll('.faq-item-dark').forEach(i => i.classList.remove('active'));
+      if (!isOpen) item.classList.add('active');
+    });
+  });
+
+  // ── Contact form ──
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Message sent! We\'ll get back to you shortly.');
+    e.target.reset();
+  });
+</script>
 </body>
 </html>
