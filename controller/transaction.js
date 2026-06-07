@@ -151,7 +151,7 @@ const getTransactionHistory = async (req, res) => {
       return res.status(200).json({ 
         success: true, 
         transactions: [],
-        message: 'No transaction history found'
+        message: 'No Transaction'
       })
     }
     

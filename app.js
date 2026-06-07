@@ -3,11 +3,14 @@ const express = require('express');
 const cors = require('cors'); 
 const app = express();
 const connectDB = require('./db/connect')
-
+const cookieParser = require('cookie-parser')
 
 app.use(cors());     
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser())  
 app.use(express.json());
+
+
 
 
 
@@ -29,7 +32,6 @@ app.use('/api/v1/admin', adminEdit)
 app.use('/api/v1/transfer', transaction)
 app.use('/api/v1/deposit', deposit)
 app.use('/api/v1', home)
-
 const port = process.env.PORT || 3000;
 
 const start = async () => {
