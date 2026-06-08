@@ -1,4 +1,4 @@
-const BASE_URL ="https://banking-webapp-9y8z.onrender.com"
+const BASE_URL = window.location.origin + '/api/v1'
 
 document.getElementById('depositForm').addEventListener('submit', async (e) => {
     e.preventDefault()
