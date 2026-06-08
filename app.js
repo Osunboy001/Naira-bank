@@ -29,9 +29,9 @@ app.use('/api/v1/users', users)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/admin', adminDashboard)
 app.use('/api/v1/admin', adminEdit)
-app.use('/api/v1/transfer', transaction)
+app.use('/api/v1/transactions', transaction)
 app.use('/api/v1/deposit', deposit)
-app.use('/api/v1', home)
+app.use('/api/v1/', home)
 const port = process.env.PORT || 3000;
 
 const start = async () => {
