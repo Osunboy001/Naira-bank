@@ -4,7 +4,7 @@ const transactionId = urlParams.get("id")
 
 async function getSingleHistory(transactionId) {
   try {
-    const response = await fetch(`${BASE_URL}/transfer/user/history/${transactionId}`, {
+    const response = await fetch(`${BASE_URL}/transactions/user/history/${transactionId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
