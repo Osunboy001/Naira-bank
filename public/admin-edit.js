@@ -113,7 +113,7 @@ async function updateUser() {
     selectedImage = null;
 
     setTimeout(loadUser, 800);
-    window.location.href = 'http://localhost:3000/admin.html'
+    window.location.href = '/admin.html'
 
   } catch (err) {
     console.error('Update error:', err);
