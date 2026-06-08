@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/api/v1'
+const BASE_URL = window.location.origin + '/api/v1'
 
 // Should show ID, NOT undefined!
 let allTransactions = []
@@ -70,9 +70,9 @@ async function loadTransactionHistory() {
   try {
     const sections = document.querySelector('.section')
 
-    const res = await fetch(BASE_URL + "/transfer/history", {
+    const res = await fetch(BASE_URL + "/transactions/history", {
+      credentials: "include",
       headers: {
-        credentials: "include",
         contentType: "application/json",
       }
     })
