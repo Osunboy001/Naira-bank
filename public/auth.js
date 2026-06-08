@@ -1,4 +1,4 @@
-const BASE_URL ="https://banking-webapp-9y8z.onrender.com"
+const BASE_URL = window.location.origin + '/api/v1'
 
 async function request(endpoint, method, body) {
   try {
@@ -157,6 +157,9 @@ function initapp() {
   if (user) {
     showDashboard()
     loadDashboard()
+    
+loadTransactionHistory()
+
   } else {
     showLogin()
   }
@@ -183,16 +186,17 @@ function myFunc() {
 
 
 
-const sections = document.querySelector(".section")
+
 // TRANSACRION HISTORY
 async function loadTransactionHistory() {
-
+const sections = document.querySelector(".section")
   try {
 
 // CALL MY API FROM ROUTER
-const res = await fetch(BASE_URL + "/transfer/history", {
+const res = await fetch(BASE_URL + "/transactions/history", {
+   credentials: "include",
   headers: {
-    credentials: "include",
+    
     contentType: "application/json",
   }
 })
@@ -330,7 +334,6 @@ balance.textContent = ` #${data.balance.toLocaleString()} `
 
 
 
-loadTransactionHistory()
 
 // SIDEBAR TOGGLEF
 // SIDEBAR TOGGLEF
