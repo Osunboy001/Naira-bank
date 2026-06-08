@@ -1,4 +1,4 @@
-const BASE_URL ="https://banking-webapp-9y8z.onrender.com"
+const BASE_URL = window.location.origin + '/api/v1'
 
 let accountnumber = ""
 let amount = ""
@@ -45,7 +45,7 @@ async function loadBalance() {
 //  CHECK PIN STATUS 
 async function checkPinStatus() {
   try {
-    const res = await fetch(BASE_URL + "/transfer/check-pin", {
+    const res = await fetch(BASE_URL + "/transactions/check-pin", {
       headers: authHeaders()
     })
     const data = await res.json()
@@ -86,7 +86,7 @@ document.getElementById("accountnumber").addEventListener("input", function () {
 
 async function lookupAccount(acct) {
   try {
-    const res = await fetch(`${BASE_URL}/transfer/account-name?accountnumber=${acct}`, {
+    const res = await fetch(`${BASE_URL}/transactions/account-name?accountnumber=${acct}`, {
       // I CREATED A FUNCTION FOR MY TOKEN
       headers: { "Authorization": "Bearer " + token() }
     })
@@ -177,7 +177,7 @@ async function confirmTransfer() {
   // wait 3 seconds then send
   setTimeout(async () => {
     try {
-      const res = await fetch(BASE_URL + "/transfer/transfer", {
+      const res = await fetch(BASE_URL + "/transactions/transfer", {
         method: "POST",
         headers: authHeaders(),
         body: JSON.stringify({
