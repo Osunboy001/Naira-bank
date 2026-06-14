@@ -126,26 +126,63 @@
 <div id="dashboardPage" class="hidden">
  <div id="sidebar-container"></div>
 
-  <!-- TOP BAR — added avatar -->
-  <div class="topbar">
-    <div class="user">
-      <h2 style="color:#2d9cdb;" id="username">Welcome, User</h2>
-      <p style="color: black; font-size: 16px;" id="accountnumber">238926392</p>
+  <!-- TOP BAR — modern banking header with profile dropdown -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h2 class="topbar-title" id="greeting">Dashboard</h2>
+      <p class="topbar-sub">Welcome back to NairaBank</p>
+    </div>
 
+    <div class="topbar-right">
+      <!-- NOTIFICATIONS -->
+      <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+        <img src="img/notification.png" alt="Notifications" width="22" height="22">
+        <span class="icon-badge"></span>
+      </button>
+      
+
+      <!-- PROFILE DROPDOWN -->
+      <div class="profile" id="profileMenu">
+        <button class="profile-trigger" id="profileTrigger" aria-haspopup="true" aria-expanded="false">
+          <span class="avatar" id="avatarInitial">I</span>
+          <span class="profile-meta">
+            <span class="profile-name" id="profileName">User</span>
+            <span class="profile-role">Personal Account</span>
+          </span>
+          <svg class="profile-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="dropdown-card">
+            <span class="avatar avatar-lg" id="avatarInitialLg">I</span>
+            <div class="dropdown-card-info">
+              <h2 id="username">Welcome, User</h2>
+              <p id="accountnumber">238926392</p>
+            </div>
+          </div>
+
+          <div class="dropdown-divider"></div>
+
+          <a href="/create-pin.html" class="dropdown-item">
+            <img src="img/settings.png" alt="" width="18" height="18">
+            <span>Account Settings</span>
+          </a>
+
+          <button class="dropdown-item logout-action" onclick="logout()">
+            <img src="img/switch-removebg-preview.png" alt="" width="18" height="18">
+            <span>Log out</span>
+          </button>
+        </div>
+      </div>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div id="avatarInitial" style="width:38px;height:38px;border-radius:50%;;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;">I</div>
-      <button class="logout" onclick="logout()">  <img src="img/switch-removebg-preview.png" alt="Send" width="25" height="25";></button>
-      <a href=""><img src="img/notification.png" alt="Send" width="25" height="25";></a>
-    </div>
-  </div>
+  </header>
  
   <!-- BALANCE -->
 
 
  
 
-
+<div class="hero">
     <div class="balance">
  
   <h3>Total Balance</h3>
@@ -177,11 +214,87 @@
 
   </div>
 
-  
+  <!-- RECEIVED / SENT SUMMARY -->
+  <div class="stat-grid">
+    <div class="stat-card received">
+      <div class="stat-icon">
+       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" 
+  stroke-linejoin="round">    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>    <line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+      </div>
+      <div class="stat-info">
+        <small>Total Received</small>
+        <h2 id="totalReceived">₦0.00</h2>
+      </div>
+      <div class="stat-trend">
+        <span>&#8593; Money In</span>
+        All time
+      </div>
+    </div>
+
+    <div class="stat-card sent">
+      <div class="stat-icon">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-icon lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+      </div>
+      <div class="stat-info">
+        <small>Total Sent</small>
+        <h2 id="totalSent">₦0.00</h2>
+      </div>
+      <div class="stat-trend">
+        <span>&#8595; Money Out</span>
+        All time
+      </div>
+    </div>
+  </div>
+
+</div>
 
 
+  <!-- TRANSACTION HISTORY (400px) + MONEY FLOW CIRCLE beside it -->
+  <div class="history-row">
 
-  <div class="section">
+    <div class="section">
+
+    </div>
+
+    <!-- MONEY FLOW DONUT (percentage) -->
+    <aside class="flow-card">
+      <div class="flow-head">
+        <h3 class="flow-title">Money Flow</h3>
+        <p class="flow-sub">All-time overview</p>
+      </div>
+
+      <div class="donut-wrap">
+        <svg class="donut" viewBox="0 0 200 200">
+          <circle class="donut-track"    cx="100" cy="100" r="80"></circle>
+          <circle class="donut-received" cx="100" cy="100" r="80" id="arcReceived"></circle>
+          <circle class="donut-sent"     cx="100" cy="100" r="80" id="arcSent"></circle>
+        </svg>
+        <div class="donut-center">
+          <div class="donut-stat">
+            <span class="donut-stat-label">Received</span>
+            <span class="donut-stat-val received" id="centerReceived">0%</span>
+          </div>
+          <span class="donut-stat-divider"></span>
+          <div class="donut-stat">
+            <span class="donut-stat-label">Sent</span>
+            <span class="donut-stat-val sent" id="centerSent">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-row">
+          <span class="legend-left"><span class="dot dot-received"></span> Received</span>
+          <span class="legend-val" id="legendReceived">₦0.00</span>
+        </div>
+        <div class="legend-row">
+          <span class="legend-left"><span class="dot dot-sent"></span> Sent</span>
+          <span class="legend-val" id="legendSent">₦0.00</span>
+        </div>
+      </div>
+    </aside>
 
    </div>
 
@@ -262,8 +375,3 @@ fetch('main-sidebar.html')
 
 </body>
 </html>
-
-
-
-
-
