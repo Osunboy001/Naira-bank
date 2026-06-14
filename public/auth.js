@@ -97,11 +97,43 @@ console.log('this is the user:', user)
   const avatarName = user.name
   const avatarLetter = avatarName.charAt(0).toUpperCase();
   document.getElementById("avatarInitial").textContent = avatarLetter;
-  document.querySelector("#username").innerHTML = `<h1 style="color: ;">Hi, ${user.name.toUpperCase() || user.name.toUpperCase()}</h1>`;
+  const avatarLg = document.getElementById("avatarInitialLg");
+  if (avatarLg) avatarLg.textContent = avatarLetter;
+
+  const firstName = user.name.split(" ")[0];
+  const greetingEl = document.getElementById("greeting");
+  if (greetingEl) greetingEl.textContent = `${getGreeting()}, ${firstName}`;
+
+  const profileNameEl = document.getElementById("profileName");
+  if (profileNameEl) profileNameEl.textContent = user.name;
+
+  document.querySelector("#username").textContent = `Hi, ${user.name.toUpperCase()}`;
   document.querySelector("#balance").textContent = ` #${user.balance.toLocaleString()} `;
-  document.querySelector("#accountnumber").textContent = `  AccountNo:${user.accountnumber} `;
+  document.querySelector("#accountnumber").textContent = `Acct No: ${user.accountnumber}`;
 }
 }
+
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
+}
+
+/* Profile dropdown toggle */
+document.addEventListener("click", (e) => {
+  const menu = document.getElementById("profileMenu");
+  if (!menu) return;
+  const trigger = document.getElementById("profileTrigger");
+
+  if (trigger && trigger.contains(e.target)) {
+    const isOpen = menu.classList.toggle("open");
+    trigger.setAttribute("aria-expanded", isOpen);
+  } else if (!menu.contains(e.target)) {
+    menu.classList.remove("open");
+    trigger?.setAttribute("aria-expanded", "false");
+  }
+});
 
 function showDashboard() {
   document.getElementById("loginPage").classList.add("hidden");
@@ -222,6 +254,22 @@ console.log("FULL API RESPONSE:", data)
       sections.innerHTML = "<p>No transactions found</p>"
       return
      }
+
+// Totals for Received / Sent summary cards
+let totalReceived = 0
+let totalSent = 0
+data.transactions.forEach(t => {
+  if (t.direction === 'credit') totalReceived += Number(t.amount) || 0
+  if (t.direction === 'debit')  totalSent += Number(t.amount) || 0
+})
+
+const receivedEl = document.getElementById("totalReceived")
+const sentEl = document.getElementById("totalSent")
+if (receivedEl) receivedEl.textContent = `₦${totalReceived.toLocaleString()}`
+if (sentEl) sentEl.textContent = `₦${totalSent.toLocaleString()}`
+
+// MONEY FLOW DONUT (percentage) — same as history page
+renderMoneyFlow(totalReceived, totalSent)
 
 
 
@@ -426,3 +474,45 @@ async function submitForgotEmail() {
   }
 }
 
+// 
+// MONEY FLOW DONUT (Received vs Sent) — dashboard
+// 
+
+
+const DONUT_CIRC = 2 * Math.PI * 80 // r = 80  →  ~502.65
+
+function renderMoneyFlow(received, sent) {
+  // Grab the two coloured arcs (green = received, red = sent).
+  const arcReceived = document.getElementById('arcReceived')
+  const arcSent = document.getElementById('arcSent')
+  // If we're on a page that doesn't have the donut, stop early so we don't crash.
+  if (!arcReceived || !arcSent) return
+
+  // STEP 1: work out the percentages with plain math.
+
+  const total = received + sent
+  const receivedPct = total ? (received / total) * 100 : 0
+  const sentPct = total ? (sent / total) * 100 : 0
+
+  // STEP 2: turn each percentage into an actual LENGTH along the ring.
+  // 75% of the ring → 0.75 × 502.65 ≈ 377px of line to draw.
+  const receivedLen = (receivedPct / 100) * DONUT_CIRC
+  const sentLen = (sentPct / 100) * DONUT_CIRC
+
+  // STEP 3: draw the arcs.
+  // strokeDasharray = "draw this many px, then gap the rest of the ring".
+  // So `${receivedLen} ${DONUT_CIRC}` means: draw the received slice, gap everything else.
+  arcReceived.style.strokeDasharray = `${receivedLen} ${DONUT_CIRC}`
+  arcSent.style.strokeDasharray = `${sentLen} ${DONUT_CIRC}`
+  
+  arcSent.style.strokeDashoffset = `-${receivedLen}`
+
+
+  document.getElementById('centerReceived').textContent = `${Math.round(receivedPct)}%`
+  document.getElementById('centerSent').textContent = `${Math.round(sentPct)}%`
+
+  const naira = (n) =>
+    '₦' + Number(n).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  document.getElementById('legendReceived').textContent = naira(received)
+  document.getElementById('legendSent').textContent = naira(sent)
+}
