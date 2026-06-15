@@ -12,21 +12,65 @@
     <div id="sidebar-container"></div>
 
     <div class="main-content">
+      <div class="history-grid">
 
-      <div class="filter-section">
-        <button class="filter-btn active" onclick="filterTransactions('all', event)">
-          All
-        </button>
-        <button class="filter-btn" onclick="filterTransactions('sent', event)">
-          Sent
-        </button>
-        <button class="filter-btn" onclick="filterTransactions('received', event)">
-           Received
-        </button>
+        <!-- LEFT: MONEY FLOW DONUT -->
+        <div class="insights-card">
+          <div class="insights-head">
+            <h3 class="insights-title">Money Flow</h3>
+            <p class="insights-sub">All-time overview</p>
+          </div>
+
+          <div class="donut-wrap">
+            <svg class="donut" viewBox="0 0 200 200">
+              <circle class="donut-track"    cx="100" cy="100" r="80"></circle>
+              <circle class="donut-received" cx="100" cy="100" r="80" id="arcReceived"></circle>
+              <circle class="donut-sent"     cx="100" cy="100" r="80" id="arcSent"></circle>
+            </svg>
+            <div class="donut-center">
+              <div class="donut-stat">
+                <span class="donut-stat-label">Received</span>
+                <span class="donut-stat-val received" id="centerReceived">0%</span>
+              </div>
+              <span class="donut-stat-divider"></span>
+              <div class="donut-stat">
+                <span class="donut-stat-label">Sent</span>
+                <span class="donut-stat-val sent" id="centerSent">0%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="legend">
+            <div class="legend-row">
+              <span class="legend-left"><span class="dot dot-received"></span> Received</span>
+              <span class="legend-val" id="legendReceived">₦0.00</span>
+            </div>
+            <div class="legend-row">
+              <span class="legend-left"><span class="dot dot-sent"></span> Sent</span>
+              <span class="legend-val" id="legendSent">₦0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: TRANSACTION HISTORY -->
+        <div class="history-panel">
+          <div class="filter-section">
+            <button class="filter-btn active" onclick="filterTransactions('all', event)">
+              All
+            </button>
+            <button class="filter-btn" onclick="filterTransactions('sent', event)">
+              Sent
+            </button>
+            <button class="filter-btn" onclick="filterTransactions('received', event)">
+               Received
+            </button>
+          </div>
+
+          <!-- TRANSACTIONS (CHANGES WHEN FILTER CLICKED) -->
+          <div class="section"></div>
+        </div>
+
       </div>
-
-      <!-- TRANSACTIONS (CHANGES WHEN FILTER CLICKED) -->
-      <div class="section"></div>
     </div>
   </div>
 
