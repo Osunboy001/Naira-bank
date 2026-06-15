@@ -65,6 +65,50 @@ function displayTransactions(transactions) {
   })
 }
 
+// MONEY FLOW DONUT (Received vs Sent)
+const DONUT_CIRC = 2 * Math.PI * 80 // r = 80  →  ~502.65
+
+function renderMoneyFlow(transactions) {
+  let received = 0
+  let sent = 0
+
+  transactions.forEach(t => {
+    const amt = Number(t.amount) || 0
+    if (t.direction === 'credit') received += amt
+    else if (t.direction === 'debit') sent += amt
+  })
+
+  const total = received + sent
+  const receivedPct = total ? (received / total) * 100 : 0
+  const sentPct = total ? (sent / total) * 100 : 0
+
+  // Arc lengths along the circle
+  const receivedLen = (receivedPct / 100) * DONUT_CIRC
+  const sentLen = (sentPct / 100) * DONUT_CIRC
+
+  const arcReceived = document.getElementById('arcReceived')
+  const arcSent = document.getElementById('arcSent')
+
+  // Received arc starts at the top
+  arcReceived.style.strokeDasharray = `${receivedLen} ${DONUT_CIRC}`
+  // Sent arc starts right after the received arc ends
+  arcSent.style.strokeDasharray = `${sentLen} ${DONUT_CIRC}`
+  arcSent.style.strokeDashoffset = `-${receivedLen}`
+
+  // Center (inside the ring) shows the % share; legend (outside) shows the amounts
+  document.getElementById('centerReceived').textContent = `${Math.round(receivedPct)}%`
+  document.getElementById('centerSent').textContent = `${Math.round(sentPct)}%`
+  document.getElementById('legendReceived').textContent = formatNaira(received)
+  document.getElementById('legendSent').textContent = formatNaira(sent)
+}
+
+function formatNaira(value) {
+  return '₦' + Number(value).toLocaleString('en-NG', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+}
+
 // LOAD TRANSACTIONS
 async function loadTransactionHistory() {
   try {
@@ -94,6 +138,9 @@ async function loadTransactionHistory() {
 
     // DISPLAY ALL BY DEFAULT
     displayTransactions(allTransactions)
+
+    // DRAW MONEY FLOW DONUT
+    renderMoneyFlow(allTransactions)
 
   } catch (error) {
     console.error("Error:", error)
