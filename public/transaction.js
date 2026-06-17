@@ -1,311 +1,359 @@
-const BASE_URL = window.location.origin + '/api/v1'
+const API_BASE_URL = window.location.origin + "/api/v1"
 
-let accountnumber = ""
-let amount = ""
-let pin = ""
-let receiverConfirmed = false
-let acctTimer = null
+// ── Transfer state ──
+let recipientAccountNumber = ""
+let transferAmount = ""
+let transferPin = ""
+let isRecipientVerified = false
+let accountLookupTimer = null
 
-function token() { return localStorage.getItem("token") }
-function authHeaders() {
-  return {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer " + token()
-  }
+// ── Helpers ──
+function getEl(id) {
+  return document.getElementById(id)
 }
 
-function showErr(id, msg) {
-  const el = document.getElementById(id)
-  el.textContent = msg
-  el.classList.add("show")
+function showFieldError(fieldId, message) {
+  const errorEl = getEl(fieldId)
+  errorEl.textContent = message
+  errorEl.classList.add("show")
 }
 
-function hideErr(id) {
-  document.getElementById(id).classList.remove("show")
+function hideFieldError(fieldId) {
+  getEl(fieldId).classList.remove("show")
 }
 
-function fmt(n) {
-  return "₦" + Number(n).toLocaleString("en-NG", { minimumFractionDigits: 2 })
+function formatNaira(value) {
+  return "₦" + Number(value).toLocaleString("en-NG", { minimumFractionDigits: 2 })
 }
 
-// ── LOAD BALANCE ──
+// Wraps fetch with the shared JSON + cookie settings every endpoint needs.
+function apiRequest(path, options = {}) {
+  return fetch(API_BASE_URL + path, {
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    ...options,
+  })
+}
+
+// ── Load balance ──
 async function loadBalance() {
   try {
-    const res = await fetch(BASE_URL + "/dashboard", {
-      headers: { "Authorization": "Bearer " + token() }
-    })
+    const res = await apiRequest("/dashboard")
     const data = await res.json()
-    document.getElementById("balanceDisplay").textContent = fmt(data.balance)
-    document.getElementById("acctDisplay").textContent = "Acct: " + data.accountnumber
-  } catch (e) {
-    document.getElementById("balanceDisplay").textContent = "ERROR"
+    getEl("balanceDisplay").textContent = formatNaira(data.balance)
+    getEl("acctDisplay").textContent = "Acct: " + data.accountnumber
+  } catch (error) {
+    getEl("balanceDisplay").textContent = "ERROR"
   }
 }
 
-//  CHECK PIN STATUS 
+// ── Quick send (recent recipients) ──
+async function loadQuickSend() {
+  const list = getEl("quickSendList")
+  try {
+    const res = await apiRequest("/transactions/history")
+    const data = await res.json()
+    const transactions = (data && data.transactions) || []
+
+    // Most recent people we SENT money to, de-duplicated by account number.
+    const seenAccounts = new Set()
+    const recentRecipients = []
+    for (const txn of transactions) {
+      if (txn.direction !== "debit" || !txn.counterParty) continue
+      const accountNumber = txn.counterParty.accountnumber
+      if (!accountNumber || seenAccounts.has(accountNumber)) continue
+      seenAccounts.add(accountNumber)
+      recentRecipients.push({
+        name: txn.counterParty.name || "User",
+        accountnumber: accountNumber,
+      })
+      if (recentRecipients.length === 5) break
+    }
+
+    if (recentRecipients.length === 0) {
+      list.innerHTML = `<div class="nb-quick-empty">No recent recipients yet.</div>`
+      return
+    }
+
+    list.innerHTML = recentRecipients
+      .map(recipient => `
+        <button class="nb-quick-item" onclick="quickSend('${recipient.accountnumber}')">
+          <span class="nb-quick-avatar">${recipient.name.charAt(0).toUpperCase()}</span>
+          <span class="nb-quick-name">${recipient.name.split(" ")[0]}</span>
+        </button>
+      `)
+      .join("")
+  } catch (error) {
+    list.innerHTML = `<div class="nb-quick-empty">Couldn't load recipients.</div>`
+  }
+}
+
+// Prefill the account number from a quick-send button and trigger the lookup.
+function quickSend(accountNumber) {
+  const input = getEl("accountnumber")
+  input.value = accountNumber
+  input.dispatchEvent(new Event("input"))
+  input.scrollIntoView({ behavior: "smooth", block: "center" })
+}
+
+// ── Check PIN status ──
 async function checkPinStatus() {
   try {
-    const res = await fetch(BASE_URL + "/transactions/check-pin", {
-      headers: authHeaders()
-    })
+    const res = await apiRequest("/transactions/check-pin")
     const data = await res.json()
-    const info = document.getElementById("pinInfo")
-    const title = document.getElementById("pinTitle")
-    const sub = document.getElementById("pinSubtitle")
+    const info = getEl("pinInfo")
+    const title = getEl("pinTitle")
+    const subtitle = getEl("pinSubtitle")
 
     if (data.hasPin) {
       title.textContent = "Enter your transfer PIN"
-      sub.textContent = "Confirm your identity to proceed"
+      subtitle.textContent = "Confirm your identity to proceed"
       info.className = "nb-pin-info info show"
       info.textContent = "Enter your 4–6 digit transfer PIN to send money"
     } else {
       title.textContent = "Create a transfer PIN"
-      sub.textContent = "You need a PIN to send money"
+      subtitle.textContent = "You need a PIN to send money"
       info.className = "nb-pin-info warn show"
-      info.textContent = "You don't have a PIN yet. Create one now  you'll use it for all future transfers."
+      info.textContent = "You don't have a PIN yet. Create one now — you'll use it for all future transfers."
     }
-  } catch (e) {}
+  } catch (error) {
+    // Leave the default PIN copy in place if the check fails.
+  }
 }
 
-//  ACCOUNT NUMBER INPUT 
-document.getElementById("accountnumber").addEventListener("input", function () {
-  accountnumber = this.value.replace(/\D/g, "").slice(0, 10)
-  this.value = accountnumber
+// ── Account number input ──
+getEl("accountnumber").addEventListener("input", function () {
+  recipientAccountNumber = this.value.replace(/\D/g, "").slice(0, 10)
+  this.value = recipientAccountNumber
 
-  hideErr("acctError")
+  hideFieldError("acctError")
   this.classList.remove("nb-input-ok", "nb-input-err")
-  document.getElementById("receiverBox").classList.remove("show")
-  receiverConfirmed = false
+  getEl("receiverBox").classList.remove("show")
+  isRecipientVerified = false
   updateSummary()
 
-  clearTimeout(acctTimer)
-  if (accountnumber.length === 10) {
-    acctTimer = setTimeout(() => lookupAccount(accountnumber), 600)
+  clearTimeout(accountLookupTimer)
+  if (recipientAccountNumber.length === 10) {
+    accountLookupTimer = setTimeout(() => lookupAccount(recipientAccountNumber), 600)
   }
 })
 
-async function lookupAccount(acct) {
+async function lookupAccount(accountNumber) {
   try {
-    const res = await fetch(`${BASE_URL}/transactions/account-name?accountnumber=${acct}`, {
-      // I CREATED A FUNCTION FOR MY TOKEN
-      headers: { "Authorization": "Bearer " + token() }
-    })
+    const res = await apiRequest(`/transactions/account-name?accountnumber=${accountNumber}`)
     const data = await res.json()
-    const input = document.getElementById("accountnumber")
+    const input = getEl("accountnumber")
 
     if (data.success) {
-      const name = data.data.name
-      document.getElementById("receiverName").textContent = name
-      document.getElementById("receiverAvatar").textContent = name.charAt(0).toUpperCase()
-      document.getElementById("receiverBox").classList.add("show")
+      const recipientName = data.data.name
+      getEl("receiverName").textContent = recipientName
+      getEl("receiverAvatar").textContent = recipientName.charAt(0).toUpperCase()
+      getEl("receiverBox").classList.add("show")
       input.classList.add("nb-input-ok")
-      receiverConfirmed = true
+      isRecipientVerified = true
       updateSummary()
     } else {
-      showErr("acctError", data.message || "Account not found")
+      showFieldError("acctError", data.message || "Account not found")
       input.classList.add("nb-input-err")
     }
-  } catch (e) {
-    showErr("acctError", "Network error. Try again.")
+  } catch (error) {
+    showFieldError("acctError", "Network error. Try again.")
   }
 }
 
-//  UPDATE SUMMARY 
+// ── Transfer summary ──
 function updateSummary() {
-  const amtVal = document.getElementById("amount").value
-  const name = document.getElementById("receiverName").textContent
+  const amountValue = getEl("amount").value
+  const recipientName = getEl("receiverName").textContent
 
-  if (receiverConfirmed && amtVal && Number(amtVal) > 0) {
-    document.getElementById("summaryTo").textContent = name
-    document.getElementById("summaryAmount").textContent = fmt(amtVal)
-    document.getElementById("transferSummary").classList.add("show")
+  if (isRecipientVerified && amountValue && Number(amountValue) > 0) {
+    getEl("summaryTo").textContent = recipientName
+    getEl("summaryAmount").textContent = formatNaira(amountValue)
+    getEl("transferSummary").classList.add("show")
   } else {
-    document.getElementById("transferSummary").classList.remove("show")
+    getEl("transferSummary").classList.remove("show")
   }
 }
 
-//  SHOW PIN MODAL 
+// ── PIN modal ──
 function showPinModal() {
-  hideErr("acctError")
-  hideErr("amountError")
+  hideFieldError("acctError")
+  hideFieldError("amountError")
 
-  amount = document.getElementById("amount").value
+  transferAmount = getEl("amount").value
 
-  if (!receiverConfirmed) {
-    showErr("acctError", "Please enter a valid 10-digit account number")
+  if (!isRecipientVerified) {
+    showFieldError("acctError", "Please enter a valid 10-digit account number")
     return
   }
 
-  if (!amount || Number(amount) <= 0) {
-    showErr("amountError", "Please enter a valid amount")
+  if (!transferAmount || Number(transferAmount) <= 0) {
+    showFieldError("amountError", "Please enter a valid amount")
     return
   }
 
-  const name = document.getElementById("receiverName").textContent
-  document.getElementById("confirmName").textContent = name
-  document.getElementById("confirmAmount").textContent = fmt(amount)
+  const recipientName = getEl("receiverName").textContent
+  getEl("confirmName").textContent = recipientName
+  getEl("confirmAmount").textContent = formatNaira(transferAmount)
 
-  document.getElementById("transferSection").classList.add("nb-hidden")
-  document.getElementById("pinSection").classList.remove("nb-hidden")
-  document.getElementById("pin").value = ""
-  hideErr("pinError")
-  document.getElementById("pin").focus()
+  getEl("transferSection").classList.add("nb-hidden")
+  getEl("pinSection").classList.remove("nb-hidden")
+  getEl("pin").value = ""
+  hideFieldError("pinError")
+  getEl("pin").focus()
 }
 
-//  HIDE PIN MODAL 
 function hidePinModal() {
-  document.getElementById("pinSection").classList.add("nb-hidden")
-  document.getElementById("transferSection").classList.remove("nb-hidden")
+  getEl("pinSection").classList.add("nb-hidden")
+  getEl("transferSection").classList.remove("nb-hidden")
 }
 
-// CONFIRM TRANSFER 
+// ── Confirm transfer ──
 async function confirmTransfer() {
-  pin = document.getElementById("pin").value
-  hideErr("pinError")
+  transferPin = getEl("pin").value
+  hideFieldError("pinError")
 
-  if (!pin || pin.length < 4) {
-    showErr("pinError", "PIN must be at least 4 digits")
+  if (!transferPin || transferPin.length < 4) {
+    showFieldError("pinError", "PIN must be at least 4 digits")
     return
   }
 
-  document.getElementById("pinSection").classList.add("nb-hidden")
-  document.getElementById("loadingSection").classList.remove("nb-hidden")
-
-  // animate loading steps
+  getEl("pinSection").classList.add("nb-hidden")
+  getEl("loadingSection").classList.remove("nb-hidden")
   animateLoadingSteps()
 
-  // wait 3 seconds then send
+  // Give the loading animation time to play before sending the request.
   setTimeout(async () => {
     try {
-      const res = await fetch(BASE_URL + "/transactions/transfer", {
+      const res = await apiRequest("/transactions/transfer", {
         method: "POST",
-        headers: authHeaders(),
         body: JSON.stringify({
-          accountnumber,
-          amount: Number(amount),
-          pin
-        })
+          accountnumber: recipientAccountNumber,
+          amount: Number(transferAmount),
+          pin: transferPin,
+        }),
       })
 
       const data = await res.json()
-      document.getElementById("loadingSection").classList.add("nb-hidden")
+      getEl("loadingSection").classList.add("nb-hidden")
 
       if (!res.ok) {
-        // show error back on right screen
-        if (data.message && data.message.toLowerCase().includes("pin")) {
-          document.getElementById("pinSection").classList.remove("nb-hidden")
-          showErr("pinError", data.message)
-        } else if (data.message && data.message.toLowerCase().includes("balance")) {
-          document.getElementById("transferSection").classList.remove("nb-hidden")
-          showErr("amountError", data.message)
-        } else {
-          document.getElementById("transferSection").classList.remove("nb-hidden")
-          showErr("acctError", data.message || "Transfer failed. Please try again.")
-        }
+        showTransferError(data.message)
         return
       }
 
-      // SUCCESS
-      const name = document.getElementById("receiverName").textContent
-      document.getElementById("successAmount").textContent = fmt(amount)
-      document.getElementById("successName").textContent = name
-      document.getElementById("successBalance").textContent = fmt(data.newBalance)
-      document.getElementById("successDate").textContent = new Date().toLocaleDateString("en-NG", {
-        day: "numeric", month: "short", year: "numeric"
-      })
-      document.getElementById("successSection").classList.remove("nb-hidden")
-      document.getElementById("balanceDisplay").textContent = fmt(data.newBalance)
-
-    } catch (err) {
-      document.getElementById("loadingSection").classList.add("nb-hidden")
-      document.getElementById("transferSection").classList.remove("nb-hidden")
-      showErr("acctError", "Network error. Check your connection and try again.")
+      showTransferSuccess(data)
+    } catch (error) {
+      getEl("loadingSection").classList.add("nb-hidden")
+      getEl("transferSection").classList.remove("nb-hidden")
+      showFieldError("acctError", "Network error. Check your connection and try again.")
     }
   }, 3000)
 }
 
-// MY LOADING ANIMATION 
-function animateLoadingSteps() {
-  const msgs = [
-    "Connecting to payment network...",
-    "Processing your payment...",
-    "Confirming transfer..."
-  ]
-  const steps = ["step1", "step2", "step3"]
+// Route a failed transfer back to the screen/field that caused it.
+function showTransferError(message) {
+  const lowerMessage = (message || "").toLowerCase()
 
-  steps.forEach(id => {
-    const el = document.getElementById(id)
-    el.classList.remove("active", "done")
-    el.querySelector(".nb-step-dot").className = "nb-step-dot"
-  })
-
-  let current = 0
-
-  function activate(i) {
-    if (i > 0) {
-      document.getElementById(steps[i - 1]).classList.remove("active")
-      document.getElementById(steps[i - 1]).classList.add("done")
-    }
-    document.getElementById(steps[i]).classList.add("active")
-    document.getElementById("loadingMsg").textContent = msgs[i]
+  if (lowerMessage.includes("pin")) {
+    getEl("pinSection").classList.remove("nb-hidden")
+    showFieldError("pinError", message)
+  } else if (lowerMessage.includes("balance")) {
+    getEl("transferSection").classList.remove("nb-hidden")
+    showFieldError("amountError", message)
+  } else {
+    getEl("transferSection").classList.remove("nb-hidden")
+    showFieldError("acctError", message || "Transfer failed. Please try again.")
   }
-
-  activate(0)
-  setTimeout(() => activate(1), 1000)
-  setTimeout(() => activate(2), 2000)
 }
 
-// RESET 
+function showTransferSuccess(data) {
+  const recipientName = getEl("receiverName").textContent
+  getEl("successAmount").textContent = formatNaira(transferAmount)
+  getEl("successName").textContent = recipientName
+  getEl("successBalance").textContent = formatNaira(data.newBalance)
+  getEl("successDate").textContent = new Date().toLocaleDateString("en-NG", {
+    day: "numeric", month: "short", year: "numeric",
+  })
+  getEl("successSection").classList.remove("nb-hidden")
+  getEl("balanceDisplay").textContent = formatNaira(data.newBalance)
+  loadQuickSend()
+}
+
+// ── Loading animation ──
+function animateLoadingSteps() {
+  const messages = [
+    "Connecting to payment network...",
+    "Processing your payment...",
+    "Confirming transfer...",
+  ]
+  const stepIds = ["step1", "step2", "step3"]
+
+  stepIds.forEach(id => {
+    const stepEl = getEl(id)
+    stepEl.classList.remove("active", "done")
+    stepEl.querySelector(".nb-step-dot").className = "nb-step-dot"
+  })
+
+  function activateStep(index) {
+    if (index > 0) {
+      getEl(stepIds[index - 1]).classList.remove("active")
+      getEl(stepIds[index - 1]).classList.add("done")
+    }
+    getEl(stepIds[index]).classList.add("active")
+    getEl("loadingMsg").textContent = messages[index]
+  }
+
+  activateStep(0)
+  setTimeout(() => activateStep(1), 1000)
+  setTimeout(() => activateStep(2), 2000)
+}
+
+// ── Reset back to a fresh transfer ──
 function resetAll() {
-  document.getElementById("successSection").classList.add("nb-hidden")
-  document.getElementById("transferSection").classList.remove("nb-hidden")
-  document.getElementById("accountnumber").value = ""
-  document.getElementById("amount").value = ""
-  document.getElementById("pin").value = ""
-  document.getElementById("receiverBox").classList.remove("show")
-  document.getElementById("transferSummary").classList.remove("show")
-  document.getElementById("accountnumber").classList.remove("nb-input-ok", "nb-input-err")
-  hideErr("acctError"); hideErr("amountError"); hideErr("pinError")
-  accountnumber = ""; amount = ""; pin = ""
-  receiverConfirmed = false
+  getEl("successSection").classList.add("nb-hidden")
+  getEl("transferSection").classList.remove("nb-hidden")
+  getEl("accountnumber").value = ""
+  getEl("amount").value = ""
+  getEl("pin").value = ""
+  getEl("receiverBox").classList.remove("show")
+  getEl("transferSummary").classList.remove("show")
+  getEl("accountnumber").classList.remove("nb-input-ok", "nb-input-err")
+  hideFieldError("acctError")
+  hideFieldError("amountError")
+  hideFieldError("pinError")
+
+  recipientAccountNumber = ""
+  transferAmount = ""
+  transferPin = ""
+  isRecipientVerified = false
   loadBalance()
 }
 
-// INIT 
+// ── Init ──
 loadBalance()
 checkPinStatus()
+loadQuickSend()
 
-
-
-//  SIDEBAR TOGGLE
+// ── Sidebar (mobile) ──
 function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar')
-  const overlay = document.getElementById('overlay')
-  
-  sidebar.classList.toggle('active')
-  overlay.classList.toggle('active')
+  getEl("sidebar").classList.toggle("active")
+  getEl("overlay").classList.toggle("active")
 }
 
-// Close sidebar when clicking menu item (mobile)
-document.querySelectorAll('.menu-item').forEach(item => {
-  item.addEventListener('click', () => {
+// Close the sidebar after tapping a menu item on mobile.
+document.querySelectorAll(".menu-item").forEach(item => {
+  item.addEventListener("click", () => {
     if (window.innerWidth <= 768) {
       toggleSidebar()
     }
   })
 })
 
-// Close sidebar on Escape key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    const sidebar = document.getElementById('sidebar')
-    const overlay = document.getElementById('overlay')
-    sidebar.classList.remove('active')
-    overlay.classList.remove('active')
+// Close the sidebar with the Escape key.
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    getEl("sidebar").classList.remove("active")
+    getEl("overlay").classList.remove("active")
   }
 })
-
-
-
-
-
