@@ -8,8 +8,9 @@ const forgotPassword = async (req, res) => {
 
     // Check if user exists
     const userExists = await User.findOne({ email })
+    // I write this code here because i don't want to show my existing user out to make know hacker guess the what i have
     if (!userExists) {
-      return res.status(404).json({ message: 'User not found' })
+      return res.status(200).json({ message: 'OTP sent,check your email' })
     }
 
     // Generate random token
