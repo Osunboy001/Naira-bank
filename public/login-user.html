@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NairaBank</title>
   <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="/main-sidebar.css">
 </head>
 <body>
 
@@ -53,6 +54,7 @@
 
     <!-- LOGIN -->
     <div id="loginPage" class="card">
+      <h2 style="color: #2d9cdb;">Welcome To NairaBank</h2>
       <h2>Login</h2>
       <input id="loginEmail" placeholder="Email">
       <input id="loginPassword" type="password" placeholder="Password">
@@ -75,6 +77,7 @@
 
     <!-- SIGNUP -->
     <div id="signupPage" class="card hidden">
+       <h2 style="color: #2d9cdb;">Welcome To NairaBank</h2>
       <h2>Signup</h2>
       <input id="signupName" placeholder="Full Name">
       <input id="signupEmail" placeholder="Email">
@@ -83,7 +86,8 @@
   <input type="checkbox" onclick="myFunc()"> 
   Show Password
 </label>
-      <button onclick="signup()">Signup</button>
+
+      <button class="login-button" onclick="signup()">Signup</button>
       <p onclick="showLogin()">Back to login</p>
         <div id="signupResult"></div>
     </div>
@@ -102,11 +106,36 @@
     
     <!-- EMAIL STEP -->
     <div id="emailStep" class="modal-step">
-      <h2>Forgot Password?</h2>
-      <p>Enter your email to receive an OTP</p>
-      <input type="email" id="forgotEmail" placeholder="Enter your email">
-      <button onclick="submitForgotEmail()">Send OTP</button>
-      <p id="emailMessage"></p>
+
+      <div style="width:56px;height:56px;margin:0 auto 14px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2d9cdb,#1f6fd6);box-shadow:0 8px 20px rgba(45,156,219,.35);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m22 7-10 6L2 7"/></svg>
+      </div>
+
+      <h2 class="forgoth2">Forgot Password?</h2>
+      <p class="otpp">
+        Enter your account email and we'll send a one-time code (OTP) to reset your password.
+      </p>
+
+      <input type="email" id="forgotEmail" placeholder="Enter your registered email"
+             style="width:100%;padding:13px 15px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:15px;outline:none;box-sizing:border-box;transition:border-color .2s;"
+             onfocus="this.style.borderColor='#2d9cdb'" onblur="this.style.borderColor='#e2e8f0'">
+
+      <!-- WARNING -->
+      <div style="display:flex;gap:10px;align-items:flex-start;margin:14px 0;padding:12px 14px;background:#fff8eb;border:1px solid #fde68a;border-left:4px solid #f59e0b;border-radius:10px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <p class="warningp" style="margin:0;font-size:13px;line-height:1.5;color:#92400e;">
+          <strong>Use your correct email.</strong> The OTP is sent only to the email on your account if it isn't yours, you won't receive the code.
+        </p>
+      </div>
+
+      <button class="submit-button" onclick="submitForgotEmail()"
+              
+              onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 10px 22px rgba(45,156,219,.4)'"
+              onmouseout="this.style.transform='none';this.style.boxShadow='0 8px 18px rgba(45,156,219,.3)'">
+        Send OTP
+      </button>
+
+      <p class="messagep" id="emailMessage"></p>
     </div>
     
 
@@ -139,7 +168,8 @@
         <img src="img/notification.png" alt="Notifications" width="22" height="22">
         <span class="icon-badge"></span>
       </button>
-      
+     
+
 
       <!-- PROFILE DROPDOWN -->
       <div class="profile" id="profileMenu">
@@ -147,7 +177,7 @@
           <span class="avatar" id="avatarInitial">I</span>
           <span class="profile-meta">
             <span class="profile-name" id="profileName">User</span>
-            <span class="profile-role">Personal Account</span>
+            <span class="profile-role">Savings account</span>
           </span>
           <svg class="profile-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
@@ -167,6 +197,21 @@
             <img src="img/settings.png" alt="" width="18" height="18">
             <span>Account Settings</span>
           </a>
+           <!-- <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon-icon lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun-icon lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <span>Theme mode</span>
+           </div> -->
+
+              <button class="themeSwitch">
+     
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
+
+           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Zm326-268Z"/></svg>
+             <span>Theme</span>
+      </button>
+       
 
           <button class="dropdown-item logout-action" onclick="logout()">
             <img src="img/switch-removebg-preview.png" alt="" width="18" height="18">
@@ -201,7 +246,7 @@
  
 
 
-    
+      
    
 <div class="admoney">
   <a class="add" href="deposit.html">
@@ -330,19 +375,20 @@
   <!-- ACTIONS -->
   <div class="actions">
     <div class="action">
-      <img src="img/up-and-down-arrows.png" alt="Send" width="40" height="40">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-icon lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
       <span><a style="text-decoration: none; color: black;" href="http://localhost:3000/transaction.html">Transfer</a></span>
     </div>
     <div class="action">
-      <img src="/img/deposit.png" alt="Deposit" width="40" height="40">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-warehouse-icon lucide-warehouse"><path d="M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11"/><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z"/><path d="M6 13h12"/><path d="M6 17h12"/></svg>
       <span><a style="text-decoration: none; color: black;" href="deposit.html">Deposit</a></span>
     </div>
     <div class="action">
-      <img src="img/padlock.png" alt="Create Pin" width="40" height="40">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-round-icon lucide-key-round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+
       <span><a style="text-decoration: none; color: black;" href="http://localhost:3000/create-pin.html">Create Pin</a></span>
     </div>
     <div class="action">
-      <img src="img/document.png" alt="History" width="40" height="40">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history-icon lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
       <span><a style="text-decoration: none; color: black;" href="http://localhost:3000/full-history.html">History</a></span>
     </div>
   </div>
@@ -360,15 +406,7 @@
 
 <!-- 0057027262 -->
  <!-- 0058424297 -->
-  <script>
-
-fetch('main-sidebar.html')
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("sidebar-continer").innerHTML = data;
-  });
-
-</script>
+  <script src="/sidebar.js"></script>
 
 <script src="auth.js"></script>
 <!-- <script src="transaction-details.js"></script> -->
