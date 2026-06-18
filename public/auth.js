@@ -77,6 +77,25 @@ async function signup() {
   }
 }
 
+// VERIFY EMAIL
+// Sends a verification email ONLY if the address is registered.
+// For privacy we always show the same message, so we never reveal
+// whether an email exists in the system.
+async function verifyEmail() {
+  const email = document.getElementById("signupEmail").value;
+
+  if (!email) {
+    showResult('Please enter your email first', 'error', 'signupResult');
+    return;
+  }
+
+  const data = await request("/auth/verify-email", "POST", { email });
+
+  if (data) {
+    showResult('If this email is registered, a verification link has been sent to it.', 'success', 'signupResult');
+  }
+}
+
 async function loadDashboard() {
   const data = await request("/dashboard", "GET");
     localStorage.setItem("myuser", JSON.stringify(data))
@@ -462,12 +481,7 @@ async function submitForgotEmail() {
     messageDiv.textContent = 'OTP sent! Check your email'
     messageDiv.className = 'success'
     
-    // Show OTP step after 1 second
-    setTimeout(() => {
-      document.getElementById('emailStep').classList.add('hidden')
-      document.getElementById('otpStep').classList.remove('hidden')
-    }, 1000)
-    
+
   } catch (err) {
     messageDiv.textContent = 'Error: ' + err.message
     messageDiv.className = 'error'
@@ -516,3 +530,74 @@ function renderMoneyFlow(received, sent) {
   document.getElementById('legendReceived').textContent = naira(received)
   document.getElementById('legendSent').textContent = naira(sent)
 }
+
+
+function applyBgOnScreen(query, color, othercolor) {
+  const mq = window.matchMedia(query);
+
+  function update() {
+    if (mq.matches) {
+        as.forEach(a => {
+              a.style.color = othercolor;
+      });
+
+      navLink.style.backgroundColor = color;
+
+      
+    } else {
+      document.body.style.backgroundColor = "";
+    }
+  }
+
+  update();
+  mq.addEventListener("change", update);
+}
+
+
+let darkmode = localStorage.getItem('darkmode');
+
+const themeSwitch = document.querySelector('.themeSwitch');
+const lastSvg = themeSwitch.querySelector("svg:last-of-type");
+const firstSvg = themeSwitch.querySelector("svg:first-of-type");
+
+
+
+
+
+const enableDarkmode = () => {
+     applyBgOnScreen("(max-width: 900px)", "white", "black" );
+  lastSvg.style.display = "block";
+  firstSvg.style.display = "none"
+  document.body.classList.add('darkmode');
+  localStorage.setItem('darkmode', 'active');
+};
+
+const disableDarkmode = () => {
+      // APPLy FUNCTION
+applyBgOnScreen( "(max-width:900px)", "black", "white")
+ 
+   firstSvg.style.display = "block";
+lastSvg.style.display = "none"
+  document.body.classList.remove('darkmode');
+  localStorage.removeItem('darkmode');
+  
+firstSvg.style.display = "inline-block";
+};
+
+if (darkmode === 'active') {
+  
+  enableDarkmode();
+}
+else  {
+  
+  disableDarkmode()
+}
+
+
+
+
+themeSwitch.addEventListener('click', () => {
+  console.log('darkmode click')
+  darkmode = localStorage.getItem('darkmode');
+  darkmode === 'active' ? disableDarkmode() : enableDarkmode();
+});
