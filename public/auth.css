@@ -25,29 +25,135 @@ body {
 }
 
     .themeSwitch {
-      height: 50px;
-      width: 50px;
-      padding: 0;
-      border-radius: 50%;
-      background-color: white;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
-      
-      top: 13px;
-      right: 80px;
-  
-   
-     
-      
+    width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border: none;
+  background: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
     }
+    .themeSwitch:hover {
+      background: var(--bg);
+    }
+    /* show only one icon at a time; JS toggles inline display */
+    .themeSwitch svg:last-of-type { display: none; }
     .darkmode {
+  /* flip the theme variables so everything using them goes dark */
+  --bg: #0f141a;
+  --card: #1b232d;
+  --text: #f4f7fb;
+  --muted: #9aa7b5;
+  --border: #2a333f;
 
-  background: rgba(0, 0, 0, 0.94);
-  color: white;
+  background: #0f141a;
+  color: var(--text);
 }
 
+/* cards / surfaces that used hardcoded light colors */
+.darkmode .card,
+.darkmode .flow-card,
+.darkmode .stat-card,
+.darkmode .dropdown-card,
+.darkmode .history-row .flow-card {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.darkmode .flow-card { border: 1px solid var(--border); }
+
+/* inputs */
+.darkmode input,
+.darkmode textarea,
+.darkmode select {
+  background: #141b22;
+  border-color: var(--border);
+  color: var(--text);
+}
+.darkmode input:focus {
+  background: #1b232d;
+}
+
+/* muted text */
+.darkmode .card > p,
+.darkmode .muted,
+.darkmode .dropdown-card-info p {
+  color: var(--muted);
+}
+
+/* ===== DARK MODE POLISH ===== */
+
+/* Surfaces that use --card/--bg already flip, but these used hardcoded light colors */
+.darkmode .topbar,
+.darkmode .profile-trigger,
+.darkmode .profile-dropdown,
+.darkmode .section,
+.darkmode .action {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* notification / icon button */
+.darkmode .icon-btn {
+  background: var(--card);
+  border-color: var(--border);
+}
+.darkmode .icon-btn:hover {
+  background: #243140;
+  border-color: var(--primary);
+}
+
+/* line-art PNG icons are dark by default — invert them so they read on dark bg */
+.darkmode .icon-btn img,
+.darkmode .dropdown-item img,
+.darkmode .action img,
+.darkmode .stat-icon img {
+  filter: invert(1) brightness(1.7);
+}
+
+/* theme-toggle + chevron + any inline SVG with a baked-in dark fill */
+.darkmode .themeSwitch svg { fill: var(--text); }
+.darkmode .profile-chevron { color: var(--muted); }
+
+/* action card labels (inline color:black in markup) */
+.darkmode .action span,
+.darkmode .action span a {
+  color: var(--text) !important;
+}
+
+/* dates / timestamps that used near-black rgba */
+.darkmode .dateStatus .date {
+  color: var(--muted);
+}
+
+/* status badge — keep it readable on dark */
+.darkmode .dateStatus .status {
+  color: #8ef0a8;
+  background-color: rgba(34, 197, 94, 0.18);
+}
+
+/* dropdown gradient card */
+.darkmode .dropdown-card {
+  background: linear-gradient(135deg, rgba(45,156,219,0.18), rgba(26,125,184,0.08));
+}
+.darkmode .dropdown-divider { background: var(--border); }
+.darkmode .dropdown-item:hover { background: #243140; }
+
+/* .add button is white-on-white in dark */
+.darkmode .add {
+  background-color: var(--card);
+  color: var(--primary);
+}
 
 .hidden {
   display: none !important;
@@ -277,6 +383,49 @@ input:focus {
 .login-button:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
+}
+
+/* VERIFY EMAIL BUTTON */
+.verify-button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+  border: 1.5px solid var(--primary);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.verify-button:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* VERIFY EMAIL WARNING NOTE */
+.verify-note {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fff8e6;
+  border: 1px solid #f6d488;
+  color: #7a5b00;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+  cursor: default;
+}
+
+.verify-note-icon {
+  flex-shrink: 0;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 /* SHOW PASSWORD */
@@ -1069,7 +1218,7 @@ background-color:#2d9cdb ;
 }
 
 .dateStatus .date {
-  color: rgba(0, 0, 0, 0.507);
+  color:var(--text) ;
   font-size: 11px;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -1093,6 +1242,33 @@ background-color:#2d9cdb ;
   .section {
      width: 100%;
      }
+
+  /* Responsive header — keep it from overflowing on phones */
+  .topbar {
+    padding: 0 14px;
+    height: 64px;
+  }
+  .topbar-sub {
+    display: none;
+  }
+  .topbar-title {
+    font-size: 17px;
+  }
+  .topbar-right {
+    gap: 8px;
+  }
+  /* hide name/role next to the avatar, keep just the avatar + chevron */
+  .profile-meta {
+    display: none;
+  }
+  .profile-trigger {
+    padding: 4px;
+    border-radius: 50%;
+  }
+  .profile-dropdown {
+    width: calc(100vw - 28px);
+    right: 0;
+  }
 }
 
 #loginResult,
@@ -1416,9 +1592,41 @@ background-color:#2d9cdb ;
   cursor: pointer;
   transition: all 0.2s;
 }
+.forgeth2 {
+  text-align:center;
+  margin:0 0 6px;
+}
 
+.otpp {
+  text-align:center;
+  color:#6b7280;
+  margin:0 0 18px;
+  font-size:14px;
+}
+.submit-button {
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#2d9cdb,#1f6fd6);
+  color:#fff;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(45,156,219,.3);transition:transform .15s,box-shadow .15s;
 
-
+}
+.messagep {
+  text-align:center;
+  font-size:13px;
+  margin:12px 0 0;
+}
+.warningp {
+   margin:0;
+   font-size:13px;
+   line-height:1.5;
+   color:#92400e;
+}
 #emailMessage,
 #otpMessage,
 #passwordMessage {
