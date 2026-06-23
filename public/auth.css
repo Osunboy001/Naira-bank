@@ -1646,3 +1646,61 @@ background-color:#2d9cdb ;
 #passwordMessage.success {
   color: #27ae60;
 }
+
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 20px;
+  animation: emptyFade 0.4s ease;
+}
+
+@keyframes emptyFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.empty-state__icon {
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 18px;
+  background: #eafaf0;
+  
+}
+
+.empty-state__icon svg {
+  width: 60px;
+  height: 60px;
+}
+
+.empty-state--error .empty-state__icon {
+  background: #fdecec;
+  color: #ef4444;
+}
+
+.empty-state--filter .empty-state__icon {
+  background: #eef0f2;
+  
+}
+
+ h3 .empty-state__title {
+  font-size: 232px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 6px;
+}
+
+.empty-state__text {
+  font-size: 19px;
+  color: #6b7280;
+  max-width: 320px;
+  line-height: 1.5;
+  margin: 0;
+}
