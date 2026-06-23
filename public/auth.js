@@ -253,8 +253,10 @@ const res = await fetch(BASE_URL + "/transactions/history", {
 })
 
 if(!res.ok) { 
-   console.error("Fetch failed:", res.status);
-      sections.innerHTML = "<p>Error loading transactions</p>"
+  //  console.error("Fetch failed:", res.status);
+  //     sections.innerHTML = "<p>Error loading transactions</p>"
+
+        renderState(sections, 'empty')
 }
 
 
@@ -270,7 +272,7 @@ console.log("FULL API RESPONSE:", data)
      sections.innerHTML = ""
 
      if(data.transactions.length === 0) {
-      sections.innerHTML = "<p>No transactions found</p>"
+     renderState(sections, 'empty')
       return
      }
 
@@ -369,6 +371,37 @@ catch (error) {
 
 
 
+function renderState(container, variant) {
+  const states = {
+    empty: {
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+               <path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v6l9 4 9-4V7"/><path d="M12 11v6"/></svg>`,
+      title: 'No transactions yet',
+      text: 'Once you send or receive money, your activity will show up right here.'
+    },
+    filter: {
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+               <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>`,
+      title: 'Nothing here',
+      text: 'No transactions match this filter. Try a different one.'
+    },
+    error: {
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+               <circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
+      title: 'Could not load transactions',
+      text: 'Something went wrong on our end. Please refresh and try again.'
+    }
+  }
+
+  const s = states[variant] || states.empty
+  container.innerHTML = `
+    <div class="empty-state empty-state--${variant}">
+      <div class="empty-state__icon">${s.icon}</div>
+      <h3 class="empty-state__title">${s.title}</h3>
+      <p class="empty-state__text">${s.text}</p>
+    </div>
+  `
+}
 
 
 
