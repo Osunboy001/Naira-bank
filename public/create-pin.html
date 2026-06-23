@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NairaBank — Create PIN</title>
+  <title>Create PIN</title>
   <link rel="stylesheet" href="create-pin.css">
+  <link rel="stylesheet" href="/main-sidebar.css">
 </head>
 <body>
 
@@ -29,43 +30,51 @@
 
       <div class="nb-card">
 
-        <div class="nb-field">
-          <label class="nb-label" for="pin">Enter New PIN</label>
-          <input
-            class="nb-input nb-pin-input"
-            id="pin"
-            type="password"
-            inputmode="numeric"
-            maxlength="4"
-            placeholder="Require 4 digits pin"
-            oninput="onPinInput()"
-          >
-          <div class="nb-field-error" id="pinError"></div>
-        </div>
-
-        <!-- PIN STRENGTH -->
-        <div class="nb-strength-wrap" id="strengthWrap">
-          <div class="nb-strength-bars">
-            <div class="nb-bar" id="bar1"></div>
-            <div class="nb-bar" id="bar2"></div>
-            <div class="nb-bar" id="bar3"></div>
+        <!-- PIN DISPLAY (the "tracking" dots) -->
+        <div class="nb-pin-display nb-active" id="pinDisplay">
+          <span class="nb-pin-label">Enter PIN</span>
+          <div class="nb-dots">
+            <div class="nb-dot" data-i="0"></div>
+            <div class="nb-dot" data-i="1"></div>
+            <div class="nb-dot" data-i="2"></div>
+            <div class="nb-dot" data-i="3"></div>
           </div>
-          <span class="nb-strength-label" id="strengthLabel"></span>
         </div>
 
-        <div class="nb-field" style="margin-top: 18px;">
-          <label class="nb-label" for="confirmPin">Confirm PIN</label>
-          <input
-            class="nb-input nb-pin-input"
-            id="confirmPin"
-            type="password"
-            inputmode="numeric"
-            maxlength="4"
-            placeholder="Re-enter your PIN"
-            oninput="onConfirmInput()"
-          >
-          <div class="nb-match-hint" id="matchHint"></div>
-          <div class="nb-field-error" id="confirmError"></div>
+        <!-- CONFIRM DISPLAY -->
+        <div class="nb-pin-display" id="confirmDisplay">
+          <span class="nb-pin-label">Confirm PIN</span>
+          <div class="nb-dots">
+            <div class="nb-dot" data-i="0"></div>
+            <div class="nb-dot" data-i="1"></div>
+            <div class="nb-dot" data-i="2"></div>
+            <div class="nb-dot" data-i="3"></div>
+          </div>
+        </div>
+
+        <!-- MATCH HINT / ERROR -->
+        <div class="nb-match-hint" id="matchHint"></div>
+        <div class="nb-field-error" id="pinError"></div>
+
+        <!-- KEYPAD -->
+        <div class="nb-keypad" id="keypad">
+          <button class="nb-key" data-key="1">1</button>
+          <button class="nb-key" data-key="2">2</button>
+          <button class="nb-key" data-key="3">3</button>
+          <button class="nb-key" data-key="4">4</button>
+          <button class="nb-key" data-key="5">5</button>
+          <button class="nb-key" data-key="6">6</button>
+          <button class="nb-key" data-key="7">7</button>
+          <button class="nb-key" data-key="8">8</button>
+          <button class="nb-key" data-key="9">9</button>
+          <span class="nb-key-empty"></span>
+          <button class="nb-key nb-key-zero" data-key="0">0</button>
+          <button class="nb-key nb-key-back" data-key="back" aria-label="Backspace">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+              <line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/>
+            </svg>
+          </button>
         </div>
 
         <div class="nb-tips">
@@ -146,13 +155,7 @@
     
 
 
-        <script>
-    fetch('main-sidebar.html')
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("sidebar-container").innerHTML = data;
-      });
-  </script>
+  <script src="/sidebar.js"></script>
 
   <script src="create-pin.js"></script>
 </body>
