@@ -24,13 +24,51 @@ function filterTransactions(type, event) {
   displayTransactions(filtered)
 }
 
+// REUSABLE EMPTY / STATE RENDERER
+// variant: 'empty' (brand new user, no transactions),
+//          'filter' (filter has no matches),
+//          'error' (request failed)
+function renderState(container, variant) {
+  const states = {
+    empty: {
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+               <path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v6l9 4 9-4V7"/><path d="M12 11v6"/></svg>`,
+      title: 'No transactions yet',
+      text: 'Once you send or receive money, your activity will show up right here.'
+    },
+    filter: {
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+               <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>`,
+      title: 'Nothing here',
+      text: 'No transactions match this filter. Try a different one.'
+    },
+    error: {
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+               <circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
+      title: 'Could not load transactions',
+      text: 'Something went wrong on our end. Please refresh and try again.'
+    }
+  }
+
+  const s = states[variant] || states.empty
+  container.innerHTML = `
+    <div class="empty-state empty-state--${variant}">
+      <div class="empty-state__icon">${s.icon}</div>
+      <h3 class="empty-state__title">${s.title}</h3>
+      <p class="empty-state__text">${s.text}</p>
+    </div>
+  `
+}
+
 // DISPLAY FUNCTION
 function displayTransactions(transactions) {
   const sections = document.querySelector('.section')
   sections.innerHTML = ""
 
   if(transactions.length === 0) {
-    sections.innerHTML = "<p style='text-align:center;color:#999;padding:20px;'>No transactions found</p>"
+    // If the user has data overall but this filter matched nothing, show the
+    // "filter" variant; a brand-new user with zero data gets the "empty" one.
+    renderState(sections, allTransactions.length === 0 ? 'empty' : 'filter')
     return
   }
 
@@ -121,15 +159,18 @@ async function loadTransactionHistory() {
       }
     })
 
+    // Show error message here
+    
+
     if(!res.ok) {
-      sections.innerHTML = "<p>Error loading transactions</p>"
+      renderState(sections, 'error')
       return
     }
 
     const data = await res.json()
 
     if(data.transactions.length === 0) {
-      sections.innerHTML = "<p>No transactions found</p>"
+      renderState(sections, 'empty')
       return
     }
 
@@ -145,7 +186,7 @@ async function loadTransactionHistory() {
   } catch (error) {
     console.error("Error:", error)
     const sections = document.querySelector('.section')
-    sections.innerHTML = `<p>Error loading transactions</p>`
+    renderState(sections, 'error')
   }
 }
 
