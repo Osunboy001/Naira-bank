@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Transaction History</title>
   <link rel="stylesheet" href="full-history.css">
+  <link rel="stylesheet" href="/main-sidebar.css">
 
 </head>
 <body>
@@ -79,14 +80,8 @@
 
 
 
-  <script>
-    fetch('main-sidebar.html')
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("sidebar-container").innerHTML = data;
-      });
-  </script>
-  
+  <script src="/sidebar.js"></script>
+
   <script src="full-history.js"></script>
 </body>
 </html>
