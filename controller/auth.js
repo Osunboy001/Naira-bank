@@ -61,12 +61,21 @@ const signin = async (req, res, next) => {
       sameSite: 'strict',
       maxAge: 24 * 60 * 60 * 1000
     })
+      console.log('jjdjdjd' ,user)
 
     return res.status(StatusCodes.OK).json({
-      user: { name: user.name, role: user.role }
+      
+      user: { name: user.name, role: user.role, }
+    
     })
+   
 
-  } catch (err) {
+  }
+
+
+
+  
+ catch (err) {
     next(err)
   }
 }

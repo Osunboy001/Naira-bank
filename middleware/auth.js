@@ -5,7 +5,6 @@ const { StatusCodes } = require('http-status-codes');
 const authMiddleware = async (req,res,next) => {
 
   const token = req.cookies.token
-
   if(!token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({message: "No token provided"})
   }
@@ -20,6 +19,7 @@ const authMiddleware = async (req,res,next) => {
       name: payload.name,
         role: payload.role  
     };
+
 
     next();
   }
