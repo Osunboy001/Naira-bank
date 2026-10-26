@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 const verify = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI)
+    await mongoose.connect(process.env.MONGO_URL)
     
     await User.updateOne(
       { email: 'nairabank9@gmail.com' },

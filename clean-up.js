@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const cleanup = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI)
+    await mongoose.connect(process.env.MONGO_URL)
     console.log('Connected to DB')
 
     await mongoose.connection.collection('users').updateMany(
