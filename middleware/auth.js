@@ -17,16 +17,16 @@ const authMiddleware = async (req,res,next) => {
     req.user = {
       userId: payload.userId,
       name: payload.name,
-        role: payload.role  
+      role: payload.role
     };
 
 
     next();
   }
-      catch (err) {
-      console.log(err)
+  catch (err) {
+    console.log(err)
     return res.status(401).json({ message: 'Invalid token' });
-      }
+  }
 }
 
 module.exports = authMiddleware

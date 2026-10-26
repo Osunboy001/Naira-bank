@@ -35,7 +35,6 @@ app.use('/api/v1/transactions', transaction)
 app.use('/api/v1/deposit', deposit)
 app.use('/api/v1/', home)
 
-// Must come after all routes: unknown routes -> 404, thrown errors -> handler
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 
@@ -44,9 +43,9 @@ const port = process.env.PORT || 3000;
 const start = async () => {
   try {
     console.log(" Connecting to MongoDB...")
-    console.log("MONGO_URI:", process.env.MONGO_URI ? "Set" : " Missing")
-    
-    await connectDB(process.env.MONGO_URI)
+    console.log("MONGO_URL:", process.env.MONGO_URL ? "Set" : " Missing")
+
+    await connectDB(process.env.MONGO_URL)
     console.log("MongoDB connected!")
     
     app.listen(port, () =>
