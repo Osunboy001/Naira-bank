@@ -73,7 +73,6 @@ async function loadUsers() {
 })
 
   } catch (err) {
-    console.log("LOAD USERS ERROR:", err)
   }
 }
 
@@ -96,14 +95,12 @@ async function loadStats() {
 
 
     const data = await res.json()
-console.log("STATS:", data)
     document.querySelectorAll(".card p")[0].textContent = data.totalUsers
     document.querySelectorAll(".card p")[1].textContent = `₦${data.totalBalance.toLocaleString()}`
     document.querySelectorAll(".card p")[2].textContent = data.activeUsers
     document.querySelectorAll(".card p")[3].textContent = data.blockedUsers
 
   } catch (err) {
-    console.log("STATS ERROR:", err)
   }
 }
 
@@ -127,7 +124,6 @@ async function blockUser(userId) {
 
 
   } catch (err) {
-    console.log("BLOCK ERROR:", err)
   }
 }
 

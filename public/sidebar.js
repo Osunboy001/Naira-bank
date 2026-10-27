@@ -1,7 +1,4 @@
-// Loads the shared sidebar partial and wires up its behavior.
-// Each page only needs <div id="sidebar-container"></div>,
-// <link rel="stylesheet" href="/main-sidebar.css"> in <head>,
-// and <script src="/sidebar.js"></script> before </body>.
+
 
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
@@ -53,7 +50,6 @@ fetch('/main-sidebar.html')
       throw new Error(`HTTP ${res.status}`);
     }
     const html = await res.text();
-    console.log(html)
     container.innerHTML = html;
     initSidebar();
   } catch (err) {

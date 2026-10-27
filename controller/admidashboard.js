@@ -84,7 +84,6 @@ const blockUser = async (req, res) => {
 
     await user.save()
 
-    console.log("NEW STATUS:", user.status) 
 
     res.json({ message: "Updated", user })
 

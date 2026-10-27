@@ -20,7 +20,6 @@ async function loadUser() {
     const text = await res.text();
 
     if (!res.ok) {
-      console.log('Server response:', text);
       throw new Error(`Request failed: ${res.status}`);
     }
 
@@ -82,7 +81,6 @@ async function updateUser() {
   }
 
   try {
-    console.log("updateUser hit");
 
     const formData = new FormData();
     formData.append('name', name);
@@ -101,7 +99,6 @@ async function updateUser() {
     const text = await res.text();
 
     if (!res.ok) {
-      console.log('Server error:', text);
       throw new Error('Failed to update user');
     }
 

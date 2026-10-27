@@ -2,9 +2,9 @@
 :root{
   --blue:#671ee5;
   --green:#4900c8;
-  --dark:#190f2a;
-  --bg:#f7f5fb;
-  --text:#281f37;
+  --dark:#18181b;
+  --bg:#f6f6f7;
+  --text:#27272a;
 }
 
 *{
@@ -24,7 +24,7 @@ body{
 .sidebar{
   width:240px;
   height:100vh;
-  background:linear-gradient(180deg, var(--dark), #191127);
+  background: var(--dark);
   color:white;
   padding:20px;
   position:fixed;
@@ -105,14 +105,14 @@ body{
   padding:12px 10px;
   margin:6px 0;
   text-decoration:none;
-  color:#d3cbe1;
+  color:#e4e4e7;
   border-radius:8px;
   transition:0.2s;
   font-size:14px;
 }
 
 .menu a:hover{
-  background:#281f37;
+  background:#27272a;
   color:white;
 }
 
@@ -187,7 +187,7 @@ th{
 td{
   padding:14px 12px;
   font-size:14px;
-  border-bottom:1px solid #f4f1f9;
+  border-bottom:1px solid #f4f4f5;
   color:var(--text);
 }
 
@@ -202,7 +202,7 @@ td{
 font-size: 17px;
 
 
-  background:#ede6f9;
+  background:#f4f4f5;
   color:var(--green);
 }
 
@@ -254,7 +254,7 @@ font-size: 17px;
 
   .sidebar {
     left: -240px;
-      background:linear-gradient(180deg, var(--dark), #191127);
+      background: var(--dark);
   }
   
   .sidebar.active {

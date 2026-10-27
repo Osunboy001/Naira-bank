@@ -17,12 +17,7 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    transform: translateY(+1000px);
-    transition: transform 0.3s ease;
-  }
-
-  .sidebar.active {
-    transform: translateY(0);
+    display: none !important;
   }
 }
 
@@ -143,27 +138,7 @@
 }
 
 .toggle-btn {
-  position: fixed;
-  top: 10px;
-  left: 0px;
-  width: 35px;
-  height: 45px;
-  color: black;
-  border: none;
-  background: none;
-  font-size: 28px;
-  z-index: 180;
-  display: none;
-  align-items: center;
-  justify-content: center;
-
-}
-
-
-@media (max-width: 768px) {
-  .toggle-btn {
-    display: flex;
-  }
+  display: none !important;
 }
 
 @media (min-width: 769px) {

@@ -5,8 +5,8 @@ let pin = []
 let confirmPin = []
 let stage = 'pin' // 'pin' | 'confirm'
 
-let accountNumberValue = ''  // raw account number for copy
-let balanceValue = 0         // raw balance for show/hide
+let accountNumberValue = ''
+let balanceValue = 0         
 let balanceShown = false
 
 // ── ACCOUNT INFO CARD ──

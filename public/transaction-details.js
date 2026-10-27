@@ -17,11 +17,9 @@ async function getSingleHistory(transactionId) {
       throw new Error(data.message)
     }
     
-    console.log("Receipt data:", data)
     displayReceipt(data.user)  
     
   } catch(err) {
-    console.log("failed to:", err)
   }
 }
 

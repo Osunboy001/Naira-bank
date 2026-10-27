@@ -54,18 +54,16 @@ async function resetPassword(e) {
     });
 
     const data = await res.json();
-    console.log('this is the data:', data)
-    console.log('response is here:',  res)
 
     if (!res.ok) {
-      messageDiv.textContent = data.message || "Error updating password";
+      messageDiv.textContent = data.msg || data.message || "Error updating password";
       messageDiv.className = "message error";
       btn.disabled = false;
       btn.textContent = "Update Password";
       return;
     }
 
-    messageDiv.textContent = "Password updated successfully! Redirecting...";
+    messageDiv.textContent = data.msg || "Password updated successfully! Redirecting...";
     messageDiv.className = "message success";
 
     // Redirect after 2 seconds
@@ -73,7 +71,11 @@ async function resetPassword(e) {
       window.location.href = "/login-user.html";
     }, 2000);
   } catch (err) {
-    messageDiv.textContent = "Error: " + err.message;
+    if (err.name === 'TypeError' && err.message.includes('fetch')) {
+      messageDiv.textContent = 'Network error. Please check your connection.';
+    } else {
+      messageDiv.textContent = err.message || 'Network error. Please check your connection.';
+    }
     messageDiv.className = "message error";
     btn.disabled = false;
     btn.textContent = "Update Password";

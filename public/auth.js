@@ -1,5 +1,25 @@
 const BASE_URL = window.location.origin + '/api/v1'
 
+// Show a success/error message on the login or signup card.
+// `targetId` is optional; when omitted we pick the visible card's message box.
+function showResult(message, type = 'error', targetId) {
+  let el = targetId ? document.getElementById(targetId) : null
+
+  if (!el) {
+    const signupPage = document.getElementById('signupPage')
+    const onSignupPage = signupPage && !signupPage.classList.contains('hidden')
+    el = document.getElementById(onSignupPage ? 'signupResult' : 'loginResult')
+  }
+
+  if (!el) {
+    console.warn(`[${type}] ${message}`)
+    return
+  }
+
+  el.textContent = message
+  el.className = 'show ' + type
+}
+
 async function request(endpoint, method, body) {
   try {
     const res = await fetch(BASE_URL + endpoint, {
@@ -12,13 +32,21 @@ async function request(endpoint, method, body) {
     });
 
     if (!res.ok) {
-      const err = await res.json()
-      showResult(err.message || 'Something went wrong', 'error')
+      try {
+        const err = await res.json()
+        showResult(err.msg || err.message || 'Something went wrong please try again.', 'error')
+      } catch {
+        showResult('Something went wrong', 'error')
+      }
       return
     }
     return await res.json();
   } catch (error) {
-    showResult('Error: ' + error.message, 'error');
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      showResult('Network error. Please check your connection.', 'error');
+    } else {
+      showResult(error.message || 'Network error. Please check your connection.', 'error');
+    }
   }
 }
 
@@ -81,7 +109,8 @@ async function signup() {
 
   const data = await request("/auth/signup", "POST", { name, email, password });
   if(data) {
-    showResult('Account created! You can now login.', 'success', 'signupResult')
+    // Show the message on the login card we're about to reveal.
+    showResult('Account created! You can now login.', 'success', 'loginResult')
     showLogin()
   }
 }
@@ -159,17 +188,21 @@ async function submitForgotEmail() {
   
     
     if (!res.ok) {
-      messageDiv.textContent = data.message || 'Error'
+      messageDiv.textContent = data.msg || data.message || 'Something went wrong'
       messageDiv.className = 'error'
       return
     }
     
-    messageDiv.textContent = 'OTP sent! Check your email'
+    messageDiv.textContent = data.msg || 'OTP sent! Check your email'
     messageDiv.className = 'success'
     
 
   } catch (err) {
-    messageDiv.textContent = 'Error: ' + err.message
+    if (err.name === 'TypeError' && err.message.includes('fetch')) {
+      messageDiv.textContent = 'Network error. Please check your connection.'
+    } else {
+      messageDiv.textContent = err.message || 'Network error. Please check your connection.'
+    }
     messageDiv.className = 'error'
   }
 }

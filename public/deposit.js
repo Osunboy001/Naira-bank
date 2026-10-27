@@ -120,11 +120,15 @@ document.getElementById('depositForm').addEventListener('submit', async (e) => {
         if (data.data && data.data.authorization_url) {
             window.location.href = data.data.authorization_url
         } else {
-            showResult('Failed to get payment URL', 'error')
+            showResult(data.msg || data.message || 'Failed to get payment URL', 'error')
             resetButton()
         }
     } catch (error) {
-        showResult('Error: ' + error.message, 'error')
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            showResult('Network error. Please check your connection.', 'error')
+        } else {
+            showResult(error.message || 'Network error. Please check your connection.', 'error')
+        }
         resetButton()
     }
 })

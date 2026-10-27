@@ -27,7 +27,6 @@ else {
 
 async function fetchUserBalance(accountNumber) {
   try {
-console.log("User:", accountNumber);
     const res = await fetch(`/users/${accountNumber}`);
     if (res.ok) {
       const user = await res.json();
@@ -69,7 +68,11 @@ form.addEventListener('submit', async (e) => {
       showResult('Error: Account not found', 'error');
     }
   } catch (error) {
-    showResult('Error: ' + error.message, 'error');
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        showResult('Network error. Please check your connection.', 'error')
+    } else {
+        showResult(error.message || 'Network error. Please check your connection.', 'error')
+    };
     console.error('Error:', error);
   }
 });

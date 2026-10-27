@@ -1,3 +1,14 @@
+:root {
+  --primary: #6D28D9;
+  --primary-dark: #5B21B6;
+  --bg: #f6f6f7;
+  --card: #ffffff;
+  --text: #18181b;
+  --muted: #71717a;
+  --border: #e4e4e7;
+  --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
 /* RESET  */
 * {
   margin: 0;
@@ -34,7 +45,7 @@ body {
   border-color: var(--border);
 }
 .darkmode .icon-btn:hover {
-  background: #2e2440;
+  background: #27272a;
   border-color: var(--primary);
 }
 
@@ -64,15 +75,15 @@ body {
 /* status badge — keep it readable on dark */
 .darkmode .dateStatus .status {
   color: #b28ef0;
-  background-color: rgba(94, 34, 197, 0.18);
+  background-color: rgba(0, 0, 0, 0.108);
 }
 
-/* dropdown gradient card */
+/* dropdown card */
 .darkmode .dropdown-card {
-  background: linear-gradient(135deg, rgba(109, 45, 219, 0.18), rgba(84, 26, 184, 0.08));
+  background: #27272a;
 }
 .darkmode .dropdown-divider { background: var(--border); }
-.darkmode .dropdown-item:hover { background: #2e2440; }
+.darkmode .dropdown-item:hover { background: #27272a; }
 
 /* .add button is white-on-white in dark */
 .darkmode .add {
@@ -104,8 +115,6 @@ body {
 /*  LEFT PANEL UPGRADE  */
 .left-panel {
   background: #450ca8 ;
-  background-size: 200% 200%;
-  animation: bgShift 8s ease infinite;
   padding: 60px 52px;
   position: relative;
   overflow: hidden;
@@ -280,7 +289,7 @@ input {
   margin-bottom: 14px;
   border-radius: 10px;
   border: 1.5px solid var(--border);
-  background: #fbf8ff;
+  background: #fafafa;
   font-size: 15px;
   outline: none;
   transition: 0.2s;
@@ -289,7 +298,7 @@ input {
 input:focus {
   border-color: var(--primary);
   background: white;
-  box-shadow: 0 0 0 3px rgba(109, 45, 219, 0.12);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.072);
 }
 
 /*  BUTTONS  */
@@ -304,7 +313,7 @@ input:focus {
   font-size: 15px;
   cursor: pointer;
   transition: 0.2s;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
 
@@ -381,7 +390,7 @@ input:focus {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 12px rgba(39, 16, 80, 0.04);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.024);
 }
 
 /* LEFT: greeting */
@@ -423,7 +432,7 @@ input:focus {
   transition: background 0.18s ease, border-color 0.18s ease;
 }
 .icon-btn:hover {
-  background: #f3eefb;
+  background: #f4f4f5;
   border-color: var(--primary);
 }
 .icon-badge {
@@ -442,14 +451,14 @@ input:focus {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  background: var(--primary);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   font-size: 16px;
-  box-shadow: 0 3px 10px rgba(109, 45, 219, 0.3);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
   flex-shrink: 0;
 }
 .avatar-lg {
@@ -516,7 +525,7 @@ input:focus {
   gap: 12px;
   padding: 12px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(109, 45, 219, 0.08), rgba(84, 26, 184, 0.04));
+  background: #f4f4f5;
 }
 .dropdown-card-info {
   overflow: hidden;
@@ -583,7 +592,7 @@ input:focus {
   border-radius: 22px;
  background-color:#6d2ddb ;
   color: white;
-  box-shadow: 0 18px 40px rgba(109, 45, 219, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -596,7 +605,7 @@ input:focus {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.28), transparent 70%);
+  background: transparent;
   pointer-events: none;
 }
 
@@ -795,7 +804,7 @@ input:focus {
 }
 
 .donut-track {
-  stroke: #efeef2;
+  stroke: #f4f4f5;
 }
 
 .donut-received {
@@ -868,7 +877,7 @@ input:focus {
 .donut-stat-divider {
   width: 70px;
   height: 1px;
-  background: #efeef2;
+  background: #f4f4f5;
   margin: 9px 0;
 }
 
@@ -1099,7 +1108,7 @@ background-color:#6d2ddb ;
 
 .dateStatus .status {
   color: rgb(57, 6, 146);
-  background-color: rgb(214, 193, 250);
+  background-color: #d4d4d8;
 
 
 
@@ -1255,9 +1264,9 @@ background-color:#6d2ddb ;
 #loginResult.show.success,
 #signupResult.show.success {
   display: block;
-  background: #ece6f7;
+  background: #f4f4f5;
   color: #340a7c;
-  border: 1px solid #b79fe1;
+  border: 1px solid #d4d4d8;
 }
 
 
@@ -1540,7 +1549,7 @@ background-color:#6d2ddb ;
 .modal-step input:focus {
   outline: none;
   border-color: rgb(109, 45, 219);
-  box-shadow: 0 0 5px rgba(109, 45, 219, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.18);
 }
 
 .modal-step button {
@@ -1570,12 +1579,12 @@ background-color:#6d2ddb ;
   padding:14px;
   border:none;
   border-radius:12px;
-  background:linear-gradient(135deg,#6d2ddb,#621fd6);
+  background: #6d2ddb;
   color:#fff;
   font-size:15px;
   font-weight:600;
   cursor:pointer;
-  box-shadow:0 8px 18px rgba(109, 45, 219, .3);transition:transform .15s,box-shadow .15s;
+  box-shadow:0 8px 18px rgba(0, 0, 0, 0.18);transition:transform .15s,box-shadow .15s;
 
 }
 .messagep {
@@ -1633,7 +1642,7 @@ background-color:#6d2ddb ;
   justify-content: center;
   border-radius: 50%;
   margin-bottom: 18px;
-  background: #f0eafa;
+  background: #f2f2f3;
   
 }
 
@@ -1648,14 +1657,14 @@ background-color:#6d2ddb ;
 }
 
 .empty-state--filter .empty-state__icon {
-  background: #efeef2;
+  background: #f4f4f5;
   
 }
 
  h3 .empty-state__title {
   font-size: 232px;
   font-weight: 600;
-  color: #191127;
+  color: #18181b;
   margin: 0 0 6px;
 }
 

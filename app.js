@@ -5,7 +5,33 @@ const app = express();
 const connectDB = require('./db/connect')
 const cookieParser = require('cookie-parser')
 
-app.use(cors());     
+// ---------------------------------------------------------------
+// CORS
+// Only the site in APP_URL may call this API from a browser.
+// Requests with no Origin header (curl, Postman, server-to-server)
+// are still allowed; browsers always send Origin on cross-origin
+// calls and on same-origin POST/PUT/PATCH/DELETE.
+// ---------------------------------------------------------------
+const allowedOrigins = [
+  process.env.APP_URL,
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+].filter(Boolean)
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true)
+    }
+    return callback(null, false)
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  maxAge: 86400,
+}
+
+app.use(cors(corsOptions))
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())  
 app.use(express.json());

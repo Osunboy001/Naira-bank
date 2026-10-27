@@ -2,14 +2,14 @@
 
 :root {
   --blue: #7c3aed;
-  --blue-light: rgba(94, 0, 255, 0.08);
-  --blue-shadow: rgba(94, 0, 255, 0.3);
-  --text-dark: #120d1a;
-  --text-mid: #504466;
-  --text-soft: #9488aa;
-  --bg: #f2eef8;
+  --blue-light: rgba(0, 0, 0, 0.048);
+  --blue-shadow: rgba(0, 0, 0, 0.18);
+  --text-dark: #18181b;
+  --text-mid: #52525b;
+  --text-soft: #a1a1aa;
+  --bg: #f4f4f5;
   --card: #ffffff;
-  --border: #e4ddf0;
+  --border: #e4e4e7;
 }
 
 * {
@@ -127,7 +127,7 @@ body {
 }
 
 .users-list li {
-  background: #f9f7fd;
+  background: #fafafa;
   border: 2px solid var(--border);
   border-radius: 18px;
   padding: 26px 32px;
@@ -141,7 +141,7 @@ body {
 .users-list li:hover {
   border-color: #7c3aed;
   background: var(--blue-light);
-  box-shadow: 0 8px 28px rgba(94, 0, 255, 0.12);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.072);
   transform: translateY(-2px);
 }
 
@@ -222,7 +222,7 @@ body {
   font-family: 'Sora', sans-serif;
   font-weight: 500;
   color: var(--text-dark);
-  background: #f9f7fd;
+  background: #fafafa;
   transition: all 0.2s ease;
 }
 
@@ -230,11 +230,11 @@ body {
   outline: none;
   border-color: #7c3aed;
   background: white;
-  box-shadow: 0 0 0 4px rgba(94, 0, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
 }
 
 .form-group input::placeholder {
-  color: #c4bbd4;
+  color: #d4d4d8;
   font-weight: 400;
 }
 

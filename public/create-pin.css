@@ -5,22 +5,20 @@
 :root {
   --green: #340a7c;
   --green-mid: #420e9d;
-  --green-light: #ece6f7;
-  --green-border: #b79fe1;
+  --green-light: #f4f4f5;
+  --green-border: #d4d4d8;
   --blue: #5415c0;
   --danger: #c0392b;
   --danger-light: #fdecea;
-  --text: #150f1f;
-  --text2: #544b63;
+  --text: #18181b;
+  --text2: #52525b;
   --text3: #9ca3af;
   --border: #e7e5eb;
-  --bg: #f0eef3;
+  --bg: #f2f2f3;
   --card: #ffffff;
-  --icecream: black
-  --bg: white
   --radius: 20px;
   --radius-sm: 12px;
-  --shadow: 0 10px 40px -12px rgba(52, 10, 124, 0.18);
+  --shadow: 0 10px 40px -12px rgba(0, 0, 0, 0.108);
 }
 
 body {
@@ -53,7 +51,7 @@ body {
 .nb-top-icon {
   width: 84px; height: 84px;
   border-radius: 24px;
-  background: linear-gradient(145deg, #ffffff, var(--green-light));
+  background: var(--green-light);
   border: 1px solid var(--green-border);
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 22px;
@@ -84,7 +82,7 @@ body {
 .nb-card {
   background: var(--card);
   border-radius: var(--radius);
-  border: 1px solid rgba(231, 229, 235, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 28px 24px;
   margin-bottom: 16px;
   box-shadow: var(--shadow);
@@ -109,7 +107,7 @@ body {
   font-size: 18px;
   font-family: 'Plus Jakarta Sans', sans-serif;
   color: var(--text);
-  background: #fcfbfd;
+  background: #fcfcfc;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   -webkit-appearance: none;
@@ -118,7 +116,7 @@ body {
 .nb-input:focus {
   border-color: var(--green);
   background: #fff;
-  box-shadow: 0 0 0 4px rgba(52, 10, 124, 0.12);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.072);
 }
 
 .nb-input.nb-ok { border-color: var(--green); }
@@ -201,7 +199,7 @@ body {
 
 /* ── TIPS ── */
 .nb-tips {
-  background: linear-gradient(180deg, #faf9fb, #f5f4f8);
+  background: #fafafa;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   padding: 16px 18px;
@@ -242,11 +240,11 @@ body {
   cursor: pointer;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
-  box-shadow: 0 8px 20px -6px rgba(52, 10, 124, 0.45);
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.18);
   margin-bottom: 12px;
 }
 
-.nb-btn:hover { filter: brightness(1.05); box-shadow: 0 10px 26px -6px rgba(52, 10, 124, 0.55); }
+.nb-btn:hover { filter: brightness(1.05); box-shadow: 0 10px 26px -6px rgba(0, 0, 0, 0.18); }
 .nb-btn:active { transform: scale(0.98); }
 .nb-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
 
@@ -350,7 +348,7 @@ body {
   border-radius: var(--radius-sm);
   padding: 16px 18px;
   margin-bottom: 12px;
-  background: #fcfbfd;
+  background: #fcfcfc;
   display: flex; align-items: center; justify-content: space-between;
   gap: 14px;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
@@ -360,7 +358,7 @@ body {
 .nb-pin-display.nb-active {
   border-color: var(--green);
   background: #fff;
-  box-shadow: 0 0 0 4px rgba(52, 10, 124, 0.12);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.072);
 }
 
 /* a completed row */
@@ -423,7 +421,7 @@ body {
 .nb-key.nb-press {
   transform: scale(0.94);
   background: var(--green-light);
-  box-shadow: 0 0 0 4px rgba(52, 10, 124, 0.10);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
 }
 
 .nb-key-empty { visibility: hidden; }
@@ -440,9 +438,9 @@ body {
 
 
    body.darkmode {
-  --card: #201a2a;
+  --card: #27272a;
   --text: #e7e5eb;
-  --border: #322a41;
+  --border: #27272a;
   --text3: #9ca3af;
   --icecream:white;
   --bg: black

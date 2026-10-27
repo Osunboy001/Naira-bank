@@ -1,14 +1,13 @@
 :root {
   --primary: #7C3AED;
   --primary-dark: #6D28D9;
-  --pink: #DB2777;
-  --pink-dark: #BE185D;
-  --brand-gradient: linear-gradient(120deg, #7C3AED 0%, #9333EA 45%, #DB2777 100%);
-  --bg: #f7f4fb;
+  --pink: #7c3aed;
+  --pink-dark: #6d28d9;
+  --bg: #f6f6f7;
   --card: #ffffff;
-  --text: #211a2c;
-  --muted: #7f7196;
-  --border: #e9e3f2;
+  --text: #18181b;
+  --muted: #71717a;
+  --border: #e4e4e7;
   --danger: #f56565;
   --success: #7C3AED;
   --shadow: 0 8px 20px rgba(0,0,0,0.06);
@@ -56,13 +55,13 @@ body {
     .themeSwitch svg:last-of-type { display: none; }
     .darkmode {
   /* flip the theme variables so everything using them goes dark */
-  --bg: #130f1a;
-  --card: #221b2d;
-  --text: #f7f4fb;
-  --muted: #a49ab5;
-  --border: #322a3f;
+  --bg: #18181b;
+  --card: #27272a;
+  --text: #f6f6f7;
+  --muted: #a1a1aa;
+  --border: #3f3f46;
 
-  background: #130f1a;
+  background: #18181b;
   color: var(--text);
 }
 
@@ -86,12 +85,12 @@ body {
 .darkmode input,
 .darkmode textarea,
 .darkmode select {
-  background: #191422;
+  background: #27272a;
   border-color: var(--border);
   color: var(--text);
 }
 .darkmode input:focus {
-  background: #221b2d;
+  background: #27272a;
 }
 
 /* muted text */
@@ -126,7 +125,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 12px rgba(39, 16, 80, 0.04);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.024);
 }
 
 /* LEFT: greeting */
@@ -160,7 +159,7 @@ body {
   height: 42px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background:  #f3eefb;
+  background:  #f4f4f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,7 +167,7 @@ body {
   transition: background 0.18s ease, border-color 0.18s ease;
 }
 .icon-btn:hover {
-  background: #f3eefb;
+  background: #f4f4f5;
   border-color: var(--primary);
 }
 .icon-badge {
@@ -187,14 +186,14 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  background: var(--primary);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   font-size: 16px;
-  box-shadow: 0 3px 10px rgba(109, 45, 219, 0.3);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
   flex-shrink: 0;
 }
 .avatar-lg {
@@ -271,7 +270,7 @@ body {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  box-shadow: 0 18px 48px rgba(39, 16, 80, 0.16);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.096);
   padding: 8px;
   opacity: 0;
   visibility: hidden;
@@ -291,7 +290,7 @@ body {
   gap: 12px;
   padding: 12px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(109, 45, 219, 0.08), rgba(84, 26, 184, 0.04));
+  background: #f4f4f5;
 }
 .dropdown-card-info {
   overflow: hidden;
@@ -381,7 +380,7 @@ body {
   border-radius: 22px;
  background-color:#6d2ddb ;
   color: white;
-  box-shadow: 0 18px 40px rgba(109, 45, 219, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -394,7 +393,7 @@ body {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.28), transparent 70%);
+  background: transparent;
   pointer-events: none;
 }
 
@@ -593,7 +592,7 @@ body {
 }
 
 .donut-track {
-  stroke: #efeef2;
+  stroke: #f4f4f5;
 }
 
 .donut-received {
@@ -666,7 +665,7 @@ body {
 .donut-stat-divider {
   width: 70px;
   height: 1px;
-  background: #efeef2;
+  background: #f4f4f5;
   margin: 9px 0;
 }
 
@@ -722,7 +721,7 @@ body {
     flex: 1;
   }
 
-  /* Dock Transfer / Deposit / Create Pin / History to the bottom */
+  /* Dock to the bottom like Opay */
   .actions {
     position: fixed;
     left: 0;
@@ -731,11 +730,11 @@ body {
     margin: 0;
     grid-template-columns: repeat(4, 1fr);
     gap: 6px;
-    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
     background: var(--card);
     border-top: 1px solid var(--border);
-    border-radius: 22px 22px 0 0;
-    box-shadow: 0 -8px 24px rgba(0,0,0,0.08);
+    border-radius: 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
     z-index: 120;
   }
 
@@ -900,7 +899,7 @@ background-color:#6d2ddb ;
 
 .dateStatus .status {
   color: rgb(57, 6, 146);
-  background-color: rgb(214, 193, 250);
+  background-color: #d4d4d8;
 
 
 
@@ -1059,9 +1058,9 @@ background-color:#6d2ddb ;
 #loginResult.show.success,
 #signupResult.show.success {
   display: block;
-  background: #ece6f7;
+  background: #f4f4f5;
   color: #340a7c;
-  border: 1px solid #b79fe1;
+  border: 1px solid #d4d4d8;
 }
 
 
@@ -1084,12 +1083,7 @@ background-color:#6d2ddb ;
 
 @media (max-width: 768px) {
   .sidebar {
-    transform: translateY(+1000px);
-    transition: transform 0.3s ease;
-  }
-
-  .sidebar.active {
-    transform: translateY(0);
+    display: none !important;
   }
 }
 
@@ -1206,27 +1200,7 @@ background-color:#6d2ddb ;
 }
 
 .toggle-btn {
-  position: fixed;
-  top: 10px;
-  left: 0px;
-  width: 35px;
-  height: 40px;
-  color: black;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 180;
-  display: none;
-  align-items: center;
-  justify-content: center;
-
-}
-
-
-@media (max-width: 768px) {
-  .toggle-btn {
-    display: flex;
-  }
+  display: none !important;
 }
 
 @media (min-width: 769px) {
@@ -1236,6 +1210,18 @@ background-color:#6d2ddb ;
 
   .topbar {
     margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  #dashboardPage {
+    margin-left: 0;
+  }
+  .main-content {
+    padding-bottom: 90px;
+  }
+  body {
+    padding-bottom: 90px;
   }
 }
 

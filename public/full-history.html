@@ -6,6 +6,7 @@
   <title>Transaction History</title>
   <link rel="stylesheet" href="full-history.css">
   <link rel="stylesheet" href="/main-sidebar.css">
+  <link rel="stylesheet" href="user-dashboard.css">
 
 </head>
 <body>
@@ -77,11 +78,36 @@
 
 
 
-
+<!-- BOTTOM NAVIGATION (like Opay) -->
+<div class="actions">
+  <div class="action">
+    <a class="adeco" href="user-dashboard.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+    </a>
+    <span><a style="text-decoration: none; color: black;" href="user-dashboard.html">Home</a></span>
+  </div>
+  <div class="action">
+    <a class="adeco" href="transaction.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+    </a>
+    <span><a style="text-decoration: none; color: black;" href="transaction.html">Transfer</a></span>
+  </div>
+  <div class="action">
+    <a class="adeco" href="deposit.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11"/><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z"/><path d="M6 13h12"/><path d="M6 17h12"/></svg>
+    </a>
+    <span><a style="text-decoration: none; color: black;" href="deposit.html">Deposit</a></span>
+  </div>
+  <div class="action">
+    <a class="adeco" href="full-history.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+    </a>
+    <span><a style="text-decoration: none; color: black;" href="full-history.html">History</a></span>
+  </div>
+</div>
 
 <script src="theme.js"></script>
-  <script src="/sidebar.js"></script>
-
-  <script src="full-history.js"></script>
+<script src="/sidebar.js"></script>
+<script src="full-history.js"></script>
 </body>
 </html>

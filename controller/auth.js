@@ -44,13 +44,14 @@ const signin = async (req, res, next) => {
       throw new unAuntentication("Invalid email or password")
     }
 
+
     const isPasswordCorrect = await user.comparePassword(password)
     if (!isPasswordCorrect) {
       throw new unAuntentication("Invalid email or password")
     }
 
     if (user.status === "blocked") {
-      throw new forbidden("Your account is blocked. Contact admin.")
+      throw new forbidden("Your account is blocked. Contact the organisation.")
     }
 
     const token = user.createJWT()
@@ -61,7 +62,6 @@ const signin = async (req, res, next) => {
       sameSite: 'strict',
       maxAge: 24 * 60 * 60 * 1000
     })
-      console.log('jjdjdjd' ,user)
 
     return res.status(StatusCodes.OK).json({
       

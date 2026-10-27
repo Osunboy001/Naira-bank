@@ -15,13 +15,21 @@ async function request(endpoint, method, body) {
     });
 
     if (!res.ok) {
-      const err = await res.json()
-      showResult(err.message || 'Something went wrong', 'error')
+      try {
+        const err = await res.json()
+        showResult(err.msg || err.message || 'Something went wrong', 'error')
+      } catch {
+        showResult('Something went wrong', 'error')
+      }
       return
     }
     return await res.json();
   } catch (error) {
-    showResult('Error: ' + error.message, 'error');
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      showResult('Network error. Please check your connection.', 'error');
+    } else {
+      showResult(error.message || 'Network error. Please check your connection.', 'error');
+    }
   }
 }
 
@@ -60,7 +68,6 @@ const res = await fetch(`${BASE_URL}/dashboard`, {
   document.querySelector("#username").textContent = `Hi, ${ currentData.name.toUpperCase()}`;
   document.querySelector("#balance").textContent = ` #${ currentData.balance.toLocaleString()} `;
   document.querySelector("#accountnumber").textContent = `Acct No: ${ currentData.accountnumber}`;
-    console.log('jjjjjjjhhhh', data)
     
       
 
@@ -72,7 +79,6 @@ const res = await fetch(`${BASE_URL}/dashboard`, {
 
     }
 
-    console.log("Dashboard data:", data);
     return data;
   } catch (error) {
     console.error("Failed to load dashboard:", error);
@@ -96,10 +102,8 @@ function setAvatar(el, profilePicture, letter) {
 
 function renderDashboard() {
   const cacheUser = JSON.parse(localStorage.getItem("user"))
-  console.log('this is the cache:', cacheUser)
   if(cacheUser) {
     const user = cacheUser
-console.log('this is the ddduser:', user.name)
   // const avatarName = user.name
   // const avatarLetter = avatarName.charAt(0).toUpperCase();
   // // Show the uploaded profile picture if the user has one, otherwise fall back
@@ -184,7 +188,6 @@ function showResult(message, type) {
 
 function initapp() {
   const user = JSON.parse(localStorage.getItem("user"))
-  console.log('USER:', user)
   if (user) {
     showDashboard()
     loadDashboard()
@@ -231,9 +234,7 @@ if(!res.ok) {
  const data = await res.json()
 
 
-     console.log("Data received:", data.transactions); 
 // CONSOLE.LOG TO DEBUG MY CODE
-console.log("FULL API RESPONSE:", data) 
      sections.innerHTML = ""
 
      if(data.transactions.length === 0) {
@@ -263,20 +264,13 @@ renderMoneyFlow(totalReceived, totalSent)
   await data.transactions.slice(0, 3).forEach(transaction => {
 
 
-   console.log('my trans',transaction.amount)
-   console.log('my trans',transaction.date)
-   console.log('trans', transaction.direction)
 
 
 
 
 
    
-   console.log('my trans',transaction.userId.name)
   
-   console.log('my trans',transaction.amount)
-   console.log('my trans',transaction.date)
-   console.log('trans', transaction.direction)
 // Adding boolean value to both credit and debit side
 let message ;
 let amount;
@@ -378,7 +372,6 @@ function hidebalance () {
 balance.textContent = "****"
 hideBalance.classList.add('active')
 viewBalance.classList.add('active')
-console.log('workng fn')
  })
 
 }
@@ -392,7 +385,6 @@ console.log('workng fn')
 balance.textContent = ` #${ currentData.balance.toLocaleString()} `
   viewBalance.classList.remove('active')
   hideBalance.classList.remove('active')
-  console.log('not worknfg')
 
 
 

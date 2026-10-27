@@ -153,7 +153,7 @@ async function lookupAccount(accountNumber) {
       isRecipientVerified = true
       updateSummary()
     } else {
-      showFieldError("acctError", data.message || "Account not found")
+      showFieldError("acctError", data.msg || data.message || "Account not found")
       input.classList.add("nb-input-err")
     }
   } catch (error) {
@@ -238,7 +238,7 @@ async function confirmTransfer() {
       getEl("loadingSection").classList.add("nb-hidden")
 
       if (!res.ok) {
-        showTransferError(data.message)
+        showTransferError(data.msg || data.message)
         return
       }
 

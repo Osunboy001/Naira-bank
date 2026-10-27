@@ -193,7 +193,6 @@ const getTransactionHistory = async (req, res) => {
       success: true, 
       transactions: formattedTransactions 
     })
-    console.log(transactions)
     
   } catch (err) {
     res.status(500).json({ message: err.message })

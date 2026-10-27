@@ -98,7 +98,6 @@ const webhook = async (req, res) => {
   try {
     const event = req.body
 
-    console.log(" Webhook received ooo:", event.event)
 
     if (event.event === 'charge.success') {
       const reference = event.data.reference
@@ -127,7 +126,6 @@ const webhook = async (req, res) => {
             reference: reference
           })
 
-          console.log(` Webhook: ${user.email} balance updated!`)
         }
       }
     }
@@ -135,7 +133,6 @@ const webhook = async (req, res) => {
     res.status(200).json({ message: 'Webhook received' })
 
   } catch (error) {
-    console.log(" Webhook error:", error.message)
     res.status(200).json({ message: 'Webhook received' })
   }
 }

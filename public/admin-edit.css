@@ -6,7 +6,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background: #fbfafc;
+  background: #fafafa;
   min-height: 100vh;
 }
 
@@ -18,7 +18,7 @@ body {
 
 #sidebar-container {
   width: 280px;
-  background: #1d1a23;
+  background: #18181b;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -39,7 +39,7 @@ body {
 
 /* HEADER */
 .title {
-  color: #1d1a23;
+  color: #18181b;
   font-size: 48px;
   font-weight: 900;
   margin-bottom: 12px;
@@ -93,7 +93,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f7f5fa 0%, #f2f0f5 100%);
+  background: #f6f6f7;
   border-radius: 16px;
   padding: 40px;
 }
@@ -109,18 +109,18 @@ body {
   border-radius: 16px;
   object-fit: cover;
   border: 4px solid rgb(109, 45, 219);
-  box-shadow: 0 20px 60px rgba(109, 45, 219, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
   margin-bottom: 30px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .profile img:hover {
   transform: translateY(-8px);
-  box-shadow: 0 30px 80px rgba(109, 45, 219, 0.3);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
 }
 
 .label {
-  color: #1d1a23;
+  color: #18181b;
   font-size: 14px;
   font-weight: 800;
   margin-bottom: 25px;
@@ -138,7 +138,7 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 24px rgba(109, 45, 219, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   text-transform: uppercase;
   letter-spacing: 0.8px;
   width: 100%;
@@ -147,7 +147,7 @@ body {
 .btn-upload:hover {
   background: rgb(82, 29, 174);
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(109, 45, 219, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
 
 .btn-upload:active {
@@ -167,7 +167,7 @@ body {
 }
 
 .form-group label {
-  color: #1d1a23;
+  color: #18181b;
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -177,20 +177,20 @@ body {
 
 .form input {
   padding: 16px 18px;
-  border: 2px solid #e5e0ed;
+  border: 2px solid #e4e4e7;
   border-radius: 10px;
   font-size: 16px;
   font-weight: 500;
   transition: all 0.3s ease;
-  background: #fbfafc;
-  color: #1d1a23;
+  background: #fafafa;
+  color: #18181b;
 }
 
 .form input:focus {
   outline: none;
   border-color: rgb(109, 45, 219);
   background: white;
-  box-shadow: 0 0 0 8px rgba(109, 45, 219, 0.1);
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.06);
 }
 
 .form input::placeholder {
@@ -199,7 +199,7 @@ body {
 }
 
 .form input:disabled {
-  background: #f2f0f5;
+  background: #f4f4f5;
   color: #999;
   cursor: not-allowed;
   font-weight: 600;
@@ -216,7 +216,7 @@ body {
   font-weight: 800;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 24px rgba(109, 45, 219, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-top: 20px;
@@ -225,7 +225,7 @@ body {
 .form button:hover {
   background: rgb(82, 29, 174);
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(109, 45, 219, 0.4);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
 
 .form button:active {
@@ -257,7 +257,7 @@ body {
 
 #message.success {
   display: block;
-  background: #f2ecfd;
+  background: #f4f4f5;
   color: #2f0478;
   border-left: 5px solid #4e10b9;
 }
