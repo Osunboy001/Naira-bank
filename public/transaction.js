@@ -281,7 +281,7 @@ async function confirmTransfer() {
       getEl("loadingSection").classList.add("nb-hidden")
 
       if (!res.ok) {
-        showTransferError(data.msg || "shut it up")
+        showTransferError(data.msg || data.message)
         return
       }
 
