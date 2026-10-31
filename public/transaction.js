@@ -175,6 +175,49 @@ function updateSummary() {
   }
 }
 
+
+const proceed = document.getElementById('proceedBtn');
+
+function checkBalance() {
+    proceed.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        proceed.disabled = true;
+     checkAmount = getEl("amount").value
+        try {
+            const res = await apiRequest("/transactions/checkDetails", {
+                method: "POST",
+                body: JSON.stringify({
+                accountnumber: recipientAccountNumber,
+                amount: Number(checkAmount),
+                
+                })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                showTransferError(data.message || "Unable to verify balance");
+                return;
+            }
+//  I only open the pin model when the their is no error
+            showPinModal();
+
+        } catch (error) {
+            console.error("Balance check error:", error);
+            showTransferError("Network error. Please try again.");
+
+        } finally {
+            proceed.disabled = false;
+        }
+    });
+}
+
+
+checkBalance();
+
+
+
 // ── PIN modal ──
 function showPinModal() {
   hideFieldError("acctError")
@@ -238,7 +281,7 @@ async function confirmTransfer() {
       getEl("loadingSection").classList.add("nb-hidden")
 
       if (!res.ok) {
-        showTransferError(data.msg || data.message)
+        showTransferError(data.msg || "shut it up")
         return
       }
 

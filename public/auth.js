@@ -124,8 +124,7 @@ function showSignup() {
 }
 // VERIFY EMAIL
 // Sends a verification email ONLY if the address is registered.
-// For privacy we always show the same message, so we never reveal
-// whether an email exists in the system.
+
 async function verifyEmail() {
   const email = document.getElementById("signupEmail").value;
 

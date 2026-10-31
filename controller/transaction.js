@@ -68,6 +68,41 @@ const getAccountName = async (req, res) => {
   }
 }
 
+const checkDetails = async (req,res) => {
+  try {
+          const { accountnumber, amount } = req.body
+    if (!accountnumber || !amount ) {
+      return res.status(400).json({ message: "All fields are required" })
+    }
+
+    const sender = await myUser.findById(req.user.userId)
+    const receiver = await myUser.findOne({ accountnumber })
+
+    if (!sender) return res.status(404).json({ message: "Sender not found" })
+    if (!receiver) return res.status(404).json({ message: "Receiver not found" })
+
+    if (sender.accountnumber === accountnumber) {
+      return res.status(400).json({ message: "Cannot send to yourself" })
+    }
+
+        if (sender.balance < amount) {
+      await Transaction.create({ type: "transfer", amount, from: sender._id, to: receiver._id, status: "failed" })
+      return res.status(400).json({ message: "Insufficient fund " })
+    }
+  res.status(200).json({  success: true,
+  sufficientBalance: true,
+  message: "Sufficient balance",
+  balance: sender.balance })
+  }
+
+  catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+}
+  
+
+
+
 const transfer = async (req, res) => {
   try {
     const { accountnumber, amount, pin } = req.body
@@ -97,11 +132,7 @@ const transfer = async (req, res) => {
     const isMatch = await bcrypt.compare(pin, sender.pin)
     if (!isMatch) return res.status(400).json({ message: "Incorrect PIN" })
 
-    if (sender.balance < amount) {
-      await Transaction.create({ type: "transfer", amount, from: sender._id, to: receiver._id, status: "failed" })
-      return res.status(400).json({ message: "Insufficient balance" })
-    }
-
+ 
     sender.balance -= amount
     receiver.balance += amount
     await sender.save()
@@ -223,4 +254,4 @@ const getSingleHistory = async (req,res) => {
 
 
 
-module.exports = { getAccountName, transfer, checkPin, createPin, changePin ,getTransactionHistory,getSingleHistory}
+module.exports = { getAccountName, transfer, checkPin, createPin, changePin ,getTransactionHistory,getSingleHistory, checkDetails}
