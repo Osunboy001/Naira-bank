@@ -64,7 +64,19 @@ async function login() {
     return
   }
 
- 
+  // KYC-first: unverified users must finish verification before the app.
+  try {
+    const kycRes = await fetch(BASE_URL + '/kyc', { credentials: 'include' })
+    if (kycRes.ok) {
+      const kyc = await kycRes.json()
+      if (kyc.status !== 'verified') {
+        window.location.href = "/kyc.html"
+        return
+      }
+    }
+  } catch (err) {
+    // Fall through to the dashboard; the server-side page guard re-checks.
+  }
 
   window.location.href = "/user-dashboard.html"
 }
@@ -78,12 +90,31 @@ function showLogin() {
 
 
 async function signup() {
-  const name = document.getElementById("signupName").value;
-  const email = document.getElementById("signupEmail").value;
+  const firstName = document.getElementById("signupFirstName").value.trim();
+  const lastName = document.getElementById("signupLastName").value.trim();
+  const location = document.getElementById("signupLocation").value.trim();
+  const dateOfBirth = document.getElementById("signupDob").value;
+  const email = document.getElementById("signupEmail").value.trim();
   const password = document.getElementById("signupPassword").value;
   
-  if (!name || !email || !password) {
+  if (!firstName || !lastName || !location || !dateOfBirth || !email || !password) {
     showResult('Please fill all fields', 'error','signupResult');
+    return;
+  }
+
+  if (firstName.length < 2 || lastName.length < 2) {
+    showResult('First name and last name must be at least 2 characters', 'error', 'signupResult');
+    return;
+  }
+
+  if (location.length < 3) {
+    showResult('Please enter your location', 'error', 'signupResult');
+    return;
+  }
+
+  const dob = new Date(dateOfBirth);
+  if (isNaN(dob.getTime()) || dob >= new Date()) {
+    showResult('Please enter a valid date of birth', 'error', 'signupResult');
     return;
   }
   
@@ -107,7 +138,7 @@ async function signup() {
     return
   }
 
-  const data = await request("/auth/signup", "POST", { name, email, password });
+  const data = await request("/auth/signup", "POST", { firstName, lastName, location, dateOfBirth, email, password });
   if(data) {
     // Show the message on the login card we're about to reveal.
     showResult('Account created! You can now login.', 'success', 'loginResult')

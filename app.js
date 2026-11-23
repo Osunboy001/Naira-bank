@@ -36,9 +36,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())  
 app.use(express.json());
 
-
-
-
+const kycPageGuard = require('./middleware/kyc-page-guard')
+app.use(kycPageGuard)
 
 app.use(express.static('./public'))
 
@@ -50,6 +49,7 @@ const auth = require('./router/auth')
 const adminDashboard = require('./router/admindashboard')
 const transaction = require('./router/transaction')
 const deposit = require('./router/payment-deposit')
+const kyc = require('./router/kyc')
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/err-handler')
 
@@ -59,6 +59,7 @@ app.use('/api/v1/admin', adminDashboard)
 app.use('/api/v1/admin', adminEdit)
 app.use('/api/v1/transactions', transaction)
 app.use('/api/v1/deposit', deposit)
+app.use('/api/v1/kyc', kyc)
 app.use('/api/v1/', home)
 
 app.use(notFoundMiddleware)

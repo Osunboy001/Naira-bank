@@ -2,12 +2,100 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
+const kycSchema = new mongoose.Schema({
+  status: {
+    type: String,
+    enum: ['unverified', 'pending', 'verified', 'rejected'],
+    default: 'unverified'
+  },
+
+  nin: {
+    type: String,
+    default: null
+  },
+
+  fullName: {
+    type: String,
+    default: null
+  },
+
+  dateOfBirth: {
+    type: Date,
+    default: null
+  },
+
+  address: {
+    type: String,
+    default: null
+  },
+
+  documentType: {
+    type: String,
+    enum: ['nin_slip', 'national_id', 'drivers_license', 'passport'],
+    default: 'nin_slip'
+  },
+
+  document: {
+    type: String,
+    default: null
+  },
+
+  selfie: {
+    type: String,
+    default: null
+  },
+
+  rejectionReason: {
+    type: String,
+    default: null
+  },
+
+  submittedAt: {
+    type: Date,
+    default: null
+  },
+
+  reviewedAt: {
+    type: Date,
+    default: null
+  },
+
+  reviewedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null
+  }
+}, { _id: false })
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please provide a name'],
     maxlength: 50,
     minlength: 3
+  },
+
+  firstName: {
+    type: String,
+    default: null,
+    trim: true
+  },
+
+  lastName: {
+    type: String,
+    default: null,
+    trim: true
+  },
+
+  location: {
+    type: String,
+    default: null,
+    trim: true
+  },
+
+  dateOfBirth: {
+    type: Date,
+    default: null
   },
 
   email: {
@@ -71,6 +159,11 @@ resetTokenExpiry: {
   profilePicture: {
     type: String,
     default: null  
+  },
+
+  kyc: {
+    type: kycSchema,
+    default: () => ({})
   }
 });
 

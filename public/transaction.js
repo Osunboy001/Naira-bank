@@ -294,9 +294,47 @@ async function confirmTransfer() {
   }, 3000)
 }
 
+// Show a reminder when the user has not completed identity verification.
+async function loadKycBanner() {
+  try {
+    const res = await apiRequest("/kyc")
+    if (!res.ok) return
+
+    const data = await res.json()
+    const status = data.status || "unverified"
+
+    if (status === "verified") {
+      getEl("kycBanner").classList.add("nb-hidden")
+      return
+    }
+
+    const title = getEl("kycBannerTitle")
+    const text = getEl("kycBannerText")
+
+    if (status === "pending") {
+      title.textContent = "KYC under review"
+      text.textContent = "Your identity documents are waiting for approval. Transfers will unlock once you are verified."
+    } else if (status === "rejected") {
+      title.textContent = "Your KYC was rejected"
+      text.textContent = data.rejectionReason || "Please correct your details and resubmit to unlock transfers."
+    } else {
+      title.textContent = "Verify your identity to send money"
+      text.textContent = "Complete your KYC verification to unlock transfers."
+    }
+
+    getEl("kycBanner").classList.remove("nb-hidden")
+  } catch (error) {
+    // The banner is advisory; the API still enforces KYC on transfers.
+  }
+}
+
 // Route a failed transfer back to the screen/field that caused it.
 function showTransferError(message) {
   const lowerMessage = (message || "").toLowerCase()
+
+  if (lowerMessage.includes("kyc")) {
+    loadKycBanner()
+  }
 
   if (lowerMessage.includes("pin")) {
     getEl("pinSection").classList.remove("nb-hidden")
@@ -377,6 +415,7 @@ function resetAll() {
 loadBalance()
 checkPinStatus()
 loadQuickSend()
+loadKycBanner()
 
 // ── Sidebar (mobile) ──
 function toggleSidebar() {

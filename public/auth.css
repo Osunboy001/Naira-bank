@@ -301,6 +301,25 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.072);
 }
 
+.signup-name-row {
+  display: flex;
+  gap: 10px;
+}
+
+.signup-name-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.signup-dob-label {
+  display: block;
+  margin: -2px 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text2);
+  text-align: left;
+}
+
 /*  BUTTONS  */
 .login-button {
   width: 100%;

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KYC Reviews - NairaBank Admin</title>
+  <link rel="stylesheet" href="admindasbord.css" />
+  <link rel="stylesheet" href="admin-kyc.css" />
+</head>
+<body>
+
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <div class="sidebar" id="sidebar">
+    <div class="brand">NairaBank</div>
+    <div class="menu">
+      <a href="admin.html">Overview</a>
+      <a href="admin.html">All Users</a>
+      <a href="admin-kyc.html" class="active-link">KYC Reviews</a>
+      <a href="#">Transactions</a>
+      <a href="#">Settings</a>
+    </div>
+  </div>
+
+  <div class="main" id="main">
+    <div class="header">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <div>
+          <h1>KYC Reviews</h1>
+          <p>Review NIN submissions and approve or reject user identities</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="logout" onclick="logout()">Logout</button>
+
+    <div class="cards">
+      <div class="card" style="background-color: #671ee5;">
+        <h3 style="color: white;">Pending Review</h3>
+        <p id="kycPending" style="color: white;">0</p>
+      </div>
+
+      <div class="card" style="background-color: green;">
+        <h3 style="color: white;">Verified</h3>
+        <p id="kycVerified" style="color: white;">0</p>
+      </div>
+
+      <div class="card" style="background-color: red;">
+        <h3 style="color: white;">Rejected</h3>
+        <p id="kycRejected" style="color: white;">0</p>
+      </div>
+
+      <div class="card" style="background-color: orange;">
+        <h3 style="color: white;">Not Submitted</h3>
+        <p id="kycUnverified" style="color: white;">0</p>
+      </div>
+    </div>
+
+    <div class="table-box">
+      <div class="kyc-toolbar">
+        <select id="statusFilter" onchange="loadKyc()">
+          <option value="pending">Pending review</option>
+          <option value="verified">Verified</option>
+          <option value="rejected">Rejected</option>
+          <option value="unverified">Not submitted</option>
+          <option value="all">All submissions</option>
+        </select>
+
+        <button class="btn view" onclick="loadAll()">Refresh</button>
+        <span id="kycCount" class="kyc-count"></span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>NIN</th>
+            <th>Date of Birth</th>
+            <th>Document</th>
+            <th>Submitted</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="kycUsers"></tbody>
+      </table>
+
+      <p id="kycEmpty" class="kyc-empty nb-hidden">No KYC submissions in this category.</p>
+    </div>
+  </div>
+
+  <div class="kyc-modal nb-hidden" id="kycModal">
+    <div class="kyc-modal-overlay" onclick="closeKycModal()"></div>
+
+    <div class="kyc-modal-card" role="dialog" aria-modal="true" aria-labelledby="kycModalName">
+      <button class="kyc-modal-close" onclick="closeKycModal()" aria-label="Close">✕</button>
+
+      <h2 id="kycModalName">Applicant</h2>
+      <p id="kycModalMeta" class="kyc-modal-meta"></p>
+
+      <div class="kyc-detail-grid">
+        <div><span>NIN</span><strong id="kycModalNin">—</strong></div>
+        <div><span>Date of birth</span><strong id="kycModalDob">—</strong></div>
+        <div><span>Document type</span><strong id="kycModalDocType">—</strong></div>
+        <div><span>Submitted</span><strong id="kycModalSubmitted">—</strong></div>
+        <div class="kyc-detail-wide"><span>Residential address</span><strong id="kycModalAddress">—</strong></div>
+        <div class="kyc-detail-wide nb-hidden" id="kycModalReasonRow"><span>Rejection reason</span><strong id="kycModalReason">—</strong></div>
+      </div>
+
+      <div class="kyc-previews" id="kycModalPreviews"></div>
+
+      <div class="kyc-modal-actions" id="kycModalActions">
+        <div class="kyc-reason-field">
+          <label for="kycRejectReason">Rejection reason (required to reject)</label>
+          <textarea id="kycRejectReason" rows="3" placeholder="Explain what the user needs to correct"></textarea>
+        </div>
+        <div class="kyc-modal-buttons">
+          <button class="btn approve" id="kycApproveBtn" onclick="approveFromModal()">Approve</button>
+          <button class="btn reject" id="kycRejectBtn" onclick="rejectFromModal()">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin-kyc.js"></script>
+</body>
+</html>

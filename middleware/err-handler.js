@@ -13,6 +13,14 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     msg: err.message || 'Something went wrong, please try again later',
   }
 
+  // Multer upload errors (file too large, unexpected field, ...)
+  if (err.name === 'MulterError') {
+    customError.msg = err.code === 'LIMIT_FILE_SIZE'
+      ? 'File is too large. Maximum size is 10MB.'
+      : err.message
+    customError.statusCode = StatusCodes.BAD_REQUEST
+  }
+
   // Mongoose validation error
   if (err.name === 'ValidationError') {
     customError.msg = Object.values(err.errors).map((item) => item.message).join(', ')

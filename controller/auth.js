@@ -4,14 +4,35 @@ const { badRequest, unAuntentication, forbidden } = require('../err')
 
 const signup = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body
+    const { firstName, lastName, location, dateOfBirth, email, password } = req.body
 
-    if (!name || !email || !password) {
+    if (!firstName || !lastName || !location || !dateOfBirth || !email || !password) {
       throw new badRequest("All fields are required")
     }
 
+    const cleanFirstName = String(firstName).trim()
+    const cleanLastName = String(lastName).trim()
+    const cleanLocation = String(location).trim()
+
+    if (cleanFirstName.length < 2 || cleanLastName.length < 2) {
+      throw new badRequest("First name and last name must be at least 2 characters")
+    }
+
+    if (cleanLocation.length < 3) {
+      throw new badRequest("Please provide your location")
+    }
+
+    const dob = new Date(dateOfBirth)
+    if (isNaN(dob.getTime()) || dob >= new Date()) {
+      throw new badRequest("Please provide a valid date of birth")
+    }
+
     await User.create({
-      name,
+      name: `${cleanFirstName} ${cleanLastName}`.trim(),
+      firstName: cleanFirstName,
+      lastName: cleanLastName,
+      location: cleanLocation,
+      dateOfBirth: dob,
       email,
       password,
       role: "user",

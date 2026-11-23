@@ -1,0 +1,751 @@
+/* ─────────────────────────────────────────────
+   KYC verification page — modern redesign
+   ───────────────────────────────────────────── */
+
+.kyc-page {
+  font-family: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #7c3aed 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, #a855f7 0%, transparent 45%),
+    linear-gradient(160deg, #2a0866 0%, #5415c0 45%, #3b0d8f 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.kyc-page .kyc-main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 36px 16px 72px;
+}
+
+/* Decorative background orbs */
+.kyc-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.kyc-orb-a {
+  width: 320px;
+  height: 320px;
+  top: -90px;
+  left: -80px;
+  background: rgba(167, 139, 250, 0.45);
+}
+
+.kyc-orb-b {
+  width: 380px;
+  height: 380px;
+  bottom: -140px;
+  right: -120px;
+  background: rgba(129, 140, 248, 0.32);
+}
+
+.kyc-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: kycRise 0.5s ease both;
+}
+
+/* ── HERO ── */
+.kyc-hero {
+  text-align: center;
+  padding: 8px 4px 4px;
+  color: #fff;
+}
+
+.kyc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #ede9fe;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+}
+
+.kyc-title {
+  font-family: 'Syne', Arial, sans-serif;
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+  margin: 16px 0 10px;
+}
+
+.kyc-subtitle {
+  max-width: 460px;
+  margin: 0 auto;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(237, 233, 254, 0.82);
+}
+
+/* ── STEPPER ── */
+.kyc-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  list-style: none;
+  margin: 24px auto 4px;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.kyc-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(237, 233, 254, 0.6);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.kyc-step:not(:last-child)::after {
+  content: '';
+  width: 34px;
+  height: 2px;
+  margin: 0 8px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.kyc-step-dot {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(237, 233, 254, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  transition: all 0.25s ease;
+}
+
+.kyc-step.is-active {
+  color: #fff;
+}
+
+.kyc-step.is-active .kyc-step-dot {
+  color: #340a7c;
+  background: #fff;
+  border-color: #fff;
+  box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.45);
+}
+
+.kyc-step.is-done {
+  color: #d1fae5;
+}
+
+.kyc-step.is-done .kyc-step-dot {
+  color: #053b2a;
+  background: #34d399;
+  border-color: #34d399;
+}
+
+/* ── PANELS ── */
+.kyc-panel {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  padding: 26px 24px;
+  box-shadow:
+    0 30px 70px -30px rgba(20, 0, 51, 0.55),
+    0 2px 0 rgba(255, 255, 255, 0.6) inset;
+  animation: kycRise 0.55s ease both;
+}
+
+.kyc-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.kyc-panel-title {
+  font-family: 'Syne', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.kyc-panel-sub {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text3);
+  max-width: 320px;
+}
+
+.kyc-pill {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #5b21b6;
+  background: #f1ebff;
+  border: 1px solid #ddd0ff;
+  border-radius: 999px;
+  padding: 6px 11px;
+  white-space: nowrap;
+}
+
+/* ── FORM ── */
+.kyc-form .nb-field {
+  margin-bottom: 0;
+}
+
+.kyc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.kyc-field-wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 560px) {
+  .kyc-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.kyc-page .nb-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: var(--text2);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kyc-page .kyc-input {
+  padding: 14px 16px;
+  font-size: 15.5px;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  color: var(--text);
+  background: #f8f7fb;
+  border: 1.5px solid #e8e4f1;
+  border-radius: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.kyc-page .kyc-input::placeholder {
+  color: #a8a3b6;
+  font-weight: 500;
+}
+
+.kyc-page .kyc-input:hover {
+  border-color: #d6cfe8;
+}
+
+.kyc-page .kyc-input:focus {
+  background: #fff;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.14);
+}
+
+.kyc-page select.nb-input {
+  cursor: pointer;
+  appearance: auto;
+}
+
+.kyc-textarea {
+  min-height: 92px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.kyc-help {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 7px;
+  line-height: 1.4;
+}
+
+.kyc-req,
+.kyc-optional {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 999px;
+}
+
+.kyc-req {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.kyc-optional {
+  color: #52525b;
+  background: #f1f1f4;
+}
+
+/* ── DIVIDER ── */
+.kyc-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 18px;
+  color: var(--text3);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.kyc-divider::before,
+.kyc-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e8e4f1, transparent);
+}
+
+/* ── UPLOADS ── */
+.kyc-upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 560px) {
+  .kyc-upload-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.kyc-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 160px;
+  padding: 20px 16px;
+  border: 1.5px dashed #d6cfe8;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fbfaff 0%, #f6f3fd 100%);
+  color: var(--text2);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.kyc-upload:hover {
+  border-color: #7c3aed;
+  background: linear-gradient(180deg, #faf8ff 0%, #f0e9ff 100%);
+  box-shadow: 0 12px 28px -18px rgba(84, 21, 192, 0.5);
+  transform: translateY(-1px);
+}
+
+.kyc-upload:active {
+  transform: translateY(0);
+}
+
+.kyc-upload-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  color: #5415c0;
+  background: #fff;
+  border: 1px solid #e8e4f1;
+  box-shadow: 0 8px 18px -10px rgba(84, 21, 192, 0.45);
+  margin-bottom: 2px;
+}
+
+.kyc-upload span {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+.kyc-upload small {
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.4;
+}
+
+/* ── TIP ── */
+.kyc-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 13px 15px;
+  border-radius: 14px;
+  background: #f1ebff;
+  border: 1px solid #e0d4ff;
+  color: #4c1d95;
+}
+
+.kyc-tip svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.kyc-tip p {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #5b21b6;
+}
+
+/* ── MESSAGE + SUBMIT ── */
+.kyc-page .nb-field-error {
+  margin-top: 16px;
+  border-radius: 12px;
+}
+
+.kyc-page .nb-field-error.kyc-ok {
+  display: block;
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.kyc-page .kyc-submit {
+  margin-top: 18px;
+  margin-bottom: 0;
+  padding: 16px 20px;
+  border-radius: 14px;
+  font-family: 'Syne', Arial, sans-serif;
+  font-size: 15.5px;
+  letter-spacing: 0.2px;
+  background: linear-gradient(135deg, #6d28d9 0%, #5415c0 55%, #4310a1 100%);
+  box-shadow: 0 16px 34px -16px rgba(84, 21, 192, 0.7);
+}
+
+.kyc-page .kyc-submit:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 20px 40px -16px rgba(84, 21, 192, 0.75);
+}
+
+.kyc-page .kyc-submit:disabled {
+  filter: saturate(0.6);
+}
+
+/* ── STATUS CARD ── */
+.kyc-status-card {
+  border-left: 4px solid #7c3aed;
+}
+
+.kyc-status-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.kyc-status-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.kyc-status-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  color: #5415c0;
+  background: #f1ebff;
+  border: 1px solid #e0d4ff;
+}
+
+.kyc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.kyc-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.kyc-badge.pending {
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+}
+
+.kyc-badge.verified {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.kyc-badge.rejected {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+}
+
+.kyc-badge.unverified {
+  color: var(--text2);
+  background: #f1f1f4;
+  border: 1px solid #e4e4e7;
+}
+
+.kyc-status-date {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text3);
+}
+
+.kyc-status-text {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.65;
+}
+
+.kyc-rejection {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 13px 15px;
+  border-radius: 13px;
+  background: #fdecea;
+  border: 1px solid #f5c6c3;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--danger);
+}
+
+.kyc-rejection svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.kyc-doc-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #eeebf5;
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.kyc-doc-label {
+  font-weight: 600;
+  color: var(--text3);
+}
+
+.kyc-doc-links a {
+  color: #5415c0;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.kyc-doc-links a:hover {
+  text-decoration: underline;
+}
+
+.kyc-continue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px 20px;
+  border-radius: 13px;
+  font-family: 'Syne', Arial, sans-serif;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 14px 30px -16px rgba(5, 150, 105, 0.8);
+  transition: filter 0.2s, transform 0.15s;
+}
+
+.kyc-continue:hover {
+  filter: brightness(1.06);
+}
+
+.kyc-continue:active {
+  transform: scale(0.99);
+}
+
+/* ── FOOTNOTE ── */
+.kyc-footnote {
+  text-align: center;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: rgba(237, 233, 254, 0.65);
+  padding: 0 16px;
+}
+
+/* ── ANIMATION ── */
+@keyframes kycRise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kyc-shell,
+  .kyc-panel {
+    animation: none;
+  }
+}
+
+/* ── DESKTOP ── */
+@media (min-width: 769px) {
+  .kyc-page .kyc-main {
+    margin-left: 280px;
+    margin-right: 0;
+    width: calc(100% - 280px);
+    max-width: none;
+    padding: 56px 40px 88px;
+    align-items: stretch;
+  }
+
+  .kyc-page .kyc-main > .kyc-shell {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+}
+
+/* ── DARK MODE ── */
+.kyc-page.darkmode {
+  background:
+    radial-gradient(1000px 500px at 15% -10%, #3b1d70 0%, transparent 55%),
+    radial-gradient(800px 500px at 100% 0%, #4b1e8f 0%, transparent 45%),
+    linear-gradient(160deg, #0a0416 0%, #14062e 50%, #0d0420 100%);
+}
+
+.kyc-page.darkmode .kyc-panel {
+  background: #1c1b20;
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.85);
+}
+
+.kyc-page.darkmode .kyc-panel-title,
+.kyc-page.darkmode .kyc-upload span {
+  color: #f4f3f6;
+}
+
+.kyc-page.darkmode .kyc-pill {
+  color: #c4b5fd;
+  background: #2a2140;
+  border-color: #3f2f66;
+}
+
+.kyc-page.darkmode .kyc-input {
+  background: #26252b;
+  border-color: #333138;
+  color: #f4f3f6;
+}
+
+.kyc-page.darkmode .kyc-input:focus {
+  background: #2b2a31;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+}
+
+.kyc-page.darkmode .kyc-upload {
+  background: linear-gradient(180deg, #242329 0%, #1f1e24 100%);
+  border-color: #3a3742;
+}
+
+.kyc-page.darkmode .kyc-upload:hover {
+  background: linear-gradient(180deg, #2a2437 0%, #241f30 100%);
+  border-color: #8b5cf6;
+}
+
+.kyc-page.darkmode .kyc-upload-icon {
+  color: #c4b5fd;
+  background: #2c2a33;
+  border-color: #3a3742;
+}
+
+.kyc-page.darkmode .kyc-tip {
+  background: #241f30;
+  border-color: #3a2f55;
+}
+
+.kyc-page.darkmode .kyc-tip p {
+  color: #c4b5fd;
+}
+
+.kyc-page.darkmode .kyc-req {
+  color: #fecaca;
+  background: #4a1d1d;
+}
+
+.kyc-page.darkmode .kyc-optional {
+  color: #d4d4d8;
+  background: #333138;
+}
+
+.kyc-page.darkmode .kyc-divider::before,
+.kyc-page.darkmode .kyc-divider::after {
+  background: linear-gradient(90deg, transparent, #333138, transparent);
+}
+
+.kyc-page.darkmode .kyc-doc-info {
+  border-top-color: #333138;
+}
+
+.kyc-page.darkmode .kyc-status-icon {
+  color: #c4b5fd;
+  background: #2a2140;
+  border-color: #3f2f66;
+}

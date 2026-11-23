@@ -79,8 +79,14 @@
     <div id="signupPage" class="card hidden">
        <h2 style="color: #6d2ddb;">Welcome To NairaBank</h2>
       <h2>Signup</h2>
-      <input id="signupName" placeholder="Full Name">
-      <input id="signupEmail" placeholder="Email">
+      <div class="signup-name-row">
+        <input id="signupFirstName" placeholder="First Name" autocomplete="given-name">
+        <input id="signupLastName" placeholder="Last Name" autocomplete="family-name">
+      </div>
+      <input id="signupLocation" placeholder="Location (City, State)" autocomplete="address-level2">
+      <label class="signup-dob-label" for="signupDob">Date of Birth</label>
+      <input id="signupDob" type="date" autocomplete="bday">
+      <input id="signupEmail" placeholder="Email" autocomplete="email">
       <input id="signupPassword" type="password" placeholder="Password">
      <label class="show-pass">
   <input type="checkbox" onclick="myFunc()"> 

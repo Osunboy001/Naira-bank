@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Identity - NairaBank</title>
+  <link rel="stylesheet" href="create-pin.css">
+  <link rel="stylesheet" href="/main-sidebar.css">
+  <link rel="stylesheet" href="kyc.css">
+</head>
+<body class="kyc-page">
+
+  <div class="kyc-orb kyc-orb-a" aria-hidden="true"></div>
+  <div class="kyc-orb kyc-orb-b" aria-hidden="true"></div>
+
+  <div id="sidebar-container"></div>
+
+  <main class="nb-main kyc-main">
+    <div class="kyc-shell">
+
+      <header class="kyc-hero">
+        <span class="kyc-eyebrow">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+          Secure identity verification
+        </span>
+
+        <h1 class="kyc-title">Verify your identity</h1>
+        <p class="kyc-subtitle">A quick, one-time check with your National Identification Number (NIN). Most reviews are completed within minutes.</p>
+
+        <ol class="kyc-steps" aria-label="Verification progress">
+          <li class="kyc-step is-active">
+            <span class="kyc-step-dot">1</span>
+            <span class="kyc-step-label">Details</span>
+          </li>
+          <li class="kyc-step">
+            <span class="kyc-step-dot">2</span>
+            <span class="kyc-step-label">Documents</span>
+          </li>
+          <li class="kyc-step">
+            <span class="kyc-step-dot">3</span>
+            <span class="kyc-step-label">Review</span>
+          </li>
+        </ol>
+      </header>
+
+      <section id="statusCard" class="kyc-panel kyc-status-card nb-hidden" aria-live="polite">
+        <div class="kyc-status-top">
+          <div class="kyc-status-heading">
+            <span id="statusBadge" class="kyc-badge">—</span>
+            <span id="statusDate" class="kyc-status-date"></span>
+          </div>
+          <span class="kyc-status-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </span>
+        </div>
+
+        <p id="statusText" class="kyc-status-text"></p>
+
+        <div id="rejectionBox" class="kyc-rejection nb-hidden">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <div><strong>Reason:</strong> <span id="rejectionReason"></span></div>
+        </div>
+
+        <div id="documentInfo" class="kyc-doc-info nb-hidden">
+          <span class="kyc-doc-label">Submitted document</span>
+          <span class="kyc-doc-links">
+            <a id="docLink" href="#" target="_blank" rel="noopener">View ID</a>
+            <span id="selfieSep" class="nb-hidden">·</span>
+            <a id="selfieLink" class="nb-hidden" href="#" target="_blank" rel="noopener">View selfie</a>
+          </span>
+        </div>
+
+        <a id="continueBtn" href="/user-dashboard.html" class="kyc-continue nb-hidden">
+          Continue to dashboard
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </section>
+
+      <section id="formCard" class="kyc-panel">
+        <div class="kyc-panel-head">
+          <div>
+            <h2 class="kyc-panel-title">Your details</h2>
+            <p class="kyc-panel-sub">These must match the information on your NIN slip.</p>
+          </div>
+          <span class="kyc-pill">Step 1 of 3</span>
+        </div>
+
+        <form id="kycForm" class="kyc-form" novalidate>
+          <div class="kyc-grid">
+            <div class="nb-field kyc-field-wide">
+              <label class="nb-label" for="nin">National Identification Number (NIN)</label>
+              <input
+                class="nb-input kyc-input"
+                id="nin"
+                name="nin"
+                type="text"
+                inputmode="numeric"
+                maxlength="11"
+                placeholder="11-digit NIN"
+                autocomplete="off"
+              />
+              <p class="kyc-help">Your NIN is the 11-digit number on your NIN slip.</p>
+            </div>
+
+            <div class="nb-field kyc-field-wide">
+              <label class="nb-label" for="fullName">Full name on NIN</label>
+              <input class="nb-input kyc-input" id="fullName" name="fullName" type="text" placeholder="e.g. Amaka Okafor" autocomplete="name" />
+            </div>
+
+            <div class="nb-field">
+              <label class="nb-label" for="dateOfBirth">Date of birth</label>
+              <input class="nb-input kyc-input" id="dateOfBirth" name="dateOfBirth" type="date" />
+            </div>
+
+            <div class="nb-field">
+              <label class="nb-label" for="documentType">Document type</label>
+              <select class="nb-input kyc-input" id="documentType" name="documentType">
+                <option value="nin_slip">NIN Slip</option>
+                <option value="national_id">National ID Card</option>
+                <option value="drivers_license">Driver's License</option>
+                <option value="passport">International Passport</option>
+              </select>
+            </div>
+
+            <div class="nb-field kyc-field-wide">
+              <label class="nb-label" for="address">Residential address</label>
+              <textarea class="nb-input kyc-input kyc-textarea" id="address" name="address" rows="3" placeholder="Street, city, state"></textarea>
+            </div>
+          </div>
+
+          <div class="kyc-divider">
+            <span>Upload documents</span>
+          </div>
+
+          <div class="kyc-upload-grid">
+            <div class="nb-field">
+              <label class="nb-label" for="document">NIN slip / ID document <span class="kyc-req">Required</span></label>
+              <label class="kyc-upload" for="document">
+                <span class="kyc-upload-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                  </svg>
+                </span>
+                <span id="documentLabel">Tap to upload your NIN slip or ID</span>
+                <small>JPG, PNG, WEBP or PDF · max 10MB</small>
+                <input type="file" id="document" name="document" accept="image/*,application/pdf" hidden />
+              </label>
+            </div>
+
+            <div class="nb-field">
+              <label class="nb-label" for="selfie">Selfie <span class="kyc-optional">Optional</span></label>
+              <label class="kyc-upload" for="selfie">
+                <span class="kyc-upload-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                    <line x1="9" y1="9" x2="9.01" y2="9"/>
+                    <line x1="15" y1="9" x2="15.01" y2="9"/>
+                  </svg>
+                </span>
+                <span id="selfieLabel">Add a selfie to speed up review</span>
+                <small>JPG, PNG or WEBP · max 10MB</small>
+                <input type="file" id="selfie" name="selfie" accept="image/*" hidden />
+              </label>
+            </div>
+          </div>
+
+          <div class="kyc-tip">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <p>Use clear photos with no glare or blur. Your documents are encrypted and only used to verify your identity.</p>
+          </div>
+
+          <div id="kycMessage" class="nb-field-error"></div>
+
+          <button type="submit" class="nb-btn kyc-submit" id="submitBtn">
+            <span>Submit for verification</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </button>
+        </form>
+      </section>
+
+      <p class="kyc-footnote">Your data is handled in line with NDPR guidelines and never shared without consent.</p>
+    </div>
+  </main>
+
+  <script src="/sidebar.js"></script>
+  <script src="theme.js"></script>
+  <script src="kyc.js"></script>
+</body>
+</html>
